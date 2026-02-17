@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4 Pillars: Frequency, Context, Speed, Cost (5 Slides)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .slide {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+      padding: 40px;
+      box-sizing: border-box;
+      page-break-after: always;
+      border-bottom: 3px solid #2d5f8d;
+    }
+    .slide:nth-child(2) { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-child(3) { background: linear-gradient(135deg, #4a94ba 0%, #3a7ca5 100%); }
+    .slide:nth-child(4) { background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%); }
+    .slide:nth-child(5) { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:last-child { border-bottom: none; }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      text-align: left;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      text-align: center;
+      color: #5ba8cf;
+      font-size: 2.4em;
+      margin-bottom: 22px;
+      font-weight: 700;
+    }
+    h2 {
+      color: #2d5f8d;
+      font-size: 2em;
+      border-bottom: 3px solid #5ba8cf;
+      padding-bottom: 10px;
+      margin-top: 0;
+      font-weight: 700;
+    }
+    ul {
+      font-size: 1.15em;
+      line-height: 1.8;
+      margin: 18px 0;
+      padding-left: 22px;
+    }
+    li { margin: 12px 0; }
+    strong { color: #2d5f8d; font-weight: bold; }
+
+    .callout {
+      background: #eef8ff;
+      border-left: 6px solid #5ba8cf;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: 1.08em;
+      line-height: 1.6;
+    }
+
+    @media print {
+      .slide { height: auto; margin: 0; padding: 40px; page-break-after: always; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 1: Overview -->
+  <div class="slide">
+    <div class="container">
+      <h1>Mobile Technology</h1>
+      <h2 style="text-align:center; border:none; font-size:1.8em;">Frequency • Context • Speed • Cost</h2>
+      <ul>
+        <li><strong>Frequency:</strong> customers interact more often</li>
+        <li><strong>Context:</strong> business knows the customer situation (Location/Time/Device/Intent)</li>
+        <li><strong>Speed:</strong> decisions + service happen in real time</li>
+        <li><strong>Cost:</strong> self-service + automation reduce cost-to-serve</li>
+      </ul>
+      <!-- <div class="callout">
+        <strong>DT test:</strong> Which pillar improves economics (cost ↓ or revenue ↑), not just convenience?
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 2: Frequency -->
+  <div class="slide">
+    <div class="container">
+      <h2>1) Frequency = More Touchpoints</h2>
+      <ul>
+        <li><strong>Meaning:</strong> Micro-interactions happen daily (not monthly).</li>
+        <li><strong>Business effect:</strong> Habit → loyalty → repeat purchases.</li>
+        <li><strong>Examples:</strong> UPI payments, food re-ordering, bill payments.</li>
+        <li><strong>KPIs:</strong> repeat rate ↑, churn ↓, LTV ↑.</li>
+      </ul>
+      <!-- <div class="callout">
+        <strong>Quick class question:</strong> Which app do you open daily and why?
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 3: Context -->
+  <div class="slide">
+    <div class="container">
+      <h2>2) Context = Situation-Aware Service</h2>
+      <ul>
+        <li><strong>Meaning:</strong> Mobile captures location, time, intent, usage signals.</li>
+        <li><strong>Business effect:</strong> Right offer/service at the right moment.</li>
+        <li><strong>Examples:</strong> “near you + open now”, map routing, due-date reminders.</li>
+        <li><strong>KPIs:</strong> conversion ↑, marketing waste ↓, service errors ↓.</li>
+      </ul>
+      <!-- <div class="callout">
+        <strong>Quick class question:</strong> Give one example of “right message at right time.”
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 4: Speed -->
+  <div class="slide">
+    <div class="container">
+      <h2>3) Speed = Real-Time Response</h2>
+      <ul>
+        <li><strong>Meaning:</strong> Instant booking, instant payment, instant updates.</li>
+        <li><strong>Business effect:</strong> Less waiting → fewer drop-offs.</li>
+        <li><strong>Examples:</strong> Ola booking, UPI success/failure, live order status.</li>
+        <li><strong>KPIs:</strong> conversion ↑, time-to-serve ↓, complaints ↓.</li>
+      </ul>
+      <!-- <div class="callout">
+        <strong>Quick class question:</strong> When an app is slow, do you wait or exit?
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 5: Cost -->
+  <div class="slide">
+    <div class="container">
+      <h2>4) Cost = Self-Service + Automation</h2>
+      <ul>
+        <li><strong>Meaning:</strong> Customers do tasks in-app; automation reduces manual work.</li>
+        <li><strong>Business effect:</strong> Serve more customers with the same staff.</li>
+        <li><strong>Examples:</strong> digital KYC, WhatsApp support bots, mobile boarding pass.</li>
+        <li><strong>KPIs:</strong> cost-to-serve ↓, fewer calls/visits, margin ↑.</li>
+      </ul>
+      <!-- <div class="callout">
+        <strong>Quick class question:</strong> Name one staff task that can be removed via self-service.
+      </div> -->
+    </div>
+  </div>
+
+</body>
+</html>

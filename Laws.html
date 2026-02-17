@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3 Laws of Technology Evolution - Teaching Slides</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .slide {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+      padding: 40px 30px 50px 30px;
+      box-sizing: border-box;
+      page-break-after: always;
+      border-bottom: 3px solid #2d5f8d;
+    }
+    .slide:nth-child(2) { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-child(3) { background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%); }
+    .slide:nth-child(4) { background: linear-gradient(135deg, #3a7ca5 0%, #1a3a52 100%); }
+    .slide:nth-child(5) { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:last-child { border-bottom: none; }
+
+    .container {
+      max-width: 1050px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 40px;
+      text-align: left;
+      border-radius: 15px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    }
+    h1 {
+      text-align: center;
+      color: #2d5f8d;
+      font-size: 2em;
+      margin: 0 0 25px 0;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    h2 {
+      color: #ffffff;
+      background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+      font-size: 1.3em;
+      padding: 12px 15px;
+      margin: 20px 0 12px 0;
+      font-weight: 700;
+      border-radius: 8px;
+      border-left: 5px solid #5ba8cf;
+    }
+    h3 {
+      color: #2d5f8d;
+      font-size: 1.2em;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    h3::before {
+      content: "▸";
+      color: #5ba8cf;
+      margin-right: 10px;
+      font-size: 1.5em;
+    }
+    ul {
+      font-size: 0.95em;
+      line-height: 1.6;
+      margin: 10px 0;
+      padding-left: 25px;
+    }
+    li {
+      margin: 6px 0;
+      color: #333;
+      font-weight: 500;
+    }
+    strong { color: #2d5f8d; font-weight: 700; }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .comparison-box {
+      background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+      padding: 18px;
+      border-left: 6px solid #5ba8cf;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(45, 95, 141, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .comparison-box:hover { transform: translateY(-5px); }
+    .comparison-box h4 {
+      color: #2d5f8d;
+      margin: 0 0 10px 0;
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.88em;
+      box-shadow: 0 4px 12px rgba(45, 95, 141, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th {
+      background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+      color: white;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 4px solid #5ba8cf;
+      font-size: 0.95em;
+    }
+    td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #e0e8f0;
+      color: #333;
+      font-weight: 500;
+      vertical-align: top;
+    }
+    tr:hover { background-color: #f8fafb; }
+    tr:last-child td { border-bottom: none; }
+
+    .key-insight {
+      background: linear-gradient(135deg, #e6f0f7 0%, #f0f4f8 100%);
+      border-left: 6px solid #5ba8cf;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 18px 0 0 0;
+      box-shadow: 0 4px 12px rgba(91, 168, 207, 0.2);
+    }
+    .key-insight p {
+      margin: 0;
+      font-size: 0.98em;
+      line-height: 1.6;
+      color: #2d5f8d;
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e6f0f7;
+      border: 1px solid rgba(91, 168, 207, 0.5);
+      color: #2d5f8d;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85em;
+      font-weight: 700;
+      margin: 0 6px 6px 0;
+      white-space: nowrap;
+    }
+
+    @media print {
+      .slide {
+        height: 100vh;
+        margin: 0;
+        padding: 30px;
+        page-break-after: always;
+        page-break-inside: avoid;
+      }
+      .container { max-height: none; overflow: visible; }
+      body { margin: 0; padding: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 1: Title + Core Insight -->
+  <!-- <div class="slide">
+    <div class="container">
+      <h1>3 Laws of Technology Evolution</h1>
+
+      <h2>🎯 Core Insight</h2>
+      <ul>
+        <li>Digital technologies evolve <strong>exponentially</strong>, while human intuition and organizational change remain <strong>linear</strong>.</li>
+        <li>This creates a <strong>widening strategic gap</strong>—and a window for disruption.</li>
+      </ul>
+
+      <h2>🧭 What This Session Covers</h2>
+      <div style="margin-top: 8px;">
+        <span class="tag">Linear vs Exponential</span>
+        <span class="tag">Moore’s Law</span>
+        <span class="tag">Butter’s Law</span>
+        <span class="tag">Kryder’s Law</span>
+        <span class="tag">Strategic Gap</span>
+      </div>
+
+      <div class="key-insight">
+        <p>Manager’s Lens: The competitive game changes when technology improves faster than the organization can adapt.</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Slide 2: Why We Misjudge Exponential Growth -->
+  <!-- <div class="slide">
+    <div class="container">
+      <h1>Why We Misjudge Digital Change</h1>
+
+      <h2>📈 Linear vs Exponential</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Linear (Additive)</h4>
+          <ul>
+            <li>Grows by addition: 1, 2, 3…</li>
+            <li>Intuition handles it well</li>
+            <li>Feels “predictable”</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Exponential (Multiplicative)</h4>
+          <ul>
+            <li>Grows by doubling: 1, 2, 4, 8…</li>
+            <li>Rapidly outpaces intuition</li>
+            <li>Creates “surprise” disruption</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>♟️ Chessboard & Rice (Intuition Trap)</h2>
+      <ul>
+        <li>Doubling across 64 squares produces an unimaginably large number.</li>
+        <li>Most people underestimate because our brains default to linear thinking.</li>
+        <li>Digital technology progress follows the same exponential pattern → systematic misjudgment.</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>Key point: Misperception is the first failure mode—firms often react only after the curve becomes obvious.</p>
+      </div>
+    </div>
+  </div>
+
+  Slide 3: The Three Laws (What improves)
+  
+  <!-- Slide 4: The Three Laws (Why business cares) -->
+  <div class="slide">
+    <div class="container">
+      <h1>The Three Laws Matter </h1>
+
+      <h2>Moore’s Law → Processing Power</h2>
+      <ul>
+        <li>Processing power doubles every 2 years</li>
+        <li>Enables advanced analytics, automation, and AI use-cases.</li>
+        <li>Makes previously “too expensive” digital services economically viable.</li>
+        <li>Improves performance while driving cost decline over time.</li>
+      </ul>
+
+      <h2>Butter’s Law → Bandwidth</h2>
+      <ul>
+        <li>Data transmitted over fiber optic cables doubles approximately every nine months</li>
+        <li>Enables real-time interaction and cloud-based delivery.</li>
+        <li>Supports mobile-first, streaming, platforms, and ecosystem coordination.</li>
+        <li>Reduces friction in customer experience and operations.</li>
+      </ul>
+
+      <h2> Kryder’s Law → Storage</h2>
+      <ul>
+        <li>Data storage capacity doubles approximately every 18 months to two years.</li>
+        <li>Enables large-scale data retention for personalization and ML.</li>
+        <li>Makes experimentation and continuous learning systems possible.</li>
+        <li>Lowers barriers for data-intensive entrants and new models.</li>
+      </ul>
+    </div>
+  </div>
+<div class="slide">
+    <div class="container">
+      <h1>The Three Laws of Technology Evolution</h1>
+
+      <h2> The Digital “Capability Stack”</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Law</th>
+            <th>Capability Improved</th>
+            <th>Managerial Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Moore’s Law</strong></td>
+            <td>Processing power</td>
+            <td>Compute becomes faster + cheaper → more complex services become viable</td>
+          </tr>
+          <tr style="background:#f0f8ff;">
+            <td><strong>Butter’s Law</strong></td>
+            <td>Communication bandwidth</td>
+            <td>Connectivity improves rapidly → real-time, cloud, platform models scale</td>
+          </tr>
+          <tr>
+            <td><strong>Kryder’s Law</strong></td>
+            <td>Storage capacity</td>
+            <td>Data storage becomes abundant → data-driven strategy becomes feasible</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="key-insight">
+        <p>Compute + Bandwidth + Storage improve exponentially, Digital becomes the operating foundation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Implications + Strategic Gap + Disruption -->
+  <!-- <div class="slide">
+    <div class="container">
+      <h1>Strategic Implications: The Gap and Disruption</h1>
+
+      <h2>📉 Exponential Progress → Business Outcomes</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Cost + Access</h4>
+          <ul>
+            <li>Compute, connectivity, storage get progressively cheaper</li>
+            <li>Digital moves from niche to mass market</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>New Business Models</h4>
+          <ul>
+            <li>Platforms, subscriptions, freemium, data monetization</li>
+            <li>AI-enabled products and services become viable</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>⚠️ The Strategic Gap (Why incumbents struggle)</h2>
+      <ul>
+        <li><strong>Underestimate:</strong> managers extrapolate linearly; early tech looks “inferior.”</li>
+        <li><strong>Respond late:</strong> legacy models stay profitable; decision cycles are slow.</li>
+        <li><strong>Result:</strong> startups exploit exponential tech from day one.</li>
+      </ul>
+
+      <h2>🏢 Examples of Late Response</h2>
+      <div style="margin-top: 8px;">
+        <span class="tag">Kodak</span>
+        <span class="tag">Nokia</span>
+        <span class="tag">Blockbuster</span>
+      </div>
+
+      <div class="key-insight">
+        <p>Key takeaway: If technology improves exponentially and firms change linearly, disruption is a structural outcome—not a surprise event.</p>
+      </div>
+    </div>
+  </div> -->
+
+</body>
+</html>

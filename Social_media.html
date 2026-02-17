@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media & Online Communities — Path to Digital Transformation</title>
+  <style>
+    /* =========================
+       Global / Reset
+    ========================== */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       Slide Layout (NO OVERLAP)
+       - Each slide is its own "page"
+       - If content is tall, it scrolls INSIDE the card (not over the next slide)
+    ========================== */
+    .slide {
+      width: 100%;
+      min-height: 100vh;          /* each slide occupies at least one screen */
+      height: auto;               /* allow natural height if needed */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;    /* centered look */
+      align-items: center;
+      padding: 44px;              /* slightly reduced to avoid overflow */
+      background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+      border-bottom: 3px solid #2d5f8d;
+      position: relative;         /* prevents stacking quirks */
+    }
+
+    /* Alternate backgrounds (kept from your theme) */
+    .slide:nth-of-type(2)  { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-of-type(3)  { background: linear-gradient(135deg, #4a94ba 0%, #3a7ca5 100%); }
+    .slide:nth-of-type(4)  { background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%); }
+    .slide:nth-of-type(5)  { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:nth-of-type(6)  { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-of-type(7)  { background: linear-gradient(135deg, #4a94ba 0%, #3a7ca5 100%); }
+    .slide:nth-of-type(8)  { background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%); }
+    .slide:nth-of-type(9)  { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:nth-of-type(10) { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:last-child { border-bottom: none; }
+
+    /* =========================
+       Content Card
+       - Constrained height with internal scrolling
+       - Prevents slide content from spilling into the next slide
+    ========================== */
+    .container {
+      max-width: 980px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 34px; /* reduced a bit */
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      text-align: left;
+
+      /* key change: keep content on one "page" visually */
+      max-height: calc(100vh - 88px); /* slide padding (44 top + 44 bottom) */
+      overflow: auto;                 /* scroll INSIDE card if content is tall */
+      overscroll-behavior: contain;
+    }
+
+    /* Make scrollbar look neat (optional) */
+    .container::-webkit-scrollbar { width: 10px; }
+    .container::-webkit-scrollbar-thumb {
+      background: rgba(45, 95, 141, 0.35);
+      border-radius: 10px;
+    }
+    .container::-webkit-scrollbar-track { background: rgba(0,0,0,0.06); }
+
+    /* =========================
+       Typography (tightened)
+    ========================== */
+    h1 {
+      text-align: center;
+      color: #5ba8cf;
+      font-size: 2.15em;
+      margin: 0 0 14px 0;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    h2 {
+      color: #2d5f8d;
+      font-size: 1.65em;
+      border-bottom: 3px solid #5ba8cf;
+      padding-bottom: 10px;
+      margin: 0 0 12px 0;
+      font-weight: 800;
+    }
+
+    h3 {
+      color: #0056b3;
+      font-size: 1.22em;
+      margin: 14px 0 6px;
+      font-weight: 750;
+    }
+
+    p.lead {
+      text-align: center;
+      font-size: 1.08em;
+      margin: 8px 0 0 0;
+      color: #666;
+      line-height: 1.45;
+    }
+
+    ul {
+      font-size: 1.05em;
+      line-height: 1.55;
+      margin: 14px 0 0 0;
+      padding-left: 22px;
+    }
+    li { margin: 10px 0; }
+
+    strong { color: #2d5f8d; }
+
+    /* =========================
+       Components
+    ========================== */
+    .callout {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-left: 6px solid #5ba8cf;
+      background: rgba(91, 168, 207, 0.10);
+      border-radius: 10px;
+      font-size: 1.02em;
+      line-height: 1.5;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .card {
+      border: 1px solid rgba(45, 95, 141, 0.20);
+      border-radius: 12px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(45, 95, 141, 0.12);
+      color: #2d5f8d;
+      font-weight: 800;
+      font-size: 0.92em;
+      margin-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 1.0em;
+    }
+
+    th, td {
+      border: 1px solid rgba(45, 95, 141, 0.18);
+      padding: 10px 10px;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    th {
+      background: rgba(91, 168, 207, 0.14);
+      color: #2d5f8d;
+      text-align: left;
+      font-weight: 850;
+    }
+
+    .qbox {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(45, 95, 141, 0.08);
+      border: 1px dashed rgba(45, 95, 141, 0.35);
+    }
+
+    .qbox p {
+      margin: 0 0 8px 0;
+      font-size: 1.05em;
+      color: #1a3a52;
+      font-weight: 800;
+    }
+
+    .qbox ol {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 1.02em;
+      line-height: 1.55;
+    }
+
+    .footer {
+      margin-top: 14px;
+      font-size: 0.95em;
+      color: #666;
+    }
+
+    /* =========================
+       Responsive
+    ========================== */
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; }
+      .slide { padding: 20px; }
+      .container {
+        padding: 22px;
+        max-height: calc(100vh - 40px);
+      }
+      h1 { font-size: 1.85em; }
+      h2 { font-size: 1.45em; }
+    }
+
+    /* =========================
+       Print (each slide = page)
+    ========================== */
+    @media print {
+      body { background: #fff; }
+      .slide {
+        min-height: auto;
+        height: auto;
+        page-break-after: always;
+        border-bottom: none;
+        padding: 20px;
+      }
+      .container {
+        max-height: none;
+        overflow: visible;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 1: Title -->
+  <div class="slide">
+    <div class="container">
+      <h1>Social Media & Online Communities</h1>
+      <h2 style="text-align:center; font-size:1.55em; border:none;">
+        Their Role in the Path to Digital Transformation
+      </h2>
+      <p class="lead">
+        Mobile → Social → Platforms → AI<br />
+        Today: <strong>How social changed markets</strong> and forced firms to transform
+      </p>
+      <!-- <div class="callout" style="text-align:center; margin-top:18px;">
+        Class goal: focus on the <strong>crux</strong> (WHAT changed • HOW it worked • WHY it mattered)
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 2: Warm-up Discussion -->
+  <div class="slide">
+    <div class="container">
+      <h2>Discussion Warm-up</h2>
+      <div class="qbox">
+        <!-- <p>Start here (2 minutes):</p> -->
+        <ol>
+          <li>After mobile, what became possible that <strong>wasn’t</strong> possible before?</li>
+          <li>What did social media add: <strong>connection</strong> or <strong>expression</strong>?</li>
+          <li>Who gained power: firms, customers, platforms, or communities?</li>
+        </ol>
+      </div>
+      <div class="callout">
+        Mobile made customers always connected; social made them always expressive.
+      </div>
+      <!-- <div class="footer">
+        Instructor cue: ask for one example each from retail, services, and education.
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 3: Executive Summary -->
+  <div class="slide">
+    <div class="container">
+      <h2>Crux in 6 Lines</h2>
+      <ul>
+        <li><strong>Markets became conversations</strong>, not broadcasts.</li>
+        <li><strong>Trust shifted</strong> from brands to peers, creators, and communities.</li>
+        <li><strong>Platforms became the distribution layer</strong> (firms increasingly rent reach).</li>
+        <li><strong>UGC + communities</strong> scaled awareness/support/feedback—while reducing control.</li>
+        <li><strong>Algorithms allocate attention</strong> → firms must run test-and-learn.</li>
+        <li><strong>Outcome:</strong> faster cycles, lower marginal communication cost, new monetization paths, higher dependency risk.</li>
+      </ul>
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>Which line is the biggest “transformation trigger” for firms?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 4: Baseline Before vs After -->
+  <div class="slide">
+    <div class="container">
+      <h2> Before vs After Social Media</h2>
+      <!-- <div class="callout">
+        <strong>DT definition (here):</strong> moving from internet-as-message-channel to a
+        <strong>continuous interaction system</strong> where customers + communities + platforms co-create demand and experience.
+      </div> -->
+
+      <table>
+        <thead>
+          <tr>
+            <th>BEFORE (Pre–Social Media)</th>
+            <th>AFTER (Social Media Era)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>One-way communication</td><td>Two-way, many-to-many interaction</td></tr>
+          <tr><td>Top-Down </td><td>Bottom-Up</td></tr>
+          <tr><td>Periodic customer feedback</td><td>Continuous, public feedback</td></tr>
+          <tr><td>Campaign-based marketing</td><td>Always-on engagement</td></tr>
+          <tr><td>Firm-owned channels</td><td>Platform-dependent channels</td></tr>
+        </tbody>
+      </table>
+
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>Which “AFTER” row creates the most operational pain for a traditional firm?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 5: WHAT changed -->
+  <div class="slide">
+    <div class="container">
+      <h2>WHAT Changed: Transformation Moves</h2>
+      <div class="two-col">
+        <div class="card">
+          <!-- <div class="tag">Move 1</div> -->
+          <h3>Broadcast → Interaction</h3>
+          <ul>
+            <li>Dialogue, remix, public feedback</li>
+            <li>Firms must listen + respond</li>
+          </ul>
+        </div>
+        <div class="card">
+          <!-- <div class="tag">Move 2</div> -->
+          <h3>Customers → Media (UGC)</h3>
+          <ul>
+            <li>Reviews/tutorials shape demand</li>
+            <li>Social proof reduces risk</li>
+          </ul>
+        </div>
+        <div class="card">
+          <!-- <div class="tag">Move 3</div> -->
+          <h3>Communities → Experience Layer</h3>
+          <ul>
+            <li>Peer support + advocacy</li>
+            <li>Belonging strengthens retention</li>
+          </ul>
+        </div>
+        <div class="card">
+          <!-- <div class="tag">Move 4</div> -->
+          <h3>Algorithmic Distribution</h3>
+          <ul>
+            <li>Platforms decide visibility</li>
+            <li>Firms adopt test-and-learn</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Move 5:</strong> Reputation becomes real-time and public → crisis response becomes a core capability.
+      </div>
+
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>Pick one move. How does it change value creation/delivery/capture/control?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 6: HOW mechanisms -->
+  <div class="slide">
+    <div class="container">
+      <h2>Digital Transformation: 5 Levers</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="tag">Lever 1</div>
+          <h3>Always-on Interaction</h3>
+          <ul>
+            <li>Feedback loops</li>
+            <li>Faster response expectations</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">Lever 2</div>
+          <h3>UGC + Communities</h3>
+          <ul>
+            <li>Customers create + support</li>
+            <li>Norms shape experience</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">Lever 3</div>
+          <h3>Algorithmic Distribution</h3>
+          <ul>
+            <li>Visibility is platform-mediated</li>
+            <li>Requires experimentation</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">Lever 4</div>
+          <h3>Low-Cost Scalable Reach</h3>
+          <ul>
+            <li>Near-zero marginal distribution cost</li>
+            <li>Scale without linear spend</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Lever 5:</strong> Platform intermediation — firms rent access; rules can change the economics overnight.
+      </div>
+
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>Which lever forces the biggest operating-model change (people/process/metrics)?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 7: WHY (frameworks) -->
+  <div class="slide">
+    <div class="container">
+      <h2>WHY It Accelerated Transformation</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <!-- <div class="tag">Framework 1</div> -->
+          <h3>Customer Value Drivers</h3>
+          <ul>
+            <li><strong>Convenience:</strong> discover/compare/ask inside social</li>
+            <li><strong>Speed:</strong> real-time feedback & trends</li>
+            <li><strong>Trust:</strong> peers > brand claims</li>
+            <li><strong>Cost:</strong> lower comms cost; higher capability needs</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <!-- <div class="tag">Framework 2</div> -->
+          <h3>Learning Loop</h3>
+          <!-- <div class="callout" style="margin-top:10px;">
+            <strong>Interaction → Data → Insight → Better Offers/Content → More Interaction</strong>
+          </div> -->
+          <ul style="margin-top:10px;">
+            <li>Continuous learning replaces periodic research</li>
+            <li>Speed-to-insight becomes an advantage</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <!-- <div class="tag">Framework 3</div> -->
+        <h3>Competitive Advantage Logic</h3>
+        <ul>
+          <li><strong>Scale:</strong> reach without linear spend(traditional media i.e TV etc.)</li>
+          <li><strong>Data:</strong> segmentation + personalization</li>
+          <li><strong>Behavior:</strong> habits + community lock-in</li>
+          <li><strong>Brand:</strong> relevance + responsiveness</li>
+        </ul>
+      </div>
+
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>Which advantage is most defensible: scale, data, behavior, or brand? Why?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 8: KPIs -->
+  <div class="slide">
+    <div class="container">
+      <h2>KPIs</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="tag">Customer</div>
+          <ul>
+            <li>Engagement frequency (DAU/WAU)</li>
+            <li>Repeat participation rate</li>
+            <li>Response time (median)</li>
+            <li>Sentiment trend</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">Growth</div>
+          <ul>
+            <li>Social CAC (blended)</li>
+            <li>Organic reach share</li>
+            <li>Share of voice</li>
+            <li> conversion</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="two-col" style="margin-top:14px;">
+        <div class="card">
+          <div class="tag">Organization</div>
+          <ul>
+            <li>Experiment velocity (# tests)</li>
+            <li>Crisis containment time</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">Risk / Control</div>
+          <ul>
+            <li>Platform dependency index</li>
+            <li>Owned audience growth</li>
+          </ul>
+        </div>
+      </div> -->
+
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>If you could track only 3 KPIs, which would you pick and why?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 9: Risks + counterfactuals -->
+  <div class="slide">
+    <div class="container">
+      <h2>Risks & Counterfactuals</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="tag">3 Failure Modes</div>
+          <ul>
+            <li><strong>Platform dependence:</strong> reach collapses after rule changes</li>
+            <li><strong>Trust erosion:</strong> mishandled public response triggers churn</li>
+            <li><strong>Community toxicity:</strong> weak moderation destroys experience</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">2 Counterfactuals</div>
+          <ul>
+            <li><strong>If we ignore social:</strong> lose discovery + trust to peers/creators</li>
+            <li><strong>If we treat it as ads only:</strong> miss learning loop + retention</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="qbox">
+        <p>Discussion prompt:</p>
+        <ol>
+          <li>Which risk is most likely in your industry? What capability prevents it?</li>
+        </ol>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 10: Closing -->
+  <div class="slide">
+    <div class="container">
+      <h2>Summary</h2>
+      <div class="callout" style="font-size:1.12em;">
+        “Social media accelerated digital transformation by turning communication into a continuous, interactive,
+        platform-mediated process that forced firms to redesign how they create value, engage customers, and control strategy.”
+      </div>
+
+      <!-- <div class="qbox">
+        <p>Exit question:</p>
+        <ol>
+          <li>What is the single biggest change your firm would need to make to succeed in this environment?</li>
+        </ol>
+      </div> -->
+
+      <!-- <div class="footer">
+        Next module bridge: Platforms → Data → AI (how attention systems become learning systems).
+      </div> -->
+    </div>
+  </div>
+
+</body>
+</html>
+

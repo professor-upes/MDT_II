@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Wide Web - Teachable Slide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+            padding: 40px;
+            box-sizing: border-box;
+            page-break-after: always;
+            border-bottom: 3px solid #2d5f8d;
+        }
+        .slide:nth-child(2) {
+            background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%);
+        }
+        .slide:nth-child(3) {
+            background: linear-gradient(135deg, #4a94ba 0%, #3a7ca5 100%);
+        }
+        .slide:nth-child(4) {
+            background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%);
+        }
+        .slide:nth-child(5) {
+            background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+        }
+        .slide:nth-child(6) {
+            background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%);
+        }
+        .slide:nth-child(7) {
+            background: linear-gradient(135deg, #4a94ba 0%, #3a7ca5 100%);
+        }
+        .slide:nth-child(8) {
+            background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%);
+        }
+        .slide:nth-child(9) {
+            background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+        }
+        .slide:last-child {
+            border-bottom: none;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            text-align: left;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #5ba8cf;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        h2 {
+            color: #2d5f8d;
+            font-size: 2em;
+            border-bottom: 3px solid #5ba8cf;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-weight: 700;
+        }
+        h3 {
+            color: #0056b3;
+            font-size: 1.5em;
+        }
+        ul, ol {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+        li {
+            margin: 15px 0;
+        }
+        strong {
+            color: #2d5f8d;
+            font-weight: bold;
+        }
+        form {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+            accent-color: #5ba8cf;
+        }
+        label {
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        label:hover {
+            color: #2d5f8d;
+        }
+        input[type="submit"] {
+            background-color: #2d5f8d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #5ba8cf;
+        }
+        @media print {
+            .slide {
+                height: auto;
+                margin: 0;
+                padding: 40px;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+    <!-- Slide 1: Title Slide -->
+    <div class="slide">
+        <div class="container">
+            <h1>The Birth of the World Wide Web (Web 1.0)</h1>
+            <h2 style="text-align: center; font-size: 1.8em; border: none;">A Journey Through Digital Innovation</h2>
+            <p style="text-align: center; font-size: 1.3em; margin-top: 60px; color: #666;">Exploring the Foundation of Modern Internet</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: MCQ 1 -->
+    <div class="slide">
+        <div class="container">
+            <h2>Assessment: Question 1</h2>
+            <p style="font-size: 1.2em; margin: 30px 0;"><strong>Who created the World Wide Web?</strong></p>
+            <form style="font-size: 1.1em;">
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq1_a" name="question1" value="Bill Gates">
+                    <label for="mcq1_a">A) Bill Gates</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq1_b" name="question1" value="Tim Berners-Lee">
+                    <label for="mcq1_b">B) Tim Berners-Lee</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq1_c" name="question1" value="Steve Jobs">
+                    <label for="mcq1_c">C) Steve Jobs</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq1_d" name="question1" value="Mark Zuckerberg">
+                    <label for="mcq1_d">D) Mark Zuckerberg</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Slide 3: MCQ 2 -->
+    <div class="slide">
+        <div class="container">
+            <h2>Assessment: Question 2</h2>
+            <p style="font-size: 1.2em; margin: 30px 0;"><strong>What was a primary characteristic of Web 1.0?</strong></p>
+            <form style="font-size: 1.1em;">
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq2_a" name="question2" value="Dynamic content">
+                    <label for="mcq2_a">A) Dynamic content</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq2_b" name="question2" value="Read-only web">
+                    <label for="mcq2_b">B) Read-only web</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq2_c" name="question2" value="User-generated content">
+                    <label for="mcq2_c">C) User-generated content</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq2_d" name="question2" value="Interactive features">
+                    <label for="mcq2_d">D) Interactive features</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Slide 4: MCQ 3 -->
+    <div class="slide">
+        <div class="container">
+            <h2>Assessment: Question 3</h2>
+            <p style="font-size: 1.2em; margin: 30px 0;"><strong>What protocol was introduced in 1994 by Netscape for secure data transmission?</strong></p>
+            <form style="font-size: 1.1em;">
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq3_a" name="question3" value="FTP">
+                    <label for="mcq3_a">A) FTP</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq3_b" name="question3" value="HTTP">
+                    <label for="mcq3_b">B) HTTP</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq3_c" name="question3" value="HTTPS">
+                    <label for="mcq3_c">C) HTTPS</label>
+                </div>
+                <div style="margin: 15px 0;">
+                    <input type="radio" id="mcq3_d" name="question3" value="SMTP">
+                    <label for="mcq3_d">D) SMTP</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Slide 5: Invention at CERN -->
+    <div class="slide">
+        <div class="container">
+            <h2>Invention at CERN (1989–90)</h2>
+            <ul style="font-size: 1.2em;">
+                <li>British scientist <strong>Tim Berners-Lee</strong> created the World Wide Web</li>
+                <li>Linked hypertext documents into a navigable system</li>
+                <li>Revolutionized information sharing across networks</li>
+                <li>Foundation for the modern internet as we know it</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 6: Web 1.0 Characteristics -->
+    <div class="slide">
+        <div class="container">
+            <h2>Web 1.0 Characteristics</h2>
+            <ul style="font-size: 1.2em;">
+                <li><strong>Read-Only Web:</strong> Static pages served from filesystems rather than databases</li>
+                <li><strong>Limited Interactivity:</strong> Minimal user engagement beyond browsing</li>
+                <li><strong>Static Content:</strong> HTML-based structure with primarily text and images</li>
+                <li><strong>One-Way Communication:</strong> Limited user-generated content opportunities</li>
+                <li><strong>Simple Navigation:</strong> Basic hyperlink structures</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 7: Foundational Technologies -->
+    <div class="slide">
+        <div class="container">
+            <h2>Browsing the Future: Foundational Technologies</h2>
+            <ul style="font-size: 1.2em;">
+                <li><strong>First Web Browser:</strong> Built by Tim Berners-Lee for accessing web content</li>
+                <li><strong>Web Server:</strong> Technology for hosting and serving web pages</li>
+                <li><strong>HTTP (HyperText Transfer Protocol):</strong> Protocol for data transmission</li>
+                <li><strong>HTML (HyperText Markup Language):</strong> Standard markup language for creating web pages</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 8: Security Revolutions -->
+    <div class="slide">
+        <div class="container">
+            <h2>Security Revolutions: The Birth of HTTPS</h2>
+            <ul style="font-size: 1.2em;">
+                <li><strong>HTTPS Introduction (1994):</strong> Introduced by Netscape</li>
+                <li><strong>Secure Data Transmission:</strong> Encrypted communication channels</li>
+                <li><strong>Critical Milestone:</strong> Essential for growth of online monetary transfers</li>
+                <li><strong>Trust & Confidence:</strong> Enabled secure e-commerce development</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 9: Summary -->
+    <div class="slide">
+        <div class="container">
+            <h2>Key Takeaways</h2>
+            <ul style="font-size: 1.2em;">
+                <li><strong>Web 1.0</strong> was the "read-only" era of static web pages</li>
+                <li><strong>Tim Berners-Lee</strong> pioneered HTTP, HTML, and the first browser</li>
+                <li><strong>Static Content</strong> dominated with limited user interactivity</li>
+                <li><strong>HTTPS (1994)</strong> enabled secure online transactions</li>
+                <li>Foundation for the modern interactive web we use today</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
