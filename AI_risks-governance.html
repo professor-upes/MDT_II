@@ -28,10 +28,9 @@
       font-family: 'DM Sans', sans-serif;
       background: #0f1923;
       color: var(--text-dark);
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      /* allow page to scroll normally */
     }
 
     /* ── TOP BAR ── */
@@ -97,31 +96,34 @@
     /* ── SLIDE CONTAINER ── */
     #slide-viewport {
       margin-top: 55px;
-      flex: 1;
-      overflow: hidden;
+      /* flex: 1; */
+      overflow-y: auto;
       position: relative;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      height: calc(100vh - 55px);
     }
     .slide {
-      position: absolute;
-      inset: 0;
+      /* make slides stack normally and fit below top bar */
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: calc(100vh - 55px);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 32px;
-      opacity: 0;
-      transform: translateX(60px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      pointer-events: none;
-    }
-    .slide.active {
+      box-sizing: border-box;
+      scroll-snap-align: start;
+      /* reset transition cues from carousel */
       opacity: 1;
-      transform: translateX(0);
-      pointer-events: all;
+      transform: none;
+      transition: none;
+      pointer-events: auto;
     }
-    .slide.exit-left {
-      opacity: 0;
-      transform: translateX(-60px);
-    }
+    /* keep active class for potential styling but no behaviour change */
+    .slide.active { }
+    .slide.exit-left { }
 
     /* ── SLIDE BACKGROUNDS ── */
     .slide.gov { background: linear-gradient(135deg, #0d2236 0%, #1a3a52 50%, #0d2236 100%); }
@@ -962,13 +964,12 @@
 
 </div><!-- end slide-viewport -->
 
-<div id="key-hint">← → Arrow keys to navigate</div>
+<div id="key-hint">Use mouse/trackpad or ↑↓ arrow keys to navigate</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let current = 0;
-  let animating = false;
 
   const riskStart = Array.from(slides).findIndex(s => s.dataset.section === 'risk');
 
@@ -986,35 +987,12 @@
       : 'linear-gradient(90deg, #5ba8cf, #e8b84b)';
   }
 
+  // scroll to the nth slide instead of doing a carousel animation
   function goTo(n) {
-    if (animating || n === current || n < 0 || n >= total) return;
-    animating = true;
-    const dir = n > current ? 1 : -1;
-    slides[current].classList.add(dir > 0 ? 'exit-left' : '');
-    slides[current].style.transform = dir > 0 ? 'translateX(-60px)' : 'translateX(60px)';
-    slides[current].style.opacity = '0';
-
-    setTimeout(() => {
-      slides[current].classList.remove('active', 'exit-left');
-      slides[current].style.transform = '';
-      slides[current].style.opacity = '';
-      current = n;
-      slides[current].style.transform = dir > 0 ? 'translateX(60px)' : 'translateX(-60px)';
-      slides[current].style.opacity = '0';
-      slides[current].classList.add('active');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          slides[current].style.transform = 'translateX(0)';
-          slides[current].style.opacity = '1';
-          slides[current].style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-          setTimeout(() => {
-            slides[current].style.transition = '';
-            animating = false;
-          }, 370);
-        });
-      });
-      updateUI();
-    }, 300);
+    if (n < 0 || n >= total || n === current) return;
+    current = n;
+    slides[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateUI();
   }
 
   function nextSlide() { goTo(current + 1); }
@@ -1024,6 +1002,22 @@
     const idx = Array.from(slides).findIndex(s => s.dataset.section === section && s.classList.contains('title-risk'));
     if (idx !== -1) goTo(idx);
   }
+
+  // update current slide when user scrolls manually
+  const viewport = document.getElementById('slide-viewport');
+  viewport.addEventListener('scroll', () => {
+    let closestIdx = current;
+    let closestDist = Infinity;
+    slides.forEach((s, i) => {
+      const rect = s.getBoundingClientRect();
+      const dist = Math.abs(rect.top - viewport.getBoundingClientRect().top);
+      if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+    });
+    if (closestIdx !== current) {
+      current = closestIdx;
+      updateUI();
+    }
+  });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
@@ -1057,5 +1051,4 @@
   updateUI();
 </script>
 </body>
-
 </html>
