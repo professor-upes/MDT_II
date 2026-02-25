@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI & ML for MBA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .slide {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+      padding: 40px 30px 50px 30px;
+      box-sizing: border-box;
+      page-break-after: always;
+      border-bottom: 3px solid #2d5f8d;
+    }
+
+    /* Cycle gradients for many slides */
+    .slide:nth-child(2)  { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-child(3)  { background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%); }
+    .slide:nth-child(4)  { background: linear-gradient(135deg, #3a7ca5 0%, #1a3a52 100%); }
+    .slide:nth-child(5)  { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:nth-child(6)  { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-child(7)  { background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%); }
+    .slide:nth-child(8)  { background: linear-gradient(135deg, #3a7ca5 0%, #1a3a52 100%); }
+    .slide:nth-child(9)  { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:nth-child(10) { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-child(11) { background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%); }
+    .slide:nth-child(12) { background: linear-gradient(135deg, #3a7ca5 0%, #1a3a52 100%); }
+    .slide:nth-child(13) { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:nth-child(14) { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-child(15) { background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%); }
+    .slide:nth-child(16) { background: linear-gradient(135deg, #3a7ca5 0%, #1a3a52 100%); }
+    .slide:last-child { border-bottom: none; }
+
+    .container {
+      max-width: 1050px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 40px;
+      text-align: left;
+      border-radius: 15px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2d5f8d;
+      font-size: 2em;
+      margin: 0 0 25px 0;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* ✅ UPDATED: cleaner “section headers” without big colored blocks */
+    h2 {
+      color: #2d5f8d;
+      background: transparent;
+      font-size: 1.25em;
+      padding: 0;
+      margin: 22px 0 10px 0;
+      font-weight: 800;
+      border-radius: 0;
+      border-left: none;
+      position: relative;
+    }
+    /* subtle underline accent */
+    h2::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 2px;
+      margin-top: 8px;
+      background: linear-gradient(90deg, rgba(91,168,207,0.95), rgba(45,95,141,0.15));
+      border-radius: 999px;
+    }
+
+    h3 {
+      color: #2d5f8d;
+      font-size: 1.15em;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+    }
+    h3::before {
+      content: "▸";
+      color: #5ba8cf;
+      margin-right: 10px;
+      font-size: 1.5em;
+    }
+
+    ul, ol {
+      font-size: 0.95em;
+      line-height: 1.6;
+      margin: 10px 0;
+      padding-left: 25px;
+    }
+    li {
+      margin: 6px 0;
+      color: #333;
+      font-weight: 500;
+    }
+    strong { color: #2d5f8d; font-weight: 800; }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .comparison-box {
+      background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+      padding: 18px;
+      border-left: 6px solid #5ba8cf;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(45, 95, 141, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .comparison-box:hover { transform: translateY(-5px); }
+    .comparison-box h4 {
+      color: #2d5f8d;
+      margin: 0 0 10px 0;
+      font-size: 1em;
+      font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.88em;
+      box-shadow: 0 4px 12px rgba(45, 95, 141, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th {
+      background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+      color: white;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 800;
+      border-bottom: 4px solid #5ba8cf;
+      font-size: 0.95em;
+    }
+    td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #e0e8f0;
+      color: #333;
+      font-weight: 500;
+      vertical-align: top;
+    }
+    tr:hover { background-color: #f8fafb; }
+    tr:last-child td { border-bottom: none; }
+
+    .key-insight {
+      background: linear-gradient(135deg, #e6f0f7 0%, #f0f4f8 100%);
+      border-left: 6px solid #5ba8cf;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 18px 0 0 0;
+      box-shadow: 0 4px 12px rgba(91, 168, 207, 0.2);
+    }
+    .key-insight p {
+      margin: 0;
+      font-size: 0.98em;
+      line-height: 1.6;
+      color: #2d5f8d;
+      font-weight: 800;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e6f0f7;
+      border: 1px solid rgba(91, 168, 207, 0.5);
+      color: #2d5f8d;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85em;
+      font-weight: 800;
+      margin: 0 6px 6px 0;
+    }
+
+    .callout {
+      background: #ffffff;
+      border: 1px dashed rgba(91, 168, 207, 0.9);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 10px 0;
+      color: #2d5f8d;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    /* ✅ UPDATED: better image handling */
+    img {
+      display: block;
+      margin: 14px auto 0 auto; /* centered */
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(45, 95, 141, 0.18);
+    }
+    /* Optional: use class for tighter control if needed */
+    .slide-image {
+      display: block;
+      margin: 14px auto 0 auto;
+      max-width: 92%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(45, 95, 141, 0.18);
+    }
+
+    .img-placeholder {
+      width: 100%;
+      height: 320px;
+      border-radius: 12px;
+      border: 2px dashed #5ba8cf;
+      background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2d5f8d;
+      font-weight: 800;
+      text-align: center;
+      padding: 18px;
+      box-sizing: border-box;
+      margin: 12px 0 0 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media print {
+      .slide {
+        height: 100vh;
+        margin: 0;
+        padding: 30px;
+        page-break-after: always;
+        page-break-inside: avoid;
+      }
+      .container { max-height: none; overflow: visible; }
+      body { margin: 0; padding: 0; }
+      img { box-shadow: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 1: Title + Agenda -->
+  <div class="slide">
+    <div class="container">
+      <h1>AI & Machine Learning</h1>
+
+      <h2> Learning Goals</h2>
+      <ul>
+        <li>Define <strong>AI</strong>, <strong>ML</strong>, <strong>DL</strong>, and <strong>Data Science</strong> in business terms.</li>
+        <li>Understand <strong>ANI vs AGI</strong></li>
+        <!-- <li>Connect ML to <strong>Decisions </strong>.</li> -->
+        <li>Recognize common ML algorithms and the <strong>business problems they solve</strong>.</li>
+      </ul>
+        <img src="/Images/diagram.avif" alt="">
+      <!-- <h2>🧭 Session Roadmap</h2>
+      <div style="margin-top: 8px;">
+        <span class="tag">AI Basics</span>
+        <span class="tag">ANI vs AGI</span>
+        <span class="tag">ML Basics</span>
+        <span class="tag">ML Types</span>
+        <span class="tag">Algorithms</span>
+        <span class="tag">Business Use-Cases</span>
+        <span class="tag">DS & DL</span>
+      </div> -->
+
+      <!-- <div class="key-insight">
+        <p> MBA framing: AI/ML creates value only when it changes a decision inside a workflow—measured via Revenue, Cost, Risk, or Speed.</p>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 2: AI Definition -->
+  <div class="slide">
+    <div class="container">
+      <h1>Artificial Intelligence (AI)</h1>
+
+      <h2> Definition</h2>
+      <ul>
+        <li><strong>Artificial Intelligence</strong> refers to systems designed to perform tasks that typically require human cognitive abilities such as <strong>reasoning</strong>, <strong>perception</strong>, <strong>language understanding</strong>, <strong>learning</strong>, and <strong>decision-making</strong>.</li>
+      </ul>
+      <img src="/Images/1__what_is_ai_.webp" alt="">
+      <!-- <h2>🧠 What “Intelligence” Means in Business</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Human Work</h4>
+          <ul>
+            <li>Interpret information</li>
+            <li>Spot patterns</li>
+            <li>Make judgments</li>
+            <li>Decide actions</li>
+          </ul>
+        </div> -->
+        <!-- <div class="comparison-box">
+          <h4>AI Work (Business Equivalent)</h4>
+          <ul>
+            <li>Process large data quickly</li>
+            <li>Predict outcomes</li>
+            <li>Recommend actions</li>
+            <li>Automate routine decisions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <p>✅ AI is a capability. Business value appears when AI is embedded into decision-making and operational workflows.</p>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 3: AI Applications -->
+  <div class="slide">
+    <div class="container">
+      <h1>Applications of AI </h1>
+
+      <h2> Widely Used AI Applications</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Application</th>
+            <th>What AI is doing</th>
+            <th>Typical KPI impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Route optimization</strong> (Google Maps, ride-sharing)</td>
+            <td>Predict traffic + optimize route/dispatch decisions</td>
+            <td><strong>Cost</strong> ↓, <strong>Speed</strong> ↑, <strong>Customer experience</strong> ↑</td>
+          </tr>
+          <!-- <tr>
+            <td><strong>Ride-sharing</strong> (Uber/Lyft/Ola)</td>
+            <td>Matching supply-demand, ETA prediction, dynamic pricing</td>
+            <td><strong>Revenue</strong> ↑, <strong>Speed</strong> ↑, <strong>Utilization</strong> ↑</td>
+          </tr> -->
+          <!-- <tr>
+            <td><strong>AI Autopilot</strong> (commercial aviation support)</td>
+            <td>Assist pilots with stability, navigation, safety systems</td>
+            <td><strong>Risk</strong> ↓, <strong>Safety</strong> ↑</td>
+          </tr> -->
+          <tr>
+            <td><strong>Lock screen face unlock</strong></td>
+            <td>Face detection + verification</td>
+            <td><strong>Speed</strong> ↑, <strong>Friction</strong> ↓</td>
+          </tr>
+          <tr>
+            <td><strong>Recommendation engines</strong> (Spotify, Netflix, Amazon, Instagram)</td>
+            <td>Rank content/products to maximize engagement/conversion</td>
+            <td><strong>Revenue</strong> ↑, <strong>Retention</strong> ↑</td>
+          </tr>
+          <tr>
+            <td><strong>Smart assistants</strong> (Siri, Alexa)</td>
+            <td>Speech recognition + intent detection + task execution</td>
+            <td><strong>Speed</strong> ↑, <strong>Convenience</strong> ↑</td>
+          </tr>
+          <tr>
+            <td><strong>Chatbots</strong> (Zomato, SBI, support bots)</td>
+            <td>Automate FAQs, triage issues, assist agents</td>
+            <td><strong>Cost</strong> ↓, <strong>Speed</strong> ↑, <strong>CSAT</strong> ↑</td>
+          </tr>
+          <!-- <tr>
+            <td><strong>Social media monitoring</strong></td>
+            <td>Detect harmful content, misinformation signals, policy violations</td>
+            <td><strong>Risk</strong> ↓, <strong>Brand safety</strong> ↑</td>
+          </tr> -->
+        </tbody>
+      </table>
+
+      <div class="key-insight">
+        <p> Most “AI in business” is decision support + automation—measured through Revenue, Cost, Risk, Speed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: ANI vs AGI + Placeholder image -->
+  <div class="slide">
+    <div class="container">
+      <h1>ANI vs AGI </h1>
+
+      <h2> Definitions</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>ANI — Artificial Narrow Intelligence</h4>
+          <ul>
+            <li>Specialized systems for <strong>specific tasks</strong></li>
+            <li>Dominates real-world business AI today</li>
+            <li>Examples: fraud scoring, churn prediction, route optimization</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>AGI — Artificial General Intelligence</h4>
+          <ul>
+            <li>General-purpose intelligence across domains</li>
+            <li>Human-like ability to transfer learning broadly</li>
+            <li>Still <strong>hypothetical</strong> (not deployed in businesses)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <h2>🖼️ Graphic: Insert AGI vs ANI Image</h2> -->
+
+      <img src="/Images/2__what_is_ai_.webp" alt="">
+      <!-- Replace this with your external image later.
+           Option A: Use placeholder div (current)
+           Option B: Replace with an <img src="your-image.png"> tag
+      -->
+      <!-- <div class="img-placeholder">
+        AGI vs ANI Graphic Placeholder<br/>
+        (Replace with external image later)
+      </div> -->
+
+      <div class="key-insight">
+        <p> Business focus: design many ANI systems aligned to specific KPIs; governance and workflow integration matter more than “intelligence hype.”</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: ML Definition + Core Shift -->
+  <div class="slide">
+    <div class="container">
+      <h1>Machine Learning (ML) </h1>
+
+      <h2> Definition</h2>
+      <ul>
+        <li><strong>Machine Learning</strong> is a subset of AI that enables systems to learn patterns from historical data and make predictions or decisions without being explicitly programmed with rules for every scenario.</li>
+      </ul>
+
+      <h2> Core Shift</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Traditional Programming</h4>
+          <ul>
+            <li><strong>Rules</strong> + Data → Output</li>
+            <li>Good when rules are stable and explicit</li>
+            <li>Breaks when patterns change or become complex</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Machine Learning</h4>
+          <ul>
+            <li>Data + <strong>Outcomes</strong> → Model → Future Prediction</li>
+            <li>Learns patterns from history</li>
+            <li>Adapts better to complexity and scale</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2> Managerial View</h2>
+      <div class="callout">
+        ML is a <strong>prediction engine</strong> that improves decisions at scale.
+        <br/>Value appears when predictions change actions inside a workflow.
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: What problems AI solves? Grocery inventory story -->
+  <div class="slide">
+    <div class="container">
+      <h1>Inventory Management Problem</h1>
+
+      <h2> Scenario: You Start a Grocery Business</h2>
+      <ul>
+        <li>You fill shelves with products. Inventory becomes hard to manage:</li>
+        <li> overstock → waste</li>
+        <li>understock → lost sales</li>
+      </ul>
+
+      <h2> The Real Decision</h2>
+      <div class="callout">
+        <strong>Decision:</strong> “How much inventory should I stock for each item next week?”
+      </div>
+
+      <h2> Why “Last Month Sales” is Not Enough</h2>
+      <ul>
+        <li>Seasonality (festivals, weekends, weather)</li>
+        <li>Promotions and price changes</li>
+        <li>New store / new city scaling effects</li>
+        <li>Supply constraints and lead times</li>
+      </ul>
+
+      <h2> Scaling Explosion</h2>
+      <ul>
+        <li>One store + 200 items = manageable</li>
+        <li>1000 stores + 20,000 SKUs = <strong>complexity explodes</strong></li>
+      </ul>
+
+      <div class="key-insight">
+        <p> ML helps by forecasting demand and recommending replenishment decisions—reducing waste (Cost) and stockouts (Revenue).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Problem framing for ML in business -->
+  <div class="slide">
+    <div class="container">
+      <h1>Artificial Intelligence (AI), Machine Learning (ML), Deep Learning</h1>
+            <img src="/Images/Umbrella.webp" alt="">
+      <!-- <h2>🧩 The Value Chain</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Question to Answer</th>
+            <th>Example (Inventory)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Decision</strong></td>
+            <td>What decision changes tomorrow?</td>
+            <td>How much to stock per SKU/store</td>
+          </tr>
+          <tr>
+            <td><strong>Prediction</strong></td>
+            <td>What must we predict to improve it?</td>
+            <td>Demand forecast + uncertainty</td>
+          </tr>
+          <tr>
+            <td><strong>Action</strong></td>
+            <td>What will people/systems do differently?</td>
+            <td>Auto-replenish / reorder thresholds</td>
+          </tr>
+          <tr>
+            <td><strong>KPI</strong></td>
+            <td>How will we measure value?</td>
+            <td>Stockouts ↓, waste ↓, working capital ↓</td>
+          </tr>
+          <tr>
+            <td><strong>Guardrails</strong></td>
+            <td>What if the model is wrong?</td>
+            <td>Human override; safety stock policy</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="key-insight">
+        <p>🎯 If you can’t name the Decision Owner + KPI, it’s not a real ML use-case.</p>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Slide 8: ML Types + Problem types -->
+  <div class="slide">
+    <div class="container">
+      <h1>Types of ML</h1>
+
+      <h2> Three Learning Types</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Supervised Learning</h4>
+          <ul>
+            <li>Learn from historical data with known outcomes</li>
+            <li>Typical problems: classification, regression</li>
+            <li>Examples: churn, credit risk, demand prediction</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Unsupervised Learning</h4>
+          <ul>
+            <li>No outcome labels; find structure/patterns</li>
+            <li>Typical problems: clustering, anomaly detection</li>
+            <li>Examples: customer segments, unusual transactions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Reinforcement Learning (brief)</h4>
+          <ul>
+            <li>Learn by trial-and-error via rewards</li>
+            <li>Best for sequential decisions</li>
+            <li>Examples: dynamic pricing, ad bidding, routing policies</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Problem Types (What you predict)</h4>
+          <ul>
+            <li><strong>Classification:</strong> yes/no (fraud?)</li>
+            <li><strong>Regression:</strong> number (demand?)</li>
+            <li><strong>Clustering:</strong> groups (segments)</li>
+            <li><strong>Anomaly:</strong> unusual (suspicious)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <p> Teaching anchor: ML is not “one thing.” Start by naming the problem type, then choose an algorithm.</p>
+      </div>
+    </div>
+  </div>
+
+<!-- Slide: Deep Learning (DL) & Data Science (DS) -->
+<div class="slide">
+  <div class="container">
+    <h1>Deep Learning (DL) & Data Science (DS)</h1>
+
+    <h2> Deep Learning (DL)</h2>
+    <ul>
+      <li><strong>Definition:</strong> Deep Learning is a subset of ML that uses patterns in large datasets.</li>
+    </ul>
+
+    <h3>When DL is used</h3>
+    <div style="margin-top: 8px;">
+      <span class="tag">Images</span>
+      <span class="tag">Speech</span>
+      <span class="tag">Video</span>
+      <!-- <span class="tag">Complex signals</span> -->
+    </div>
+
+    <h3>Examples</h3>
+    <ul>
+      <li><strong>Aadhaar face authentication</strong></li>
+      <li><strong>Medical imaging startups</strong> (e.g., image-based screening/diagnostics)</li>
+    </ul>
+
+    <div class="key-insight">
+      <p> DL is most useful when the input is unstructured (image/audio/text) and scale + complexity are high.</p>
+    </div>
+
+    <h2>Data Science (DS)</h2>
+    <ul>
+      <li><strong>Definition:</strong> Data Science is the broader discipline that combines statistics and business insight to extract value from data.</li>
+    </ul>
+
+    <h3>What DS includes</h3>
+    <ul>
+      <li><strong>Data cleaning</strong> (quality, missing values, standardization)</li>
+      <li><strong>Exploratory analysis</strong> (patterns, trends, segmentation insights)</li>
+      <li><strong>Statistical modeling</strong> (inference, experimentation)</li>
+      <li><strong>ML modeling</strong> (prediction + classification)</li>
+      <li><strong>Business communication</strong> (insight-to-action storytelling)</li>
+    </ul>
+
+    <div class="key-insight">
+      <p> MBA takeaway: DS is the end-to-end business discipline; ML/DL are tools inside it. Value comes from decisions + KPI impact, not models alone.</p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Slide 9: DS & DL (where they fit) -->
+  <!-- <div class="slide">
+    <div class="container">
+      <h1>Data Science (DS) & Deep Learning (DL) — Where They Fit</h1>
+
+      <h2> Data Science (DS)</h2>
+      <ul>
+        <li>DS is the end-to-end discipline of creating value from data: <strong>problem framing → data → analysis → modeling → insights → deployment alignment</strong>.</li>
+        <li>ML is often part of DS, but DS also includes dashboards, experimentation, and statistical analysis.</li>
+      </ul>
+
+      <h2> Deep Learning (DL)</h2>
+      <ul>
+        <li>DL is a subset of ML that excels with <strong>unstructured data</strong> (images, audio, text).</li>
+        <li>Use DL when signals are complex and large-scale (face unlock, OCR, speech).</li>
+        <li>For many business tabular problems (risk/churn), tree-based models often work very well.</li>
+      </ul>
+
+      <h2>🎯 Practical Rule of Thumb</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use DS thinking when…</h4>
+          <ul>
+            <li>Problem needs framing and KPI clarity</li>
+            <li>Data quality and metrics are messy</li>
+            <li>You need insight + action plan</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Use DL when…</h4>
+          <ul>
+            <li>Images/voice/text are central inputs</li>
+            <li>Large datasets exist</li>
+            <li>Automation of perception is needed</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <p>✅ MBA insight: DS is the business-facing discipline; DL is a specialized tool, not the default choice.</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Slide 10: Algorithm 1 - Linear Regression -->
+  <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms : Linear Regression</h1>
+
+      <h2> What business problem it solves</h2>
+      <ul>
+        <li>Predicts a <strong>number</strong>: sales, demand, cost, delivery time, spend</li>
+      </ul>
+
+      <h2> Intuition (no math)</h2>
+      <ul>
+        <li>Finds the “best-fit relationship” between drivers (price, ads, season) and an outcome (sales).</li>
+        <li>Great baseline when you want to explain <strong>drivers</strong> to leadership.</li>
+      </ul>
+
+      <!-- <h2>✅ Use when / ❌ Avoid when</h2> -->
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Need interpretability</li>
+            <li>Relationships are roughly linear</li>
+            <li>Baseline model for planning</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Highly complex interactions dominate</li>
+            <li>Data patterns are strongly non-linear</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2> Applications + KPI impact</h2>
+      <ul>
+        <li>Demand planning (inventory): <strong>Cost</strong> ↓ waste, <strong>Revenue</strong> ↑ fewer stockouts</li>
+        <li>Marketing mix baseline: <strong>Revenue</strong> ↑, <strong>Cost</strong> ↓ wasted spend</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 11: Algorithm 2 - Logistic Regression -->
+  <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms : Logistic Regression</h1>
+
+      <h2> What business problem it solves</h2>
+      <ul>
+        <li>Predicts <strong>probability of an event</strong>: churn, default, fraud, conversion</li>
+      </ul>
+
+      <h2> Intuition (no math)</h2>
+      <ul>
+        <li>Turns customer/transaction data into a <strong>risk score (0–1)</strong>.</li>
+        <li>Business chooses a threshold: “If risk &gt; 0.7, intervene.”</li>
+      </ul>
+
+      <!-- <h2>✅ Use when / ❌ Avoid when</h2> -->
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Need explainable baseline</li>
+            <li>Risk scoring and policy decisions</li>
+            <li>Stakeholders want clarity</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Patterns are highly non-linear</li>
+            <li>You need maximum predictive accuracy</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>📌 Applications + KPI impact</h2>
+      <ul>
+        <li>Credit risk scoring: <strong>Risk</strong> ↓ (defaults), <strong>Revenue</strong> ↑ (better approvals)</li>
+        <li>Churn targeting: <strong>Revenue</strong> ↑ (retention), <strong>Cost</strong> ↓ (targeted offers)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 12: Algorithm 3 - Decision Trees -->
+  <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms : Decision Trees</h1>
+
+      <h2> What business problem it solves</h2>
+      <ul>
+        <li>Classification or regression with human-friendly “if-then” logic</li>
+      </ul>
+
+      <h2> Intuition (no math)</h2>
+      <ul>
+        <li>Splits data into branches like rules: “If income is high and missed payments are low → low risk.”</li>
+        <li>Very useful for explaining decisions to non-technical stakeholders.</li>
+      </ul>
+
+      <!-- <h2>✅ Use when / ❌ Avoid when</h2> -->
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Interpretability matters</li>
+            <li>Policy-style decisioning needed</li>
+            <li>Non-linear relationships exist</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Need stability and maximum accuracy (single trees may overfit)</li>
+            <li>Data is noisy with many edge cases</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2> Applications + KPI impact</h2>
+      <ul>
+        <li>Eligibility/underwriting: <strong>Speed</strong> ↑, <strong>Risk</strong> ↓</li>
+        <li>Customer service routing: <strong>Cost</strong> ↓, <strong>Speed</strong> ↑</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 13: Algorithm 4 - Random Forest -->
+  <!-- <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms : Random Forest</h1>
+
+      <h2>🎯 What business problem it solves</h2>
+      <ul>
+        <li>Stronger classification/regression on structured business data (tabular)</li>
+      </ul>
+
+      <h2>🧠 Intuition (no math)</h2>
+      <ul>
+        <li>Build many decision trees and combine them (voting/averaging) to reduce overfitting.</li>
+        <li>Often a strong “workhorse” model for business prediction tasks.</li>
+      </ul>
+
+      <h2>✅ Use when / ❌ Avoid when</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Need strong accuracy without heavy tuning</li>
+            <li>Many features and interactions</li>
+            <li>Good baseline for production pilots</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Ultra-strict explainability required</li>
+            <li>Need the simplest possible model</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>📌 Applications + KPI impact</h2>
+      <ul>
+        <li>Churn prediction: <strong>Revenue</strong> ↑ retention, <strong>Cost</strong> ↓ targeting waste</li>
+        <li>Fraud risk scoring: <strong>Risk</strong> ↓ losses, manage false positives</li>
+      </ul>
+    </div>
+  </div> -->
+
+  <!-- Slide 14: Algorithm 5 - Gradient Boosting -->
+  <!-- <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms : Gradient Boosting (XGBoost/LightGBM)</h1>
+
+      <h2>🎯 What business problem it solves</h2>
+      <ul>
+        <li>High-accuracy prediction for structured/tabular business datasets</li>
+      </ul>
+
+      <h2>🧠 Intuition (no math)</h2>
+      <ul>
+        <li>Builds models sequentially—each new model focuses on fixing errors from earlier models.</li>
+        <li>Often delivers top performance in risk/propensity/demand tasks.</li>
+      </ul>
+
+      <h2>✅ Use when / ❌ Avoid when</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Accuracy is critical (risk, fraud, pricing response)</li>
+            <li>Complex interactions exist</li>
+            <li>You can invest in tuning and monitoring</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Data is very small</li>
+            <li>Need the simplest explanation-only approach</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>📌 Applications + KPI impact</h2>
+      <ul>
+        <li>Credit scoring: <strong>Risk</strong> ↓, <strong>Revenue</strong> ↑ via better approvals</li>
+        <li>Propensity models: <strong>Revenue</strong> ↑ conversion, <strong>Cost</strong> ↓ wasted outreach</li>
+      </ul>
+    </div>
+  </div> -->
+
+  <!-- Slide 15: Algorithm 6 - K-Means -->
+  <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms: K-Means Clustering</h1>
+
+      <h2> What business problem it solves</h2>
+      <ul>
+        <li>Creates customer/product/store <strong>segments</strong> when you don’t have labels</li>
+      </ul>
+
+      <h2> Intuition (no math)</h2>
+      <ul>
+        <li>Groups similar items together based on “closeness” in behavior (spend, frequency, basket mix).</li>
+        <li>Useful for strategy and marketing differentiation.</li>
+      </ul>
+
+      <h2> Use when /  Avoid when</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Need segmentation for targeting/positioning</li>
+            <li>No outcome labels exist</li>
+            <li>You want a simple, teachable baseline</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Segments are highly irregular or overlapping</li>
+            <li>You cannot justify a meaningful number of segments</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2> Applications + KPI impact</h2>
+      <ul>
+        <li>Customer segmentation: <strong>Revenue</strong> ↑ via personalization, <strong>Cost</strong> ↓ via efficient campaigns</li>
+        <li>Store clustering: improves assortment and replenishment → <strong>Cost</strong> ↓, <strong>Speed</strong> ↑</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 16: Algorithm 7 - Neural Networks (DL conceptually) + Summary -->
+  <div class="slide">
+    <div class="container">
+      <h1>ML Algorithms : Neural Networks (Conceptual) + Wrap-Up</h1>
+
+      <h2> What business problem it solves</h2>
+      <ul>
+        <li>Complex patterns—especially for <strong>images</strong>, <strong>text</strong>, <strong>speech</strong>, and large-scale signals</li>
+      </ul>
+
+      <h2> Intuition (no math)</h2>
+      <ul>
+        <li>Layered learning: early layers detect simple patterns, later layers detect complex features.</li>
+        <li>This family includes many deep learning models used in computer vision and language tasks.</li>
+      </ul>
+
+      <h2>Use when /  Avoid when</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Use when</h4>
+          <ul>
+            <li>Unstructured data is central (face unlock, OCR)</li>
+            <li>Large datasets exist</li>
+            <li>Automation of perception is required</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Avoid when</h4>
+          <ul>
+            <li>Small data</li>
+            <li>Strict explainability requirement</li>
+            <li>Tabular problem solvable with simpler models</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2> Summary: Problem → Model → KPI</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Business Problem</th>
+            <th>ML Problem Type</th>
+            <th>Typical Models</th>
+            <th>KPI Lever</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Inventory planning</td>
+            <td>Regression / Forecasting</td>
+            <td>Linear Reg., Random Forest, Boosting</td>
+            <td><strong>Cost</strong> ↓, <strong>Revenue</strong> ↑</td>
+          </tr>
+          <tr>
+            <td>Churn management</td>
+            <td>Classification</td>
+            <td>Logistic, Random Forest, Boosting</td>
+            <td><strong>Revenue</strong> ↑</td>
+          </tr>
+          <tr>
+            <td>Fraud detection</td>
+            <td>Classification / Anomaly</td>
+            <td>Tree models, Boosting</td>
+            <td><strong>Risk</strong> ↓</td>
+          </tr>
+          <tr>
+            <td>Customer segmentation</td>
+            <td>Clustering</td>
+            <td>K-Means</td>
+            <td><strong>Revenue</strong> ↑, <strong>Cost</strong> ↓</td>
+          </tr>
+          <tr>
+            <td>Face unlock / OCR</td>
+            <td>Pattern recognition</td>
+            <td>Neural Nets (DL)</td>
+            <td><strong>Speed</strong> ↑, <strong>Cost</strong> ↓</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="key-insight">
+        <p> Final teaching line: ML is a prediction capability. Transformation happens when predictions are embedded into workflows with owners, KPIs, and guardrails.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

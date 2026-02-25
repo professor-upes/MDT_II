@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Governance & Gen AI Risks — Study Slides</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-deep:   #1a3a52;
+      --blue-mid:    #2d5f8d;
+      --blue-bright: #3a7ca5;
+      --blue-light:  #5ba8cf;
+      --red-deep:    #7b1a1a;
+      --red-mid:     #a83232;
+      --red-bright:  #c0392b;
+      --red-light:   #e05c4b;
+      --white:       #ffffff;
+      --off-white:   #f7f9fb;
+      --text-dark:   #1a1a2e;
+      --text-mid:    #444;
+      --accent-gold: #e8b84b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0f1923;
+      color: var(--text-dark);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BAR ── */
+    #topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 52px;
+      background: rgba(10,20,30,0.96);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      border-bottom: 1px solid rgba(91,168,207,0.2);
+    }
+    #topbar .module-tabs { display: flex; gap: 8px; }
+    #topbar .module-tab {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #topbar .module-tab.active-gov { background: var(--blue-mid); border-color: var(--blue-light); color: white; }
+    #topbar .module-tab.active-risk { background: var(--red-mid); border-color: var(--red-light); color: white; }
+    #topbar .module-tab:hover { color: white; border-color: rgba(255,255,255,0.4); }
+    #topbar .nav-controls { display: flex; align-items: center; gap: 12px; }
+    #slide-counter {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      font-variant-numeric: tabular-nums;
+      min-width: 60px; text-align: center;
+    }
+    .nav-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.5); }
+    .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 52px; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue-light), var(--accent-gold));
+      transition: width 0.4s ease;
+      z-index: 99;
+    }
+
+    /* ── SLIDE CONTAINER ── */
+    #slide-viewport {
+      margin-top: 55px;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* ── SLIDE BACKGROUNDS ── */
+    .slide.gov { background: linear-gradient(135deg, #0d2236 0%, #1a3a52 50%, #0d2236 100%); }
+    .slide.risk { background: linear-gradient(135deg, #1f0a0a 0%, #4a1010 50%, #1f0a0a 100%); }
+    .slide.title-gov {
+      background: radial-gradient(ellipse at 20% 50%, rgba(45,95,141,0.5) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(91,168,207,0.2) 0%, transparent 60%),
+                  linear-gradient(135deg, #0a1520 0%, #1a3a52 100%);
+    }
+    .slide.title-risk {
+      background: radial-gradient(ellipse at 20% 50%, rgba(168,50,50,0.5) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(224,92,75,0.2) 0%, transparent 60%),
+                  linear-gradient(135deg, #160808 0%, #4a1010 100%);
+    }
+
+    /* ── CARD ── */
+    .card {
+      width: 100%;
+      max-width: 920px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 20px;
+      padding: 48px 56px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.15) transparent;
+    }
+
+    /* ── TITLE SLIDE CARD ── */
+    .title-card {
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      padding: 64px 56px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+    .title-card .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    .title-card h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4em, 5vw, 3.8em);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .title-card.gov h1 { color: var(--blue-light); }
+    .title-card.risk h1 { color: var(--red-light); }
+    .title-card .subtitle {
+      font-size: 1.1em;
+      opacity: 0.65;
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .title-card .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .title-card.gov .badge { background: rgba(45,95,141,0.5); border: 1px solid var(--blue-light); color: var(--blue-light); }
+    .title-card.risk .badge { background: rgba(168,50,50,0.5); border: 1px solid var(--red-light); color: var(--red-light); }
+
+    /* ── CONTENT HEADINGS ── */
+    .card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.85em;
+      font-weight: 400;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      line-height: 1.2;
+    }
+    .slide.gov .card h2, .slide.title-gov .card h2 { color: var(--blue-deep); border-bottom: 3px solid var(--blue-light); }
+    .slide.risk .card h2, .slide.title-risk .card h2 { color: var(--red-deep); border-bottom: 3px solid var(--red-bright); }
+    .card h3 {
+      font-size: 1em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 24px 0 10px;
+    }
+    .slide.gov .card h3 { color: var(--blue-mid); }
+    .slide.risk .card h3 { color: var(--red-bright); }
+
+    /* ── BULLET LISTS ── */
+    .card ul { list-style: none; padding: 0; margin: 12px 0; }
+    .card ul li {
+      position: relative;
+      padding: 8px 0 8px 24px;
+      font-size: 1.0em;
+      line-height: 1.6;
+      color: var(--text-dark);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .card ul li:last-child { border-bottom: none; }
+    .card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 17px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .slide.gov .card ul li::before { background: var(--blue-mid); }
+    .slide.risk .card ul li::before { background: var(--red-bright); }
+    .card ul li strong { font-weight: 600; }
+    .slide.gov .card ul li strong { color: var(--blue-mid); }
+    .slide.risk .card ul li strong { color: var(--red-bright); }
+
+    /* sub-list */
+    .card ul ul { margin: 6px 0 0 16px; }
+    .card ul ul li { font-size: 0.92em; color: #555; border-bottom: none; padding: 4px 0 4px 20px; }
+    .card ul ul li::before { width: 6px; height: 6px; top: 11px; background: #aaa; }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      margin: 20px 0;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 0.92em;
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .slide.gov .callout {
+      background: rgba(45,95,141,0.08);
+      border-left: 4px solid var(--blue-mid);
+      color: var(--blue-deep);
+    }
+    .slide.risk .callout {
+      background: rgba(192,57,43,0.07);
+      border-left: 4px solid var(--red-bright);
+      color: var(--red-deep);
+    }
+    .callout .callout-label {
+      font-weight: 700;
+      font-style: normal;
+      font-size: 0.85em;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .slide.gov .callout .callout-label { color: var(--blue-bright); }
+    .slide.risk .callout .callout-label { color: var(--red-bright); }
+
+    /* ── PILL GRID ── */
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .pill {
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.88em;
+      font-weight: 500;
+    }
+    .slide.gov .pill { background: rgba(45,95,141,0.1); color: var(--blue-deep); border: 1px solid rgba(45,95,141,0.25); }
+    .slide.risk .pill { background: rgba(192,57,43,0.08); color: var(--red-deep); border: 1px solid rgba(192,57,43,0.2); }
+
+    /* ── TWO-COLUMN ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .col-box {
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .col-box h4 {
+      font-size: 0.85em;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .slide.gov .col-box h4 { color: var(--blue-mid); }
+    .slide.risk .col-box h4 { color: var(--red-bright); }
+    .col-box ul li { font-size: 0.9em; padding: 5px 0 5px 20px; }
+    .col-box ul li::before { top: 13px; }
+
+    /* ── RISK TABLE ── */
+    .risk-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.88em; }
+    .risk-table th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.78em;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: white;
+    }
+    .slide.gov .risk-table th { background: var(--blue-mid); }
+    .slide.risk .risk-table th { background: var(--red-bright); }
+    .risk-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .risk-table tr:last-child td { border-bottom: none; }
+    .risk-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .risk-table .risk-name { font-weight: 600; }
+    .slide.gov .risk-table .risk-name { color: var(--blue-mid); }
+    .slide.risk .risk-table .risk-name { color: var(--red-bright); }
+    .risk-table .mitigation-cell { color: #2d7a2d; font-style: italic; }
+
+    /* ── MCQ SLIDE ── */
+    .mcq-question {
+      font-size: 1.15em;
+      font-weight: 500;
+      margin: 16px 0 24px;
+      line-height: 1.5;
+      color: var(--text-dark);
+    }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 2px solid rgba(0,0,0,0.08);
+      background: rgba(0,0,0,0.02);
+      cursor: pointer;
+      transition: all 0.2s;
+      gap: 14px;
+    }
+    .option:hover { border-color: rgba(0,0,0,0.2); background: rgba(0,0,0,0.04); transform: translateX(4px); }
+    .option.selected.correct { background: rgba(34,139,34,0.1); border-color: #2d8b2d; }
+    .option.selected.incorrect { background: rgba(200,50,50,0.1); border-color: #c03232; }
+    .option.reveal-correct { background: rgba(34,139,34,0.08); border-color: #2d8b2d; }
+    .opt-letter {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85em;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .slide.gov .opt-letter { background: rgba(45,95,141,0.12); color: var(--blue-mid); }
+    .slide.risk .opt-letter { background: rgba(192,57,43,0.1); color: var(--red-bright); }
+    .option.selected.correct .opt-letter { background: #2d8b2d; color: white; }
+    .option.selected.incorrect .opt-letter { background: #c03232; color: white; }
+    .option.reveal-correct .opt-letter { background: #2d8b2d; color: white; }
+    .opt-text { font-size: 1em; line-height: 1.4; }
+    .mcq-feedback {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.92em;
+      font-weight: 500;
+      display: none;
+    }
+    .mcq-feedback.show { display: block; }
+    .mcq-feedback.correct-fb { background: rgba(34,139,34,0.1); color: #1a5c1a; border-left: 4px solid #2d8b2d; }
+    .mcq-feedback.incorrect-fb { background: rgba(200,50,50,0.1); color: #7a1a1a; border-left: 4px solid #c03232; }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+    .tl-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .tl-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75em;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: white;
+    }
+    .tl-dot.short { background: var(--blue-mid); }
+    .tl-dot.medium { background: var(--blue-bright); }
+    .tl-dot.long { background: var(--blue-light); }
+    .tl-content h4 { font-size: 0.9em; font-weight: 600; color: var(--blue-mid); margin-bottom: 4px; }
+    .tl-content p { font-size: 0.88em; color: #555; line-height: 1.5; }
+
+    /* ── CONTINUUM BAR ── */
+    .continuum {
+      margin: 20px 0;
+      position: relative;
+    }
+    .continuum-bar {
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue-light));
+      margin: 12px 0;
+    }
+    .continuum-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82em;
+      font-weight: 600;
+    }
+    .slide.gov .continuum-labels span:first-child { color: var(--blue-deep); }
+    .slide.gov .continuum-labels span:last-child { color: var(--blue-light); }
+
+    /* ── SLIDE NUMBER BADGE ── */
+    .slide-tag {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 12px;
+      opacity: 0.6;
+    }
+    .slide.gov .slide-tag { background: rgba(45,95,141,0.15); color: var(--blue-mid); }
+    .slide.risk .slide-tag { background: rgba(192,57,43,0.12); color: var(--red-bright); }
+
+    /* ── KEYBOARD HINT ── */
+    #key-hint {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SCROLLBAR ── */
+    .card::-webkit-scrollbar { width: 4px; }
+    .card::-webkit-scrollbar-track { background: transparent; }
+    .card::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="module-tabs">
+    <div class="module-tab active-gov" id="tab-gov" onclick="jumpToSlide(0)">AI Governance</div>
+    <div class="module-tab" id="tab-risk" onclick="jumpToSection('risk')">Gen AI Risks</div>
+  </div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="btn-prev" onclick="prevSlide()">&#8592;</button>
+    <span id="slide-counter">1 / 24</span>
+    <button class="nav-btn" id="btn-next" onclick="nextSlide()">&#8594;</button>
+  </div>
+</div>
+<div id="progress-bar"></div>
+
+<!-- SLIDES VIEWPORT -->
+<div id="slide-viewport">
+
+  <!-- ══ GOV 0: Title ══ -->
+  <div class="slide gov title-gov active" data-section="gov">
+    <div class="card title-card gov">
+      <div class="eyebrow">Study Slides — Module 1</div>
+      <h1>AI Governance</h1>
+      <p class="subtitle">Mechanisms, regulation, global frameworks, and India's approach to responsible AI deployment</p>
+      <span class="badge">12 Slides · Includes MCQs</span>
+    </div>
+  </div>
+
+  <!-- ══ GOV 1: What is Governance ══ -->
+  <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 1</span>
+    <div class="card">
+      <h2>What is Governance?</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:16px;">Governance defines the structure within which AI systems are designed, deployed, and monitored.</p>
+      <ul>
+        <li><strong>Mechanisms</strong> — roles, responsibilities, and decision-making structures</li>
+        <li><strong>Rules & Processes</strong> — documented procedures and workflows</li>
+        <li><strong>Policy Guidelines</strong> — written directives governing behaviour</li>
+        <li><strong>Guardrails</strong> — limitations that prevent harmful or unintended actions</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">Definition</span>
+        Governance is the full set of mechanisms, rules, and limitations — including policy guidelines and guardrails — that shape how AI systems behave and are controlled.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GOV 2: Why Governance Matters ══ -->
+  <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 2</span>
+    <div class="card">
+      <h2>Why Governance Matters</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:16px;">AI systems introduce unique risks that require structured oversight:</p>
+      <ul>
+        <li><strong>Toxic training data</strong> — data may contain harmful, illegal, or biased content</li>
+        <li><strong>Opacity</strong> — models are complex and difficult to audit or explain</li>
+        <li><strong>Adversarial attacks</strong> — systems can be manipulated by malicious actors</li>
+        <li><strong>Unforeseen interactions</strong> — users engage with systems in unpredictable ways</li>
+        <li><strong>Inaccuracy & bias</strong> — outputs may be wrong or discriminatory</li>
+        <li><strong>Significant impact</strong> — unexpected failures can harm individuals and organizations</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ GOV 3: Why Regulation ══ -->
+  <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 3</span>
+    <div class="card">
+      <h2>Why Regulation?</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:16px;">Regulation supports — not hinders — innovation by creating the rules of the game.</p>
+      <div class="two-col">
+        <div class="col-box">
+          <h4>Innovation Benefits</h4>
+          <ul>
+            <li>Creates deliberate, thoughtful design processes</li>
+            <li>Constraints improve engineering (e.g. seatbelts, drug side-effects)</li>
+            <li>Prevents monopolies; creates SME opportunities</li>
+          </ul>
+        </div>
+        <div class="col-box">
+          <h4>Clarity Benefits</h4>
+          <ul>
+            <li>Draws clear boundaries of acceptable behaviour</li>
+            <li>Enables informed decisions by businesses & consumers</li>
+            <li>Provides stability that attracts investment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Key Point</span>
+        If it is illegal to discriminate or deceive, it is illegal to discriminate or deceive using generative AI. Existing laws already apply.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GOV 4: Key Regulatory Tools ══ -->
+  <!-- <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 4</span>
+    <div class="card">
+      <h2>Key Regulatory Tools</h2>
+      <h3>Mandatory Disclosure</h3>
+      <ul>
+        <li>Organisations must reveal AI usage, technical documentation, or incident reports</li>
+        <li>US: Federal AI system registry with transparency requirements</li>
+        <li>EU: High-risk AI system providers must disclose info to end users</li>
+      </ul>
+      <h3>Independent Audits</h3>
+      <ul>
+        <li>Trusted third-parties examine systems on behalf of regulators or the public</li>
+        <li>Draws on tradition of financial, tax, and cybersecurity audits</li>
+        <li>Covers: model design, outcomes, data quality, documentation, intended vs. actual use</li>
+      </ul>
+      <h3>Liability & Sanctions</h3>
+      <ul>
+        <li>Monetary or operational penalties for organisations that violate rules</li>
+        <li>Court decisions set precedent for future legal interpretations</li>
+      </ul>
+    </div>
+  </div> -->
+  
+
+  <!-- ══ GOV 6: Global Regulatory Landscape ══ -->
+  <!-- <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 5</span>
+    <div class="card">
+      <h2>Global Regulatory Landscape</h2>
+      <ul>
+        <li><strong>EU AI Act (2024)</strong> — Most comprehensive framework; requires incident monitoring and disclosure for high-risk systems</li>
+        <li><strong>China</strong> — Security self-assessment required; synthetic content must be labelled; ongoing algorithm registration rules</li>
+        <li><strong>United States</strong> — Federal AI registry; watermarking of synthetic content gaining traction; whole-of-government civil rights enforcement</li>
+        <li><strong>Council of Europe</strong> — Draft AI Treaty: first-ever international treaty on AI</li>
+        <li><strong>Singapore</strong> — Model AI Governance Framework (2019, updated 2024 for Gen AI)</li>
+        <li><strong>Canada</strong> — Artificial Intelligence and Data Act (AIDA) targeting high-impact AI</li>
+      </ul>
+    </div>
+  </div> -->
+
+ 
+
+  <!-- ══ GOV 8: India Sutras + Laws ══ -->
+  <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 7</span>
+    <div class="card">
+      <h2>India — Sutras & Applicable Laws</h2>
+      <div class="two-col">
+        <div class="col-box">
+          <h4>Seven Guiding Sutras</h4>
+          <ul>
+            <li>Trust</li>
+            <li>People First</li>
+            <li>Innovation Over Restraint</li>
+            <li>Fairness and Equity</li>
+            <li>Accountability</li>
+            <li>Understandable by Design</li>
+            <li>Safety, Resilience & Sustainability</li>
+          </ul>
+        </div>
+        <div class="col-box">
+          <h4>Applicable Laws</h4>
+          <ul>
+            <li><strong>DPDP Act 2023</strong> — privacy & data use</li>
+            <li><strong>IT Act 2000</strong> — accountability, cybersecurity</li>
+            <li><strong>Copyright Act 1957</strong> — AI-generated content ownership</li>
+            <li>Consumer, competition & criminal laws — fraud, harm, malpractice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- ══ GOV 7: India Guidelines ══ -->
+  <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 6</span>
+    <div class="card">
+      <h2>India's AI Governance Guidelines (2025)</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:16px;">Introduced by <strong>MeitY</strong> on  November 2025 — India's first comprehensive AI governance framework.</p>
+      <h3>Six Governance Pillars</h3>
+      <div class="pill-grid">
+        <div class="pill">Infrastructure</div>
+        <div class="pill"> Capacity Building</div>
+        <div class="pill"> Policy & Regulation</div>
+        <div class="pill"> Risk Mitigation</div>
+        <div class="pill">Accountability</div>
+        <div class="pill"> Institutions</div>
+      </div>
+      <h3>New Oversight Bodies</h3>
+      <ul>
+        <li><strong>AI Safety Institute</strong> — oversight, standards, safety research</li>
+        <li><strong>Technology & Policy Expert Committee</strong> — cross-sector advisory</li>
+        <li><strong>AI Governance Group</strong> — coordination and policy alignment</li>
+      </ul>
+    </div>
+  </div>
+  <!-- ══ GOV 9: India Action Plan ══ -->
+  <!-- <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 8</span>
+    <div class="card">
+      <h2>India — Action Plan Timeline</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot short">S</div>
+          <div class="tl-content">
+            <h4>Short-Term</h4>
+            <p>Form governance bodies · Draft standards & risk classification frameworks · Establish AI incidents database · Launch public awareness and training programs</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot medium">M</div>
+          <div class="tl-content">
+            <h4>Medium-Term</h4>
+            <p>Pilot regulatory sandboxes · Publish standards · Amend laws as needed · Expand national AI datasets</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot long">L</div>
+          <div class="tl-content">
+            <h4>Long-Term</h4>
+            <p>Integrate AI safety testing · Continuously update sectoral laws · Participate in global AI governance efforts · Prepare for future risks & opportunities</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- ══ GOV 10: Governance Continuum ══ -->
+  <!-- <div class="slide gov" data-section="gov">
+    <span class="slide-tag">Governance · 9</span>
+    <div class="card">
+      <h2>The Governance Continuum</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:12px;">There is no one-size-fits-all solution. Approaches range across a spectrum — and must co-exist.</p>
+      <div class="continuum">
+        <div class="continuum-labels">
+          <span>⚖️ HARD-LOVE<br><small style="font-weight:400; opacity:0.7">Legally binding</small></span>
+          <span style="text-align:right">SOFT-LOVE 🤝<br><small style="font-weight:400; opacity:0.7">Voluntary actions</small></span>
+        </div>
+        <div class="continuum-bar"></div>
+      </div>
+      <div class="two-col">
+        <div class="col-box">
+          <h4>Hard-Love Examples</h4>
+          <ul>
+            <li>Legally binding obligations</li>
+            <li>Liability for AI-caused harm</li>
+            <li>Monetary & operational sanctions</li>
+            <li>Court precedents & mandated audits</li>
+          </ul>
+        </div>
+        <div class="col-box">
+          <h4>Soft-Love Examples</h4>
+          <ul>
+            <li>Voluntary ethics frameworks</li>
+            <li>Self-governance & best practices</li>
+            <li>Transparency commitments</li>
+            <li>Industry codes of conduct</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Key Consideration</span>
+        Generative AI rarely operates in a single jurisdiction or culture. Multiple approaches must co-exist and complement each other in an agile manner.
+      </div>
+    </div>
+  </div>
+ -->
+
+  <!-- ══ RISK 0: Title ══ -->
+  <div class="slide risk title-risk" data-section="risk">
+    <div class="card title-card risk">
+      <div class="eyebrow">Study Slides — Module 2</div>
+      <h1>Risks of Generative AI</h1>
+      <p class="subtitle">Why Gen AI is fundamentally different from narrow AI — and the six critical risks it introduces</p>
+      <span class="badge">12 Slides · Includes MCQs</span>
+    </div>
+  </div>
+
+  <!-- ══ RISK 1: Narrow vs Gen AI ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 1</span>
+    <div class="card">
+      <h2>Gen AI vs Narrow AI</h2>
+      <div class="two-col">
+        <div class="col-box">
+          <h4>Narrow AI</h4>
+          <ul>
+            <li>Purpose-built for specific tasks</li>
+            <li>Outputs primarily determined by data scientists' design decisions</li>
+            <li>Limited deployment contexts</li>
+            <li>Predictable, testable behaviour</li>
+          </ul>
+        </div>
+        <div class="col-box" style="background: rgba(192,57,43,0.05); border-color: rgba(192,57,43,0.15);">
+          <h4>Generative AI</h4>
+          <ul>
+            <li>Deployed across virtually every domain</li>
+            <li>Outputs largely determined by <strong>end-user prompts</strong></li>
+            <li>Infinite contextual variation</li>
+            <li>Risk shifts from developers to users</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Key Insight</span>
+        Change the prompt and you change the output. This fundamental shift makes end-user training and governance essential — not optional.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 2: Deployment Context ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 2</span>
+    <div class="card">
+      <h2>Risk 1 — Deployment Context Explosion</h2>
+      <ul>
+        <li>LLMs are deployed across every function: writing, coding, HR, finance, legal, customer support, and more</li>
+        <li>Use cases multiply across every company, department, role, and task</li>
+        <li>Impossible to pre-test model performance in every conceivable context of use</li>
+        <li>Risk mitigations designed for known use cases fail to cover emergent, unforeseen ones</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">Why It Matters</span>
+        Testing for "how will the model perform in the intended context of use" becomes phenomenally difficult to determine. The number of potential contexts is effectively limitless.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 3: Monitoring ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 3</span>
+    <div class="card">
+      <h2>Risk 2 — Monitoring Challenges at Scale</h2>
+      <ul>
+        <li>Developers cannot foresee all contexts, let alone mitigate every associated risk</li>
+        <li>AI can behave unexpectedly in novel contexts before anyone notices</li>
+        <li>Lack of monitoring means problems can compound silently over time</li>
+        <li>Requires ongoing surveillance of model behaviour "in the wild"</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">Best Practice</span>
+        Monitoring AI as it behaves in unpredictable contexts — before things go off the rails with no one noticing — is crucial and must be built into governance frameworks.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 4: Hallucinations ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 4</span>
+    <div class="card">
+      <h2>Risk 3 — Hallucinations</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:12px;">LLMs routinely generate false, fabricated, or misleading information — known as hallucinations.</p>
+      <ul>
+        <li>Gen AI produces plausible-sounding but factually incorrect outputs</li>
+        <li>Without training, users may not fact-check AI-generated content</li>
+        <li>Organizations risk internal and external documents containing false information</li>
+        <li>Human oversight remains essential but requires <strong>enhanced training vs. narrow AI</strong></li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">Example Risk</span>
+        Employees regularly create client-facing reports with false data because they trusted LLM outputs without verification — damaging credibility and potentially creating legal liability.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 5: Responsible Prompting ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 5</span>
+    <div class="card">
+      <h2>Risk 4 — Responsible Prompting</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:12px;">Since outputs are driven by prompts, how users interact with LLMs determines both output quality and risk exposure.</p>
+      <ul>
+        <li>Users may inadvertently include sensitive or confidential data in prompts</li>
+        <li>LLMs connected to third-party services may transmit company data externally</li>
+        <li>Prompt injection attacks can manipulate model behaviour maliciously</li>
+        <li>Organisations need prompt governance policies and user training programs</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">Rule of Thumb</span>
+        Never input company-sensitive data into an LLM that sends data to a third party without explicit authorization and a clear data processing agreement.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 6: MCQ ══ -->
+
+
+  <!-- ══ RISK 7: Multi-Point Risk ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 6</span>
+    <div class="card">
+      <h2>Risk 5 — Multi-Point Risk Assessment</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:12px;">Most organisations procure pre-trained models from providers (Microsoft, Google, Anthropic, OpenAI) — creating a layered risk landscape.</p>
+      <ul>
+        <li><strong>Provider-level</strong> mitigations are generic — not tailored to specific enterprise contexts</li>
+        <li><strong>Enterprise-level</strong> fine-tuning creates new, organisation-specific risks</li>
+        <li><strong>Department-level</strong> customisation adds yet another layer requiring its own assessment</li>
+        <li>Risk assessments may be needed before <em>and</em> after every modification — but this is not clearly defined</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">The Core Challenge</span>
+        Who should perform what risk assessment, at what point in the lifecycle, while balancing thoroughness against operational efficiency? This remains unresolved.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 8: Training Deficits ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 7</span>
+    <div class="card">
+      <h2>Risk 6 — End-User Training Deficits</h2>
+      <p style="font-size:0.95em; color:#555; margin-bottom:12px;">Gen AI tools require every employee to understand responsible use — a new and often overlooked training need.</p>
+      <ul>
+        <li>Narrow AI training focused mainly on data scientists and technical teams</li>
+        <li>Gen AI training must reach every user across every function</li>
+        <li>Topics must include: responsible prompting, data privacy, hallucination awareness, output verification</li>
+        <li>Insufficient training = organisational risk amplified at scale</li>
+      </ul>
+      <div class="pill-grid" style="margin-top:16px;">
+        <div class="pill">Responsible Prompting</div>
+        <div class="pill">Data Privacy</div>
+        <div class="pill">Hallucination Awareness</div>
+        <div class="pill">Output Verification</div>
+        <div class="pill">Prompt Injection Risks</div>
+        <div class="pill">Data Classification</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RISK 9: Risk Summary Table ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 8</span>
+    <div class="card">
+      <h2>Risk Summary Table</h2>
+      <table class="risk-table">
+        <thead>
+          <tr><th>Risk Area</th><th>Description</th><th style="color:#b8e6b8;">Key Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="risk-name">Deployment Explosion</td>
+            <td>Vast, unpredictable use cases make pre-testing near impossible</td>
+            <td class="mitigation-cell">Ongoing monitoring; contextual risk frameworks</td>
+          </tr>
+          <tr>
+            <td class="risk-name">Monitoring at Scale</td>
+            <td>Model behaviour in novel contexts cannot be anticipated</td>
+            <td class="mitigation-cell">Real-time monitoring systems; incident tracking</td>
+          </tr>
+          <tr>
+            <td class="risk-name">Hallucinations</td>
+            <td>LLMs regularly produce false information users may not catch</td>
+            <td class="mitigation-cell">User training; fact-checking workflows; human review</td>
+          </tr>
+          <tr>
+            <td class="risk-name">Irresponsible Prompting</td>
+            <td>Sensitive data may be leaked via prompts to third-party LLMs</td>
+            <td class="mitigation-cell">Prompt governance policies; data classification rules</td>
+          </tr>
+          <tr>
+            <td class="risk-name">Multi-Point Risk</td>
+            <td>Risk responsibilities fragmented across providers, enterprises, depts</td>
+            <td class="mitigation-cell">Clear ownership; lifecycle-based risk assessment</td>
+          </tr>
+          <tr>
+            <td class="risk-name">Training Deficits</td>
+            <td>Employees lack skills to use gen AI tools safely and effectively</td>
+            <td class="mitigation-cell">Org-wide training; responsible AI guidelines</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+  
+  <!-- ══ RISK 11: Key Takeaways ══ -->
+  <div class="slide risk" data-section="risk">
+    <span class="slide-tag">Risks · 9</span>
+    <div class="card">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li><strong>Risk shifts to users</strong> — responsible prompting is now a core organisational competency</li>
+        <li><strong>Pre-emptive mitigation is insufficient</strong> — the breadth of contexts requires continuous monitoring</li>
+        <li><strong>Monitoring is a governance requirement</strong> — not an optional add-on</li>
+        <li><strong>Risk ownership must be defined</strong> — multi-stakeholder AI chains create accountability gaps</li>
+        <li><strong>Hallucinations are structural</strong> — workflows must permanently account for them, not wait for a fix</li>
+        <li><strong>Training must be universal</strong> — every employee who touches gen AI tools needs responsible AI training</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-label">Bottom Line</span>
+        Generative AI requires a fundamentally different governance approach — one built on continuous monitoring, distributed risk ownership, and organisation-wide digital literacy.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end slide-viewport -->
+
+<div id="key-hint">← → Arrow keys to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+
+  const riskStart = Array.from(slides).findIndex(s => s.dataset.section === 'risk');
+
+  function updateUI() {
+    document.getElementById('slide-counter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('progress-bar').style.width = `${((current + 1) / total) * 100}%`;
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === total - 1;
+
+    const isRisk = slides[current].dataset.section === 'risk';
+    document.getElementById('tab-gov').className = 'module-tab' + (isRisk ? '' : ' active-gov');
+    document.getElementById('tab-risk').className = 'module-tab' + (isRisk ? ' active-risk' : '');
+    document.getElementById('progress-bar').style.background = isRisk
+      ? 'linear-gradient(90deg, #c0392b, #e8b84b)'
+      : 'linear-gradient(90deg, #5ba8cf, #e8b84b)';
+  }
+
+  function goTo(n) {
+    if (animating || n === current || n < 0 || n >= total) return;
+    animating = true;
+    const dir = n > current ? 1 : -1;
+    slides[current].classList.add(dir > 0 ? 'exit-left' : '');
+    slides[current].style.transform = dir > 0 ? 'translateX(-60px)' : 'translateX(60px)';
+    slides[current].style.opacity = '0';
+
+    setTimeout(() => {
+      slides[current].classList.remove('active', 'exit-left');
+      slides[current].style.transform = '';
+      slides[current].style.opacity = '';
+      current = n;
+      slides[current].style.transform = dir > 0 ? 'translateX(60px)' : 'translateX(-60px)';
+      slides[current].style.opacity = '0';
+      slides[current].classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          slides[current].style.transform = 'translateX(0)';
+          slides[current].style.opacity = '1';
+          slides[current].style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+          setTimeout(() => {
+            slides[current].style.transition = '';
+            animating = false;
+          }, 370);
+        });
+      });
+      updateUI();
+    }, 300);
+  }
+
+  function nextSlide() { goTo(current + 1); }
+  function prevSlide() { goTo(current - 1); }
+  function jumpToSlide(n) { goTo(n); }
+  function jumpToSection(section) {
+    const idx = Array.from(slides).findIndex(s => s.dataset.section === section && s.classList.contains('title-risk'));
+    if (idx !== -1) goTo(idx);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  });
+
+  function checkAnswer(el, isCorrect, slideIdx, msg) {
+    const slideEl = slides[slideIdx];
+    const allOpts = slideEl.querySelectorAll('.option');
+    allOpts.forEach(o => { o.onclick = null; o.style.cursor = 'default'; });
+
+    const feedback = document.getElementById(`feedback-${slideIdx}`);
+    if (isCorrect) {
+      el.classList.add('selected', 'correct');
+      feedback.className = 'mcq-feedback show correct-fb';
+      feedback.textContent = '✓ ' + msg;
+    } else {
+      el.classList.add('selected', 'incorrect');
+      // reveal correct
+      allOpts.forEach(o => {
+        if (o !== el && o.onclick === null) {
+          const txt = o.querySelector('.opt-text').textContent;
+          // heuristic: check if this was the correct one by re-checking
+        }
+      });
+      feedback.className = 'mcq-feedback show incorrect-fb';
+      feedback.textContent = '✗ ' + msg;
+    }
+  }
+
+  updateUI();
+</script>
+</body>
+</html>
