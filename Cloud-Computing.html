@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing - Lecture Slides</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+            padding: 40px 30px 50px 30px;
+            box-sizing: border-box;
+            page-break-after: always;
+            border-bottom: 3px solid #2d5f8d;
+        }
+        .slide:nth-child(even) {
+            background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%);
+        }
+        .slide:last-child {
+            border-bottom: none;
+        }
+        .container {
+            max-width: 1050px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px;
+            text-align: left;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+        }
+        h1 {
+            text-align: center;
+            color: #2d5f8d;
+            font-size: 2em;
+            margin: 0 0 25px 0;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        h2 {
+            color: #ffffff;
+            background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+            font-size: 1.3em;
+            padding: 12px 15px;
+            margin: 20px 0 12px 0;
+            font-weight: 700;
+            border-radius: 8px;
+            border-left: 5px solid #5ba8cf;
+        }
+        h3 {
+            color: #2d5f8d;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        h3::before {
+            content: "▸";
+            color: #5ba8cf;
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+        ul, ol {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 6px 0;
+            color: #333;
+            font-weight: 500;
+        }
+        strong {
+            color: #2d5f8d;
+            font-weight: 700;
+        }
+        p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-box {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+            padding: 18px;
+            border-left: 6px solid #5ba8cf;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(45, 95, 141, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .comparison-box:hover {
+            transform: translateY(-5px);
+        }
+        .comparison-box h4 {
+            color: #2d5f8d;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+            font-weight: 700;
+        }
+        .comparison-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .comparison-box li {
+            margin: 8px 0;
+            font-size: 0.92em;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85em;
+            box-shadow: 0 4px 12px rgba(45, 95, 141, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 4px solid #5ba8cf;
+            font-size: 0.95em;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e8f0;
+            color: #333;
+            font-weight: 500;
+            vertical-align: top;
+        }
+        tr:hover {
+            background-color: #f8fafb;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .value-focus {
+            color: #5ba8cf;
+            font-weight: 700;
+            background: #e6f0f7;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .key-insight {
+            background: linear-gradient(135deg, #e6f0f7 0%, #f0f4f8 100%);
+            border-left: 6px solid #5ba8cf;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(91, 168, 207, 0.2);
+        }
+        .key-insight p {
+            margin: 0;
+            font-size: 0.98em;
+            line-height: 1.6;
+            color: #2d5f8d;
+            font-weight: 600;
+        }
+        .analogy-box {
+            background: #fff9e6;
+            border: 2px solid #f0c040;
+            border-left: 6px solid #f0c040;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.93em;
+            line-height: 1.65;
+            color: #5a4000;
+        }
+        .analogy-box strong {
+            color: #b07800;
+        }
+        .analogy-box .analogy-title {
+            font-size: 1em;
+            font-weight: 700;
+            color: #b07800;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .service-card {
+            background: white;
+            border: 2px solid #5ba8cf;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 14px rgba(45, 95, 141, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2d5f8d, #5ba8cf);
+        }
+        .service-card h4 {
+            color: #2d5f8d;
+            font-size: 1.05em;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+        .service-card .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+            color: white;
+            font-size: 0.72em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .service-card ul {
+            font-size: 0.88em;
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        .service-card li {
+            margin: 5px 0;
+        }
+        .slide-number {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            background: rgba(91,168,207,0.18);
+            color: #2d5f8d;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+        .container {
+            position: relative;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .tag {
+            background: #e6f0f7;
+            color: #2d5f8d;
+            font-size: 0.82em;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #5ba8cf;
+        }
+        .tag-highlight {
+            background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+            color: white;
+            border-color: #2d5f8d;
+        }
+        .icon-label {
+            font-size: 1.2em;
+            margin-right: 6px;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 15px 0;
+        }
+        .scenario-block {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+            border-left: 6px solid #2d5f8d;
+            padding: 15px 18px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .scenario-block h4 {
+            color: #2d5f8d;
+            margin: 0 0 8px 0;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+        .scenario-block p {
+            margin: 4px 0;
+            font-size: 0.9em;
+            line-height: 1.55;
+        }
+        .responsibility-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 8px 0;
+        }
+        .resp-pill {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            font-weight: 700;
+        }
+        .resp-you {
+            background: #d4edda;
+            color: #1a6630;
+            border: 1px solid #82c895;
+        }
+        .resp-provider {
+            background: #fde8e8;
+            color: #8b2020;
+            border: 1px solid #f0a0a0;
+        }
+        @media print {
+            .slide {
+                height: 100vh;
+                margin: 0;
+                padding: 30px;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+            body { margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== SLIDE 1 ===================== -->
+<div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 1 of 5</div>
+        <h1>New Technology: Who Wins — Incumbents or New Players?</h1>
+
+        <h2>🏛️ The Core Question</h2>
+        <p>When a disruptive technology arrives, does it benefit <strong>established firms</strong> (incumbents) or hand the advantage to <strong>new entrants</strong>? The answer depends on whether the technology <em>complements</em> or <em>disrupts</em> existing capabilities.</p>
+
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>✅ When Incumbents Win</h4>
+                <ul>
+                    <li>Technology <strong>enhances existing assets</strong> (brand, data, distribution)</li>
+                    <li>High switching costs protect the customer base</li>
+                    <li>Incumbents have capital to <strong>absorb & integrate</strong> the new tech</li>
+                    <li><strong>Example:</strong> Banks adding mobile payments on top of existing infrastructure</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>🚀 When New Players Win</h4>
+                <ul>
+                    <li>Technology <strong>renders old assets obsolete</strong></li>
+                    <li>Incumbents are locked into legacy systems & business models</li>
+                    <li>New entrants start <strong>native</strong> to the new paradigm</li>
+                    <li><strong>Example:</strong> Netflix vs. Blockbuster; Uber vs. taxi companies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- <h2>🤖 AI as a Case Study — The Personal Finance Assistant</h2>
+        <p>Consider an AI assistant that ingests your <strong>credit card payments, Google Pay transactions, and all expenses</strong> — and also knows your income, goals, and habits:</p>
+
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>🏦 Incumbent Advantage (Banks & Fintechs)</h4>
+                <ul>
+                    <li>Already hold <strong>transaction data</strong> legally and at scale</li>
+                    <li>Regulatory licenses and consumer trust</li>
+                    <li>Can layer AI on top of existing data infrastructure</li>
+                    <li><strong>Example:</strong> HDFC, Paytm, Google Pay adding AI spend insights</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>⚡ New Player Advantage (AI-Native Apps)</h4>
+                <ul>
+                    <li>No legacy systems — <strong>built AI-first</strong></li>
+                    <li>User voluntarily shares data across <em>all</em> platforms</li>
+                    <li>Can offer hyper-personalized financial coaching</li>
+                    <li><strong>Example:</strong> Copilot, Monarch Money, future LLM-based agents</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The firm that controls the <strong>data layer</strong> and can act on it with AI wins. Incumbents win if they move fast; new players win if incumbents stay complacent. AI shifts value from product ownership → <strong>data + intelligence ownership</strong>.</p>
+        </div> -->
+    </div>
+</div>
+
+<!-- ===================== SLIDE 2 ===================== -->
+<div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 2 of 5</div>
+        <h1>What is Cloud Computing & Why Pay for It?</h1>
+
+        <h2>☁️ Cloud Computing — The Core Idea</h2>
+        <p>Cloud computing has transformed how organizations build, deploy, and scale technology. Instead of owning physical infrastructure, users access computing resources <strong>over the internet, on demand</strong>.</p>
+
+        <div class="tag-row">
+            <span class="tag">🚫 No physical servers</span>
+            <span class="tag">📈 On-demand scalability</span>
+            <span class="tag">💸 Pay-as-you-go</span>
+            <span class="tag tag-highlight">🔁 OpEx, not CapEx</span>
+        </div>
+
+        <h2>💼 Business Reasons to Pay for Cloud Computing</h2>
+        <div class="comparison-3">
+            <div class="comparison-box">
+                <h4>💰 Cost Efficiency</h4>
+                <ul>
+                    <li>Eliminate upfront hardware costs</li>
+                    <li>Pay only for what you use</li>
+                    <li>Reduce IT maintenance staff costs</li>
+                    <li>Shift CapEx → OpEx (predictable billing)</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>⚡ Speed & Agility</h4>
+                <ul>
+                    <li>Launch new products in days, not months</li>
+                    <li>Scale up instantly during peak demand</li>
+                    <li>Continuous delivery and daily updates</li>
+                    <li>Experiment cheaply and quickly</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>🌍 Flexibility & Reach</h4>
+                <ul>
+                    <li>Access from anywhere on any device</li>
+                    <li>Global deployment in minutes</li>
+                    <li>Automatic backups & disaster recovery</li>
+                    <li>Latest tech without upgrade cycles</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>🙋 Who Pays for Cloud Computing?</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Payer Type</th>
+                    <th>Who They Are</th>
+                    <th>What They Use It For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Enterprises</strong></td>
+                    <td>Large corporations (e.g., Netflix, Zomato)</td>
+                    <td>Run apps, store data, scale globally</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Startups</strong></td>
+                    <td>New tech companies</td>
+                    <td>Launch fast without buying servers</td>
+                </tr>
+                <tr>
+                    <td><strong>Governments</strong></td>
+                    <td>Public sector departments</td>
+                    <td>Citizen services, data management</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Developers & Students</strong></td>
+                    <td>Individuals building projects</td>
+                    <td>Host apps, run ML models, experiment</td>
+                </tr>
+                <tr>
+                    <td><strong>SMEs</strong></td>
+                    <td>Small and medium businesses</td>
+                    <td>SaaS tools, email, CRM, collaboration</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> Organizations pay for cloud computing because it converts expensive, slow, fixed infrastructure into a flexible utility — like electricity. You only pay for what you use, and you never worry about the power plant.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 3 ===================== -->
+<div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 3 of 5</div>
+        <h1>On-Premise vs. Cloud: The Car Ownership Analogy</h1>
+
+        <h2>🚗 The Analogy — Own a Car vs. Use a Taxi/Uber</h2>
+        <div class="analogy-box">
+            <span class="analogy-title">🚘 On-Premise Infrastructure = Owning a Car</span>
+            <p>As the owner, <strong>you pay for it, house it in your personal garage, and maintain it over its life</strong>. You can take the car anywhere — but it also <em>sits idle and depreciating</em> when not in use.</p>
+            <p style="margin-top:10px;">Similarly, <strong>on-premise infrastructure tends to be underutilized</strong> when companies purchase entire servers just to handle small increases in demand. As technology advances, the private owner may become dependent on <em>less professional technicians</em> to maintain an old system while competitors drive the latest.</p>
+        </div>
+
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>🏢 On-Premise (Own the Car)</h4>
+                <ul>
+                    <li>Buy & own physical servers</li>
+                    <li>Pay full cost upfront (CapEx)</li>
+                    <li>Manage maintenance, upgrades, security</li>
+                    <li>Scales poorly — buy more hardware for peak loads</li>
+                    <li>Hardware depreciates; becomes outdated</li>
+                    <li><strong>Best for:</strong> Highly regulated industries (some banks, defense)</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>☁️ Cloud (Use Uber/Taxi)</h4>
+                <ul>
+                    <li>Rent computing power on demand</li>
+                    <li>Pay per use (OpEx)</li>
+                    <li>Provider manages all maintenance & upgrades</li>
+                    <li>Scale up/down instantly with demand</li>
+                    <li>Always on latest infrastructure</li>
+                    <li><strong>Best for:</strong> Most modern businesses & startups</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>📊 Real-World Comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Legacy IT (On-Premise)</th>
+                    <th>Cloud-Native (Transformed)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Spending Model</strong></td>
+                    <td>Capital Expenditure <span class="value-focus">CapEx</span></td>
+                    <td>Operational Expenditure <span class="value-focus">OpEx</span></td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Delivery Speed</strong></td>
+                    <td>6–12 month project cycles</td>
+                    <td>Continuous delivery (daily updates)</td>
+                </tr>
+                <tr>
+                    <td><strong>Scaling Method</strong></td>
+                    <td>Vertical — buy a bigger box</td>
+                    <td>Horizontal — add 1,000 small boxes</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>IT Role</strong></td>
+                    <td>Gatekeeper / Cost Center</td>
+                    <td>Strategic Partner / Value Enabler</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> Cloud eliminates the "idle car in the garage" problem. You pay for compute like electricity — only when and as much as you need. This transforms IT from a <strong>cost center into a competitive weapon</strong>.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 4 ===================== -->
+<div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 4 of 5</div>
+        <h1>Cloud Service Models: IaaS, PaaS & SaaS</h1>
+
+        <p style="text-align:center; color:#2d5f8d; font-size:0.95em; margin-bottom:18px;"><strong>Think of it as a spectrum — how much does the cloud provider manage vs. you?</strong></p>
+
+        <h2>🏗️ IaaS — Infrastructure as a Service</h2>
+        <div class="two-col">
+            <div class="service-card">
+                <div class="badge">INFRASTRUCTURE AS A SERVICE</div>
+                <h4>What is it?</h4>
+                <p style="font-size:0.9em; line-height:1.55;">IaaS provides access to virtualized IT tools — virtual computers, storage, and networks — <strong>over the internet</strong>. You don't buy or manage physical hardware; you pay only for what you use.</p>
+                <ul>
+                    <li><strong>Flexibility & Control:</strong> Full control over OS and applications</li>
+                    <li><strong>Cost Savings:</strong> No physical infrastructure investment</li>
+                    <li><strong>Scalability:</strong> Scale hardware up or down per demand</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="badge">📦 REAL-WORLD EXAMPLE</div>
+                <h4>Netflix + AWS</h4>
+                <p style="font-size:0.9em; line-height:1.55;">Netflix uses <strong>AWS (IaaS)</strong> to rent thousands of virtual servers to store and stream video globally. They don't own physical hard drives, but retain <strong>total control</strong> over the operating system and how the streaming software is configured.</p>
+                <p style="font-size:0.88em; margin-top:10px; color:#555;">
+                    <strong>Responsibility split:</strong>
+                </p>
+                <div class="responsibility-row">
+                    <span class="resp-you">✅ You: OS, apps, data</span>
+                    <span class="resp-provider">🔴 Provider: Hardware, networking, virtualisation</span>
+                </div>
+            </div>
+        </div>
+
+        <h2>💻 SaaS — Software as a Service</h2>
+        <div class="two-col">
+            <div class="service-card">
+                <div class="badge">SOFTWARE AS A SERVICE</div>
+                <h4>What is it?</h4>
+                <p style="font-size:0.9em; line-height:1.55;">SaaS delivers fully managed software over the internet. You log in and use it — <strong>no servers, no code, no updates to manage</strong>. The provider handles everything beneath the surface.</p>
+                <ul>
+                    <li><strong>Zero maintenance:</strong> Provider patches, upgrades, secures</li>
+                    <li><strong>Mobility:</strong> Access from any device, anywhere</li>
+                    <li><strong>Focus:</strong> Teams concentrate on work, not IT</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="badge">📧 EXAMPLE: GMAIL</div>
+                <h4>Enterprise Email — The SaaS Way</h4>
+                <p style="font-size:0.9em; line-height:1.55;">You need enterprise email but don't want to build a mail server. You log into <strong>Gmail</strong>. Google manages the servers, security patches, and storage infrastructure.</p>
+                <p style="font-size:0.88em; margin-top:10px; color:#555;">
+                    <strong>Responsibility split:</strong>
+                </p>
+                <div class="responsibility-row">
+                    <span class="resp-you">✅ You: User settings & data</span>
+                    <span class="resp-provider">🔴 Google: Hardware, software, security, infrastructure</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> IaaS gives you the land and bricks — you build the house. SaaS gives you a furnished apartment — you just move in. The right model depends on how much <strong>control</strong> vs. <strong>convenience</strong> your business needs.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 5 ===================== -->
+<div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 5 of 5</div>
+        <h1>Real-World Applications & Case Studies</h1>
+
+        <h2>🌍 Real-World Cloud Applications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Industry</th>
+                    <th>Application</th>
+                    <th>Cloud Benefit</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>🎬 Media & Entertainment</strong></td>
+                    <td>Video streaming at global scale</td>
+                    <td>Instantly scale servers for release-day spikes</td>
+                    <td>Netflix on AWS</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🛒 E-Commerce</strong></td>
+                    <td>Handle traffic surges (sales, festivals)</td>
+                    <td>Auto-scale during peak; pay-as-you-go</td>
+                    <td>Flipkart / Amazon</td>
+                </tr>
+                <tr>
+                    <td><strong>🏥 Healthcare</strong></td>
+                    <td>Patient data storage & telemedicine</td>
+                    <td>Secure, compliant, always available</td>
+                    <td>Apollo Hospitals on Azure</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🚗 Ride-sharing</strong></td>
+                    <td>Real-time matching & maps</td>
+                    <td>Low latency, global scale</td>
+                    <td>Uber / Ola on Google Cloud</td>
+                </tr>
+                <tr>
+                    <td><strong>🏫 Education</strong></td>
+                    <td>Online courses, virtual classrooms</td>
+                    <td>Deploy fast, reach millions</td>
+                    <td>BYJU'S, Coursera on AWS</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🏦 Banking & Fintech</strong></td>
+                    <td>Real-time payments, fraud detection</td>
+                    <td>Secure, scalable, AI-ready</td>
+                    <td>Paytm, Razorpay on Cloud</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>📋 Summary: Full Service Model Spectrum</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>You Manage</th>
+                    <th>Provider Manages</th>
+                    <th>Best For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>On-Premise</strong></td>
+                    <td>Everything</td>
+                    <td>Nothing</td>
+                    <td>Max control, high compliance</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>IaaS</strong></td>
+                    <td>OS, apps, data, runtime</td>
+                    <td>Hardware, networking, virtualisation</td>
+                    <td>DevOps teams, tech companies</td>
+                </tr>
+                <tr>
+                    <td><strong>PaaS</strong></td>
+                    <td>Applications & data</td>
+                    <td>OS, runtime, middleware, hardware</td>
+                    <td>Developers building apps</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>SaaS</strong></td>
+                    <td>User settings & data</td>
+                    <td>Everything else</td>
+                    <td>End users, business teams</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Final Takeaway:</strong> Cloud computing is not just a technology shift — it's a <strong>business model shift</strong>. It converts infrastructure from a strategic liability into a flexible, intelligent asset. Companies that master cloud adoption move faster, scale smarter, and innovate continuously — while competitors still wait 12 months to spin up a server.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

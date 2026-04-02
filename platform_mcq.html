@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Business Models — Revision Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+            color: #333;
+            margin: 0;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 15px;
+            padding: 35px 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .header-card h1 {
+            color: #2d5f8d;
+            font-size: 2em;
+            margin: 0 0 8px 0;
+        }
+        .header-card p {
+            color: #3a7ca5;
+            font-size: 1.05em;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .score-item {
+            background: #e6f0f7;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #2d5f8d;
+            border: 1px solid #5ba8cf;
+        }
+        .score-correct { background: #d4edda; color: #1a6630; border-color: #82c895; }
+        .score-wrong { background: #fde8e8; color: #8b2020; border-color: #f0a0a0; }
+        .progress-outer {
+            width: 100%;
+            height: 8px;
+            background: #e0e8f0;
+            border-radius: 10px;
+            margin-top: 18px;
+            overflow: hidden;
+        }
+        .progress-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #2d5f8d, #5ba8cf);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .question-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 15px;
+            padding: 30px 35px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+        .question-card:hover {
+            transform: translateY(-2px);
+        }
+        .q-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+            color: white;
+            font-size: 0.75em;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .q-topic {
+            display: inline-block;
+            background: #e6f0f7;
+            color: #2d5f8d;
+            font-size: 0.72em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-left: 6px;
+            border: 1px solid #5ba8cf;
+        }
+        .question-text {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #2d5f8d;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+            border: 2px solid #d0dce8;
+            border-left: 6px solid #5ba8cf;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: left;
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.5;
+        }
+        .option-btn:hover:not(.disabled) {
+            transform: translateX(6px);
+            border-color: #5ba8cf;
+            background: linear-gradient(135deg, #e6f0f7 0%, #d6e8f5 100%);
+            box-shadow: 0 4px 12px rgba(45,95,141,0.15);
+        }
+        .option-btn.correct {
+            background: #d4edda !important;
+            border-color: #4caf50 !important;
+            border-left-color: #4caf50 !important;
+            color: #1a6630 !important;
+            font-weight: 700;
+        }
+        .option-btn.wrong {
+            background: #fde8e8 !important;
+            border-color: #e06060 !important;
+            border-left-color: #e06060 !important;
+            color: #8b2020 !important;
+        }
+        .option-btn.disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+        .option-btn.correct.disabled, .option-btn.wrong.disabled {
+            opacity: 1;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px 18px;
+            border-radius: 8px;
+            font-size: 0.92em;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .explanation.show { display: block; }
+        .explanation.correct-exp {
+            background: linear-gradient(135deg, #e6f0f7 0%, #f0f4f8 100%);
+            border-left: 6px solid #5ba8cf;
+            color: #2d5f8d;
+        }
+        .explanation.wrong-exp {
+            background: #fff9e6;
+            border-left: 6px solid #f0c040;
+            color: #5a4000;
+        }
+        .btn-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.05em;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 6px 20px rgba(45,95,141,0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(45,95,141,0.4);
+        }
+        .results-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+            text-align: center;
+            display: none;
+        }
+        .results-card h2 {
+            color: #2d5f8d;
+            font-size: 1.8em;
+            margin: 0 0 15px 0;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .results-score {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #2d5f8d;
+            margin: 10px 0;
+        }
+        .results-label {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .grade-badge {
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+        .grade-a { background: #d4edda; color: #1a6630; }
+        .grade-b { background: #e6f0f7; color: #2d5f8d; }
+        .grade-c { background: #fff9e6; color: #b07800; }
+        .grade-d { background: #fde8e8; color: #8b2020; }
+        .topic-breakdown {
+            text-align: left;
+            margin: 25px 0;
+        }
+        .topic-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e8f0;
+            font-size: 0.92em;
+        }
+        .topic-row:last-child { border-bottom: none; }
+        .topic-name { font-weight: 600; color: #2d5f8d; }
+        .topic-score { font-weight: 700; }
+        @media (max-width: 600px) {
+            body { padding: 15px 10px; }
+            .header-card, .question-card, .results-card { padding: 20px; }
+            .header-card h1 { font-size: 1.5em; }
+            .question-text { font-size: 0.98em; }
+        }
+        @media print {
+            body { background: white; padding: 20px; }
+            .question-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+            .option-btn { border: 1px solid #ccc; }
+            .btn-actions, .score-bar, .progress-outer { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quizApp">
+    <!-- Header -->
+    <div class="header-card">
+        <h1>Platform Business Models — Revision Quiz</h1>
+        <p>Creating and Participating in Ecosystems</p>
+        <div class="score-bar">
+            <span class="score-item" id="totalCount">📝 Questions: 25</span>
+            <span class="score-item score-correct" id="correctCount">✅ Correct: 0</span>
+            <span class="score-item score-wrong" id="wrongCount">❌ Wrong: 0</span>
+            <span class="score-item" id="remainCount">⏳ Remaining: 25</span>
+        </div>
+        <div class="progress-outer">
+            <div class="progress-inner" id="progressBar" style="width:0%"></div>
+        </div>
+    </div>
+
+    <!-- Questions rendered here -->
+    <div id="questionsContainer"></div>
+
+    <!-- Submit / Results -->
+    <div class="btn-actions" id="submitArea">
+        <button class="btn-primary" id="submitBtn" onclick="submitQuiz()" disabled>Submit Quiz</button>
+        <p style="color:rgba(255,255,255,0.6); font-size:0.85em; margin-top:10px;" id="submitHint">Answer all questions to submit</p>
+    </div>
+
+    <div class="results-card" id="resultsCard">
+        <h2>Quiz Results</h2>
+        <div class="results-score" id="finalScore">0/25</div>
+        <div class="results-label" id="finalPercent">0%</div>
+        <div id="gradeBadge"></div>
+        <div class="topic-breakdown" id="topicBreakdown"></div>
+        <button class="btn-primary" onclick="resetQuiz()" style="margin-top:20px;">🔄 Try Again</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    {
+        topic: "Platform Fundamentals",
+        q: "A platform business model creates value primarily by:",
+        options: [
+            "Manufacturing products at lower cost than competitors",
+            "Facilitating interactions between two or more distinct user groups",
+            "Owning and managing large inventories of goods",
+            "Vertically integrating the entire supply chain"
+        ],
+        correct: 1,
+        explanation: "Platforms are intermediaries that orchestrate interactions between distinct groups (e.g., riders-drivers, buyers-sellers). They don't own the inventory or produce the core value — they create the conditions for exchange."
+    },
+    {
+        topic: "Platform Fundamentals",
+        q: "In the pipeline vs. platform distinction, a pipeline business scales by adding _____, while a platform scales by adding _____.",
+        options: [
+            "Technology; capital",
+            "Participants; resources",
+            "Resources and capacity; participants",
+            "Algorithms; infrastructure"
+        ],
+        correct: 2,
+        explanation: "Pipelines follow a linear model (design → produce → sell) and scale by adding production capacity. Platforms scale by adding participants — more users on both sides increase the platform's value through network effects."
+    },
+    {
+        topic: "Core Interaction",
+        q: "Which of the following is NOT one of the four elements of a platform's core interaction?",
+        options: [
+            "Participants (producers and consumers)",
+            "Value unit (the thing being exchanged)",
+            "Profit margin (revenue per transaction)",
+            "Filter / Algorithm (governing relevance and quality)"
+        ],
+        correct: 2,
+        explanation: "The four elements are: Participants, Value Unit, Filter/Algorithm, and Channel. Profit margin is a financial outcome, not a structural element of the core interaction design."
+    },
+    {
+        topic: "Network Effects",
+        q: "When more restaurants joining Zomato makes the platform more valuable for diners, this is an example of:",
+        options: [
+            "Same-side (direct) network effect",
+            "Cross-side (indirect) network effect",
+            "Negative network effect",
+            "Supply-side economies of scale"
+        ],
+        correct: 1,
+        explanation: "Cross-side (indirect) network effects occur when more users on one side benefit users on the other side. More restaurants (supply side) directly improve the experience for diners (demand side)."
+    },
+    {
+        topic: "Network Effects",
+        q: "Surge pricing congestion on Uber during peak hours is an example of:",
+        options: [
+            "Positive same-side network effect",
+            "Cross-side network effect",
+            "Negative network effect",
+            "Platform disintermediation"
+        ],
+        correct: 2,
+        explanation: "Negative network effects occur when more users reduce value. Too many riders competing for limited drivers creates congestion, surge pricing, and a degraded user experience."
+    },
+    {
+        topic: "Network Effects",
+        q: "Multi-homing refers to:",
+        options: [
+            "A platform operating in multiple countries simultaneously",
+            "Users participating on multiple competing platforms at the same time",
+            "A platform offering multiple product categories",
+            "A seller listing different products on the same platform"
+        ],
+        correct: 1,
+        explanation: "Multi-homing means users are active on competing platforms simultaneously — e.g., a delivery driver working for both Swiggy and Zomato. High multi-homing weakens network effects and platform lock-in."
+    },
+    {
+        topic: "Principal-Agent Problem",
+        q: "In the principal-agent framework, the two core problems are:",
+        options: [
+            "Supply shortage and demand excess",
+            "Information asymmetry and misaligned incentives",
+            "High cost and low quality",
+            "Regulatory pressure and market competition"
+        ],
+        correct: 1,
+        explanation: "The principal-agent problem arises from: (1) Information asymmetry — the agent knows more than the principal, and (2) Misaligned incentives — what's best for the agent differs from what's best for the principal."
+    },
+    {
+        topic: "Principal-Agent Problem",
+        q: "Before platforms like RedBus existed, a local travel agent represented a principal-agent problem because:",
+        options: [
+            "The agent had no knowledge of bus operators",
+            "The agent had information the passenger lacked and was incentivised by commission, not passenger welfare",
+            "The passenger had more information than the agent",
+            "The government regulated all ticket prices equally"
+        ],
+        correct: 1,
+        explanation: "The travel agent knew which operators existed, their real prices, and seat availability — information the passenger lacked. The agent's incentive was to sell the highest-commission option, not the best option for the passenger."
+    },
+    {
+        topic: "Platform as New Agent",
+        q: "The lecture argues that platforms didn't eliminate the principal-agent problem — they 'shape-shifted' it. This means:",
+        options: [
+            "Platforms created entirely new industries",
+            "The platform itself became the new agent, with algorithms and ad placements creating new information asymmetry",
+            "Consumers became more rational decision-makers",
+            "Government regulations replaced the agent's role"
+        ],
+        correct: 1,
+        explanation: "When 'Top Result' means 'paid placement' rather than 'best for you,' the platform's incentives have diverged from the user's — the same structural problem as the old travel agent, just at algorithmic scale."
+    },
+    {
+        topic: "Bottleneck Shift",
+        q: "According to the bottleneck migration framework, what was the primary bottleneck in the pre-internet era?",
+        options: [
+            "Too many options causing decision fatigue",
+            "Access to goods — limited by physical distribution",
+            "Algorithmic bias in search results",
+            "Lack of AI processing capability"
+        ],
+        correct: 1,
+        explanation: "Before the internet, the binding constraint was physical distribution. If you lived in a tier-2 city, your choices were limited to what the local market stocked. Discovery was constrained by geography."
+    },
+    {
+        topic: "Bottleneck Shift",
+        q: "Sandeep Paul's insight that 'the bottleneck has shifted' refers to the fact that:",
+        options: [
+            "Technology companies have moved their headquarters",
+            "Platforms solved information access but created information overload and decision complexity",
+            "Supply chains have shifted from China to India",
+            "Consumer preferences have shifted from offline to online"
+        ],
+        correct: 1,
+        explanation: "Each era's solution becomes the next era's constraint. Platforms solved 'I can't find what I need' but created 'I have too many options and not enough cognitive bandwidth to evaluate them.'"
+    },
+    {
+        topic: "Bottleneck Shift",
+        q: "In the current (emerging) era, the bottleneck is shifting toward:",
+        options: [
+            "Access to physical goods",
+            "Access to internet connectivity",
+            "Taste, judgment, identity, and serendipity",
+            "Payment processing speed"
+        ],
+        correct: 2,
+        explanation: "If AI agents handle evaluation and selection, the new constraint becomes: does the agent actually know what I want, including things I don't yet know I want? The bottleneck shifts to identity, preference evolution, and serendipity."
+    },
+    {
+        topic: "Agentic Commerce",
+        q: "Which of the following is NOT one of the three converging forces driving the shift to agentic commerce?",
+        options: [
+            "Decision complexity outgrowing human cognition",
+            "Platform trust eroding as consumers recognise paid placements",
+            "Declining internet penetration in emerging markets",
+            "AI capability reaching a threshold for preference understanding"
+        ],
+        correct: 2,
+        explanation: "The three forces are: (1) Decision complexity exceeding cognitive capacity, (2) Platform trust eroding as incentive divergence becomes visible, and (3) LLMs becoming capable enough to understand and act on preferences."
+    },
+    {
+        topic: "Agentic Commerce",
+        q: "In agent-mediated commerce, online reviews and ratings:",
+        options: [
+            "Become completely irrelevant",
+            "Shift from influencing humans directly to becoming machine-readable data for AI agents",
+            "Are replaced entirely by brand advertising",
+            "Become more important for human decision-making"
+        ],
+        correct: 1,
+        explanation: "Reviews don't disappear — they transform. Instead of humans reading narrative reviews, AI agents parse them as data points (sentiment scores, attribute mentions). The human narrative becomes less important than the extractable signal."
+    },
+    {
+        topic: "Platform Threat",
+        q: "The lecture argues that a platform showing 150 search results is:",
+        options: [
+            "A design flaw that needs to be fixed with better filtering",
+            "The business model itself — each result is a monetisation surface",
+            "A result of poor algorithm development",
+            "Required by consumer protection regulations"
+        ],
+        correct: 1,
+        explanation: "Platforms monetise through attention, ads, and promoted listings. The 150 results aren't accidental — they create the surface area for banner ads, promoted placements, and impulse behaviour. An AI agent that collapses this to one answer attacks the revenue engine."
+    },
+    {
+        topic: "Discovery",
+        q: "The 'optimisation trap' in agentic commerce refers to:",
+        options: [
+            "AI agents making suboptimal product choices",
+            "Platforms over-investing in algorithm development",
+            "Users getting locked into a feedback loop of their own past preferences, losing exposure to the unexpected",
+            "Delivery logistics becoming too efficient"
+        ],
+        correct: 2,
+        explanation: "The agent learns what you chose → reinforces those patterns → serves more of the same → preferences narrow. You get trapped in an optimisation loop of your own past self, never encountering what would expand your taste."
+    },
+    {
+        topic: "Discovery",
+        q: "Known-need discovery differs from unknown-need discovery in that:",
+        options: [
+            "Known-need is always more valuable than unknown-need",
+            "Known-need involves searching for the best version of something you already want; unknown-need is encountering something you didn't know you wanted",
+            "Known-need only happens online; unknown-need only happens offline",
+            "Both are equally well-served by AI agents"
+        ],
+        correct: 1,
+        explanation: "Known-need: 'Find me the best overnight bus to Manali under ₹1,500.' Unknown-need: discovering block-printed fabrics while walking through a Jaipur market. AI agents excel at the first but may destroy the second."
+    },
+    {
+        topic: "Cold Start",
+        q: "OpenTable's strategy of giving restaurants reservation management software before diners joined is an example of which cold-start strategy?",
+        options: [
+            "Subsidise one side",
+            "Seed value yourself",
+            "Single-player use case",
+            "Piggyback an existing network"
+        ],
+        correct: 2,
+        explanation: "A single-player use case provides standalone value to one side even without the other side present. OpenTable's software was useful for managing reservations regardless of whether diners were on the platform yet."
+    },
+    {
+        topic: "Cold Start",
+        q: "Zomato's early team manually scanning and uploading restaurant menus across Delhi is an example of:",
+        options: [
+            "Subsidise one side",
+            "Seed value yourself",
+            "Single-player use case",
+            "Piggyback an existing network"
+        ],
+        correct: 1,
+        explanation: "Seeding value means the platform team creates the initial supply themselves so the demand side sees value from day one. Zomato's founders manually built the restaurant database before restaurants had any reason to participate."
+    },
+    {
+        topic: "Ecosystem Roles",
+        q: "In a platform ecosystem, a 'complementor' is best described as:",
+        options: [
+            "A government regulator overseeing the platform",
+            "A firm that builds products/services on top of the platform, making it more valuable without owning it",
+            "The platform's internal engineering team",
+            "A competing platform in the same market"
+        ],
+        correct: 1,
+        explanation: "Complementors (app developers on iOS, sellers on Amazon, restaurants on Zomato) create value on top of the platform. Their power depends on differentiation — are you one of thousands or irreplaceable?"
+    },
+    {
+        topic: "Monetisation",
+        q: "The general principle of platform monetisation is:",
+        options: [
+            "Charge both sides equally to maximise revenue",
+            "Make the platform free for everyone and rely on donations",
+            "Subsidise the side that's harder to acquire; charge the side that extracts disproportionate value",
+            "Charge the supply side nothing and tax the demand side heavily"
+        ],
+        correct: 2,
+        explanation: "Like the nightclub analogy — you subsidise the side whose presence attracts the paying side. Google subsidises searchers (free) and charges advertisers. Zomato subsidises diners and charges restaurants."
+    },
+    {
+        topic: "Governance",
+        q: "Too little governance on a platform leads to _____, while too much governance leads to _____.",
+        options: [
+            "Higher profits; lower profits",
+            "Spam, fraud, and trust erosion; producers leaving due to excessive restrictions",
+            "Better user experience; worse user experience",
+            "Faster growth; slower growth"
+        ],
+        correct: 1,
+        explanation: "The Goldilocks zone: too little governance fills the platform with fake reviews, scams, and low quality (users lose trust and leave). Too much governance creates onboarding friction and deters producers (supply dries up)."
+    },
+    {
+        topic: "Competitive Dynamics",
+        q: "Food delivery drivers working for both Swiggy and Zomato simultaneously illustrates:",
+        options: [
+            "Strong platform lock-in and defensibility",
+            "High multi-homing that weakens both platforms' network effects",
+            "Effective platform governance",
+            "Successful cold-start resolution"
+        ],
+        correct: 1,
+        explanation: "When the supply side (drivers) can easily participate on competing platforms simultaneously, neither platform has strong lock-in. Competition shifts from network effects to operational execution — who delivers faster and cheaper."
+    },
+    {
+        topic: "Participation Strategy",
+        q: "The 'Complementor's Survival Guide' recommends all of the following EXCEPT:",
+        options: [
+            "Build brand awareness outside the platform",
+            "Diversify across multiple platforms",
+            "Rely entirely on the platform for customer data and relationships",
+            "Become irreplaceable through unique products or deep integration"
+        ],
+        correct: 2,
+        explanation: "The guide warns against platform dependency. Complementors should build brand outside, diversify platforms, OWN their data (not let the platform keep it), and become hard to replace. Relying entirely on the platform for customer relationships is the opposite of the advice."
+    },
+    {
+        topic: "AI Era Strategy",
+        q: "In the emerging 5-layer platform stack (agent, data, fulfilment, payment, discovery), the 'serendipity layer' is important because:",
+        options: [
+            "AI agents are excellent at creating unexpected experiences",
+            "AI agents struggle with serendipity, making it a defensible human-centric advantage for platforms",
+            "Serendipity has no commercial value in modern commerce",
+            "Regulations require platforms to offer serendipitous experiences"
+        ],
+        correct: 1,
+        explanation: "AI agents optimise for known preferences but are poor at creating surprise and exposure to the unexpected. Platforms that own the discovery/serendipity layer (Instagram, CRED) can defend against agentic disintermediation by offering what algorithms can't replicate."
+    }
+];
+
+let answered = 0;
+let correct = 0;
+let wrong = 0;
+let userAnswers = new Array(questions.length).fill(-1);
+
+function renderQuestions() {
+    const container = document.getElementById('questionsContainer');
+    container.innerHTML = '';
+    questions.forEach((q, i) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q${i}`;
+        let optionsHTML = q.options.map((opt, j) => 
+            `<button class="option-btn" id="q${i}o${j}" onclick="selectAnswer(${i},${j})">${String.fromCharCode(65+j)}) ${opt}</button>`
+        ).join('');
+        card.innerHTML = `
+            <span class="q-number">Q${i+1} of ${questions.length}</span>
+            <span class="q-topic">${q.topic}</span>
+            <div class="question-text">${q.q}</div>
+            <div class="options">${optionsHTML}</div>
+            <div class="explanation" id="exp${i}"></div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function selectAnswer(qi, oi) {
+    if (userAnswers[qi] !== -1) return;
+    userAnswers[qi] = oi;
+    const q = questions[qi];
+    const isCorrect = oi === q.correct;
+
+    // Disable all options
+    q.options.forEach((_, j) => {
+        const btn = document.getElementById(`q${qi}o${j}`);
+        btn.classList.add('disabled');
+        if (j === q.correct) btn.classList.add('correct');
+        if (j === oi && !isCorrect) btn.classList.add('wrong');
+    });
+
+    // Show explanation
+    const exp = document.getElementById(`exp${qi}`);
+    if (isCorrect) {
+        exp.className = 'explanation show correct-exp';
+        exp.innerHTML = `<strong>✅ Correct!</strong> ${q.explanation}`;
+        correct++;
+    } else {
+        exp.className = 'explanation show wrong-exp';
+        exp.innerHTML = `<strong>❌ Incorrect.</strong> The correct answer is <strong>${String.fromCharCode(65+q.correct)}</strong>. ${q.explanation}`;
+        wrong++;
+    }
+
+    answered++;
+    updateScoreBar();
+
+    if (answered === questions.length) {
+        document.getElementById('submitBtn').disabled = false;
+        document.getElementById('submitHint').textContent = 'All questions answered — ready to submit!';
+    }
+}
+
+function updateScoreBar() {
+    document.getElementById('correctCount').textContent = `✅ Correct: ${correct}`;
+    document.getElementById('wrongCount').textContent = `❌ Wrong: ${wrong}`;
+    document.getElementById('remainCount').textContent = `⏳ Remaining: ${questions.length - answered}`;
+    document.getElementById('progressBar').style.width = `${(answered/questions.length)*100}%`;
+}
+
+function submitQuiz() {
+    const pct = Math.round((correct/questions.length)*100);
+    document.getElementById('finalScore').textContent = `${correct}/${questions.length}`;
+    document.getElementById('finalPercent').textContent = `${pct}%`;
+
+    let grade = '', cls = '';
+    if (pct >= 90) { grade = '🏆 Excellent — Platform Strategist!'; cls = 'grade-a'; }
+    else if (pct >= 75) { grade = '👍 Good — Solid Understanding'; cls = 'grade-b'; }
+    else if (pct >= 55) { grade = '📖 Fair — Review Key Concepts'; cls = 'grade-c'; }
+    else { grade = '🔄 Needs Work — Re-read the Lectures'; cls = 'grade-d'; }
+    document.getElementById('gradeBadge').innerHTML = `<div class="grade-badge ${cls}">${grade}</div>`;
+
+    // Topic breakdown
+    const topicScores = {};
+    questions.forEach((q, i) => {
+        if (!topicScores[q.topic]) topicScores[q.topic] = { correct: 0, total: 0 };
+        topicScores[q.topic].total++;
+        if (userAnswers[i] === q.correct) topicScores[q.topic].correct++;
+    });
+    let breakdownHTML = '';
+    for (const [topic, data] of Object.entries(topicScores)) {
+        const tpct = Math.round((data.correct/data.total)*100);
+        const color = tpct >= 80 ? '#1a6630' : tpct >= 50 ? '#b07800' : '#8b2020';
+        breakdownHTML += `<div class="topic-row"><span class="topic-name">${topic}</span><span class="topic-score" style="color:${color}">${data.correct}/${data.total} (${tpct}%)</span></div>`;
+    }
+    document.getElementById('topicBreakdown').innerHTML = breakdownHTML;
+
+    document.getElementById('submitArea').style.display = 'none';
+    // Move results card before questions so it appears at top
+    const quizApp = document.getElementById('quizApp');
+    const resultsCard = document.getElementById('resultsCard');
+    const questionsContainer = document.getElementById('questionsContainer');
+    quizApp.insertBefore(resultsCard, questionsContainer);
+    resultsCard.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetQuiz() {
+    answered = 0; correct = 0; wrong = 0;
+    userAnswers = new Array(questions.length).fill(-1);
+    document.getElementById('submitArea').style.display = 'block';
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('submitHint').textContent = 'Answer all questions to submit';
+    document.getElementById('resultsCard').style.display = 'none';
+    updateScoreBar();
+    renderQuestions();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init
+renderQuestions();
+</script>
+
+</body>
+</html>

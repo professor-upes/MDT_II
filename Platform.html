@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Business Models - Lecture Slides</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+            padding: 40px 30px 50px 30px;
+            box-sizing: border-box;
+            page-break-after: always;
+            border-bottom: 3px solid #2d5f8d;
+        }
+        .slide:nth-child(even) {
+            background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%);
+        }
+        .slide:last-child {
+            border-bottom: none;
+        }
+        .container {
+            max-width: 1050px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px;
+            text-align: left;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            color: #2d5f8d;
+            font-size: 2em;
+            margin: 0 0 25px 0;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        h2 {
+            color: #ffffff;
+            background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+            font-size: 1.3em;
+            padding: 12px 15px;
+            margin: 20px 0 12px 0;
+            font-weight: 700;
+            border-radius: 8px;
+            border-left: 5px solid #5ba8cf;
+        }
+        h3 {
+            color: #2d5f8d;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        h3::before {
+            content: "▸";
+            color: #5ba8cf;
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+        ul, ol {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 6px 0;
+            color: #333;
+            font-weight: 500;
+        }
+        strong {
+            color: #2d5f8d;
+            font-weight: 700;
+        }
+        p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-box {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+            padding: 18px;
+            border-left: 6px solid #5ba8cf;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(45, 95, 141, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .comparison-box:hover {
+            transform: translateY(-5px);
+        }
+        .comparison-box h4 {
+            color: #2d5f8d;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+            font-weight: 700;
+        }
+        .comparison-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .comparison-box li {
+            margin: 8px 0;
+            font-size: 0.92em;
+            line-height: 1.6;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85em;
+            box-shadow: 0 4px 12px rgba(45, 95, 141, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 4px solid #5ba8cf;
+            font-size: 0.95em;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e8f0;
+            color: #333;
+            font-weight: 500;
+            vertical-align: top;
+        }
+        tr:hover {
+            background-color: #f8fafb;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .value-focus {
+            color: #5ba8cf;
+            font-weight: 700;
+            background: #e6f0f7;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .key-insight {
+            background: linear-gradient(135deg, #e6f0f7 0%, #f0f4f8 100%);
+            border-left: 6px solid #5ba8cf;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(91, 168, 207, 0.2);
+        }
+        .key-insight p {
+            margin: 0;
+            font-size: 0.98em;
+            line-height: 1.6;
+            color: #2d5f8d;
+            font-weight: 600;
+        }
+        .analogy-box {
+            background: #fff9e6;
+            border: 2px solid #f0c040;
+            border-left: 6px solid #f0c040;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.93em;
+            line-height: 1.65;
+            color: #5a4000;
+        }
+        .analogy-box strong {
+            color: #b07800;
+        }
+        .analogy-box .analogy-title {
+            font-size: 1em;
+            font-weight: 700;
+            color: #b07800;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .service-card {
+            background: white;
+            border: 2px solid #5ba8cf;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 14px rgba(45, 95, 141, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2d5f8d, #5ba8cf);
+        }
+        .service-card h4 {
+            color: #2d5f8d;
+            font-size: 1.05em;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+        .service-card .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+            color: white;
+            font-size: 0.72em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .service-card ul {
+            font-size: 0.88em;
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        .service-card li {
+            margin: 5px 0;
+        }
+        .slide-number {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            background: rgba(91,168,207,0.18);
+            color: #2d5f8d;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .tag {
+            background: #e6f0f7;
+            color: #2d5f8d;
+            font-size: 0.82em;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #5ba8cf;
+        }
+        .tag-highlight {
+            background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+            color: white;
+            border-color: #2d5f8d;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 15px 0;
+        }
+        .scenario-block {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+            border-left: 6px solid #2d5f8d;
+            padding: 15px 18px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .scenario-block h4 {
+            color: #2d5f8d;
+            margin: 0 0 8px 0;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+        .scenario-block p {
+            margin: 4px 0;
+            font-size: 0.9em;
+            line-height: 1.55;
+        }
+        .responsibility-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 8px 0;
+        }
+        .resp-pill {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            font-weight: 700;
+        }
+        .resp-you {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            font-weight: 700;
+            background: #d4edda;
+            color: #1a6630;
+            border: 1px solid #82c895;
+        }
+        .resp-provider {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            font-weight: 700;
+            background: #fde8e8;
+            color: #8b2020;
+            border: 1px solid #f0a0a0;
+        }
+        .warning-box {
+            background: #fff0f0;
+            border: 2px solid #e06060;
+            border-left: 6px solid #e06060;
+            padding: 15px 18px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.93em;
+            line-height: 1.6;
+            color: #6a1a1a;
+        }
+        .warning-box strong {
+            color: #8b2020;
+        }
+        .discussion-box {
+            background: linear-gradient(135deg, #f3e8ff 0%, #ede0ff 100%);
+            border-left: 6px solid #7c3aed;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.93em;
+            line-height: 1.65;
+            color: #3b1a6e;
+        }
+        .discussion-box strong {
+            color: #5b21b6;
+        }
+        .flow-arrow {
+            text-align: center;
+            font-size: 1.8em;
+            color: #5ba8cf;
+            margin: 8px 0;
+            font-weight: 700;
+        }
+        @media print {
+            .slide {
+                height: 100vh;
+                margin: 0;
+                padding: 30px;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+            body { margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== SLIDE 1: TITLE ===================== -->
+
+
+<!-- ===================== SLIDE 2: WHAT IS A PLATFORM? ===================== -->
+<div class="slide">
+    <div class="container">
+        <!-- <div class="slide-number">Slide 2 of 12</div> -->
+        <h1>What Is a Platform Business Model?</h1>
+
+        <h2>🏛️ The Core Definition</h2>
+        <p>A platform is an intermediary that creates value by <strong>facilitating interactions</strong> between two or more distinct user groups — rather than producing and selling a product itself. The platform does not own the inventory or create the core value; it <strong>orchestrates the conditions</strong> for others to do so.</p>
+
+        <div class="analogy-box">
+            <span class="analogy-title">🏪 Think of it this way...</span>
+            <p>A <strong>traditional business</strong> is like a restaurant — it buys ingredients, cooks food, and sells meals. A <strong>platform</strong> is like a food court — it doesn't cook anything, but by bringing together restaurants and hungry customers in one space, it creates value for both sides.</p>
+        </div>
+
+        <h2>🔄 Pipeline vs. Platform</h2>
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>🏭 Pipeline (Traditional)</h4>
+                <ul>
+                    <li>Value created through a <strong>linear sequence</strong>: design → produce → sell</li>
+                    <li>Firm <strong>owns inventory</strong> and assets</li>
+                    <li>Scales by adding resources and capacity</li>
+                    <li>Revenue from <strong>selling products</strong></li>
+                    <li><strong>Examples:</strong> Tata Steel, Hindustan Unilever, Maruti Suzuki</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>🌐 Platform (Ecosystem)</h4>
+                <ul>
+                    <li>Value created by <strong>enabling exchanges</strong> between producers & consumers</li>
+                    <li>Firm <strong>orchestrates access</strong> to external assets</li>
+                    <li>Scales by adding <strong>participants</strong></li>
+                    <li>Revenue from <strong>enabling transactions</strong></li>
+                    <li><strong>Examples:</strong> Uber, Airbnb, Zomato, Amazon Marketplace</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The firm's role shifts from <strong>maker to matchmaker</strong>. Platform value grows with participants, not production capacity. The most valuable companies in the world today — Apple, Google, Amazon, Meta — are all platforms.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 3: ANATOMY OF A PLATFORM ===================== -->
+<div class="slide">
+    <div class="container">
+        <!-- <div class="slide-number">Slide 3 of 12</div> -->
+        <h1>Anatomy of a Platform — The Core Interaction</h1>
+
+        <h2>🧩 Four Elements of Every Platform</h2>
+        <p>Every successful platform can be decomposed into four elements that define its <strong>core interaction</strong>:</p>
+
+        <div class="comparison-4">
+            <div class="service-card">
+                <div class="badge">ELEMENT 1</div>
+                <h4>👥 Participants</h4>
+                <p style="font-size:0.88em; line-height:1.5;"><strong>Producers</strong> who create value (drivers, hosts, sellers, creators) and <strong>Consumers</strong> who use it (riders, guests, buyers, viewers)</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">ELEMENT 2</div>
+                <h4>📦 Value Unit</h4>
+                <p style="font-size:0.88em; line-height:1.5;">The thing being exchanged — a listing, a video, a ride request, a product review, a food order</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">ELEMENT 3</div>
+                <h4>⚙️ Filter / Algorithm</h4>
+                <p style="font-size:0.88em; line-height:1.5;">The mechanism governing relevance & quality — search ranking, recommendations, matching logic</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">ELEMENT 4</div>
+                <h4>📱 Channel</h4>
+                <p style="font-size:0.88em; line-height:1.5;">The interface through which interaction occurs — app, marketplace, API, website</p>
+            </div>
+        </div>
+
+        <h2>🇮🇳 Indian Platform Ecosystem — Mapped</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Sides Connected</th>
+                    <th>Core Interaction</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>🚌 RedBus</strong></td>
+                    <td>Passengers ↔ Bus operators</td>
+                    <td>Ticket booking with transparent pricing, ratings, seat selection</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🍕 Swiggy / Zomato</strong></td>
+                    <td>Diners ↔ Restaurants ↔ Delivery partners</td>
+                    <td>Food discovery, ordering, last-mile delivery</td>
+                </tr>
+                <tr>
+                    <td><strong>🛒 Flipkart / Amazon</strong></td>
+                    <td>Buyers ↔ Sellers</td>
+                    <td>Product discovery, comparison, purchase, fulfilment</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>💳 CRED</strong></td>
+                    <td>Creditworthy users ↔ Premium brands</td>
+                    <td>Bill payment as gateway to curated commerce</td>
+                </tr>
+                <tr>
+                    <td><strong>💰 Razorpay</strong></td>
+                    <td>Businesses ↔ Payment infrastructure</td>
+                    <td>Enabling digital payments for merchants of all sizes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The strength of a platform depends on the quality and frequency of its core interaction. Get this wrong, and no amount of funding or technology saves you.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 4: NETWORK EFFECTS ===================== -->
+<div class="slide">
+    <div class="container">
+        <!-- <div class="slide-number">Slide 4 of 12</div> -->
+        <h1>Network Effects — The Engine of Platform Economics</h1>
+
+        <h2>📈 The Core Concept</h2>
+        <p>A <strong>network effect</strong> exists when each additional user makes the platform more valuable for all other users. This is the single most important concept in platform economics — it creates a <strong>self-reinforcing growth loop</strong>.</p>
+
+        <div class="analogy-box">
+            <span class="analogy-title">📞 The Telephone Analogy</span>
+            <p>The first telephone was useless — there was nobody to call. The second telephone made the first one valuable. By the time millions had telephones, each new phone added value for <strong>everyone already on the network</strong>. This is a network effect in its purest form.</p>
+        </div>
+
+        <h2>🔀 Types of Network Effects</h2>
+        <div class="comparison-3">
+            <div class="comparison-box">
+                <h4>👈👉 Same-Side (Direct)</h4>
+                <ul>
+                    <li>More users on <strong>one side</strong> benefit others on the <strong>same side</strong></li>
+                    <li>WhatsApp: more friends = more useful</li>
+                    <li>LinkedIn: more professionals = richer network</li>
+                    <li>Stack Overflow: more developers = better answers</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>↔️ Cross-Side (Indirect)</h4>
+                <ul>
+                    <li>More users on <strong>one side</strong> benefit users on the <strong>other side</strong></li>
+                    <li>More restaurants on Zomato → better for diners</li>
+                    <li>More diners on Zomato → more attractive for restaurants</li>
+                    <li>More apps on Play Store → more Android buyers</li>
+                </ul>
+            </div>
+            <div class="comparison-box" style="border-left-color:#e06060;">
+                <h4>⚠️ Negative Effects</h4>
+                <ul>
+                    <li>More users can <strong>reduce</strong> value</li>
+                    <li>Surge pricing congestion on Ola/Uber</li>
+                    <li>Content overload on Instagram</li>
+                    <li>Spam & fake listings on OLX</li>
+                    <li>Managed via curation, moderation, filters</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- <div class="discussion-box">
+            <strong>💬 Discussion:</strong> Consider CRED. It restricts membership to users with high credit scores. Is this a way to manage <strong>negative network effects</strong> (low-quality users eroding value), or is it a fundamentally different strategy — creating <strong>exclusivity as value</strong>?
+        </div> -->
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> Network effects are the moat. They create winner-take-most dynamics. But not all network effects are equally strong — the critical question is whether your users can easily <strong>multi-home</strong> (use competing platforms simultaneously).</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 5: PRINCIPAL-AGENT PROBLEM ===================== -->
+<div class="slide">
+    <div class="container">
+        <!-- <div class="slide-number">Slide 5 of 12</div> -->
+        <h1>The Principal-Agent Problem</h1>
+
+        <h2>🤝 The Classical Framework</h2>
+        <p>The <strong>principal-agent problem</strong> arises when one party (the <span class="value-focus">agent</span>) acts on behalf of another (the <span class="value-focus">principal</span>), but their interests don't perfectly align — and the principal can't fully observe the agent's actions.</p>
+
+        <div class="comparison">
+            <div class="service-card">
+                <div class="badge">PROBLEM 1</div>
+                <h4>🔒 Information Asymmetry</h4>
+                <p style="font-size:0.9em; line-height:1.55;">The agent <strong>knows more</strong> than the principal about the transaction, the market, or the quality of what is being offered. The principal is operating with incomplete information.</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">PROBLEM 2</div>
+                <h4>⚖️ Misaligned Incentives</h4>
+                <p style="font-size:0.9em; line-height:1.55;">What is <strong>best for the agent</strong> (quick sale, higher commission) is not necessarily what is <strong>best for the principal</strong> (best price, best fit, best quality).</p>
+            </div>
+        </div>
+
+        <h2>🚌 The Travel Agent Example — Before RedBus</h2>
+        <div class="analogy-box">
+            <span class="analogy-title">🎫 Booking a bus in India, circa 2005</span>
+            <p>You walk into a local travel agent's office. You want a bus to Manali. The agent tells you <strong>"Sharma Travels has a seat, ₹800."</strong> But you don't know: Are there cheaper operators? Better buses? Is Sharma paying this agent the highest commission? The agent has <strong>information you don't</strong>, and their incentive is to sell what earns them the most — not what's best for you.</p>
+            <p style="margin-top:8px;"><strong>You are the principal. The agent is... the agent. And the system is working against you.</strong></p>
+        </div>
+
+        <h2>📊 Principal-Agent Relationships Across Industries</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Principal (You)</th>
+                    <th>Agent (Acting for You)</th>
+                    <th>The Conflict</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Travel</strong></td>
+                    <td>Passenger</td>
+                    <td>Local travel agent</td>
+                    <td>Agent steers to highest-commission operator</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Real Estate</strong></td>
+                    <td>Home buyer</td>
+                    <td>Property broker</td>
+                    <td>Broker wants quick sale, not best price for buyer</td>
+                </tr>
+                <tr>
+                    <td><strong>Financial Products</strong></td>
+                    <td>Investor</td>
+                    <td>Insurance/MF agent</td>
+                    <td>Agent pushes highest-commission fund</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Healthcare</strong></td>
+                    <td>Patient</td>
+                    <td>Doctor (in fee-for-service)</td>
+                    <td>Incentive for unnecessary tests/procedures</td>
+                </tr>
+                <tr>
+                    <td><strong>Taxis</strong></td>
+                    <td>Rider</td>
+                    <td>Taxi dispatcher</td>
+                    <td>Dispatcher sends closest driver, not best driver</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The principal-agent problem is fundamentally about <strong>trust under opacity</strong>. Whenever you rely on someone who knows more than you and whose incentives differ from yours, you're exposed to this problem.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 6: HOW PLATFORMS SOLVE IT ===================== -->
+<div class="slide">
+    <div class="container">
+        <!-- <div class="slide-number">Slide 6 of 12</div> -->
+        <h1>How Platforms Solved the Agency Problem</h1>
+
+        <h2>💡 The Platform Solution: Transparency</h2>
+        <p>Platforms solved the principal-agent problem by <strong>disintermediating the agent and making information transparent</strong>. When you can see all operators, all prices, all ratings yourself — you no longer need to trust someone whose incentives don't match yours.</p>
+
+        <h2>🔄 Before & After: The Disintermediation Pattern</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Old Agent (Opaque)</th>
+                    <th>Platform (Transparent)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>🚌 Travel</strong></td>
+                    <td>Local agent with hidden commissions</td>
+                    <td>RedBus / MakeMyTrip — all options visible</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🚕 Taxis</strong></td>
+                    <td>Dispatcher choosing which driver gets the fare</td>
+                    <td>Uber / Ola — algorithmic matching, transparent pricing</td>
+                </tr>
+                <tr>
+                    <td><strong>🏠 Real Estate</strong></td>
+                    <td>Broker controlling property information</td>
+                    <td>99acres / MagicBricks — direct listings</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🛍️ Retail</strong></td>
+                    <td>Salesperson steering to high-margin products</td>
+                    <td>Amazon / Flipkart — reviews, comparisons, full catalogue</td>
+                </tr>
+                <tr>
+                    <td><strong>💰 Finance</strong></td>
+                    <td>Agent pushing highest-commission MF/insurance</td>
+                    <td>PolicyBazaar / Groww — comparison engines</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>⚠️ But Did the Problem Really Disappear?</h2>
+        <div class="warning-box">
+            <strong>🚨 Critical Insight:</strong> The principal-agent problem didn't disappear — it <strong>shape-shifted</strong>. The platform itself became the new agent. Its curation algorithms, ranking systems, and ad placements became the new information asymmetry. When "Top Result" means "paid placement" rather than "best for you," the platform's incentives have diverged from yours — the <strong>same structural problem</strong>, just at algorithmic scale.
+        </div>
+
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>🏪 Old Agency Problem</h4>
+                <ul>
+                    <li>Travel agent steers you to Sharma Travels</li>
+                    <li>Information hidden by a <strong>human</strong></li>
+                    <li>You can't see alternatives</li>
+                    <li>Agent earns commission</li>
+                </ul>
+            </div>
+            <div class="comparison-box" style="border-left-color:#e06060;">
+                <h4>💻 New Agency Problem</h4>
+                <ul>
+                    <li>Platform shows "Sponsored" result first</li>
+                    <li>Information shaped by an <strong>algorithm</strong></li>
+                    <li>You see alternatives but they're <strong>ranked by revenue</strong></li>
+                    <li>Platform earns ad/promotion fees</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> Platforms made you your own agent — but you're not a very good agent for yourself. You satisfice, you're influenced by defaults, and you're subject to decision fatigue. The agency problem evolved, not vanished.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 7: THE BOTTLENECK SHIFT ===================== -->
+<!-- <div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 7 of 12</div>
+        <h1>The Bottleneck Shift — From Scarcity to Overload</h1>
+
+        <h2>🔄 The Migrating Bottleneck</h2>
+        <p>A critical insight in platform economics: solving one constraint simply reveals the next. <strong>The bottleneck in commerce never disappears; it migrates.</strong> Understanding where the bottleneck currently sits separates companies that build the right product from those solving yesterday's problem.</p>
+
+        <div class="analogy-box">
+            <span class="analogy-title">💡 Sandeep Paul's Insight</span>
+            <p><strong>"The bottleneck has shifted to a new place."</strong> Platforms solved the information access problem but created the information overload and decision complexity problem. Each era's solution becomes the next era's constraint.</p>
+        </div>
+
+        <h2>📊 Four Eras of the Bottleneck</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Era</th>
+                    <th>The Bottleneck</th>
+                    <th>Who Solved It</th>
+                    <th>New Problem Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>🏪 Pre-Internet</strong></td>
+                    <td>Access to goods</td>
+                    <td>Retail chains, logistics networks</td>
+                    <td>Limited information about alternatives</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🌐 Web 1.0 / 2.0</strong></td>
+                    <td>Access to information</td>
+                    <td>Platforms (RedBus, Amazon, MakeMyTrip)</td>
+                    <td>Too many options → decision fatigue</td>
+                </tr>
+                <tr>
+                    <td><strong>📱 Current</strong></td>
+                    <td>Processing capacity</td>
+                    <td>Filters, reviews, algorithms</td>
+                    <td>Platform incentives ≠ user interests</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>🤖 Emerging</strong></td>
+                    <td>Taste, judgment & identity</td>
+                    <td>AI agents (in progress)</td>
+                    <td>Loss of serendipity, preference lock-in</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🧠 The Current Bottleneck: Decision Overload</h2>
+        <div class="scenario-block">
+            <h4>🔍 Example: Searching "Delhi to Manali bus" on RedBus</h4>
+            <p>You get <strong>150+ results</strong>. Now <em>you</em> must become the analyst: filter by time, price, operator rating, bus type, seat position, cancellation policy. Multiply this across every purchase decision in your life.</p>
+            <p style="margin-top:8px;"><strong>Result:</strong> You don't optimise — you satisfice. You pick "good enough" and move on. You're influenced by default sorting, sponsored listings, and decision fatigue.</p>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The bottleneck migrated from <strong>"I can't find what I need"</strong> to <strong>"I have too many options and not enough cognitive bandwidth to evaluate them."</strong> This is the gap that creates demand for AI-mediated commerce.</p>
+        </div>
+    </div>
+</div> -->
+
+<!-- ===================== SLIDE 8: AGENTIC COMMERCE ===================== -->
+<!-- <div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 8 of 12</div>
+        <h1>Agentic Commerce — Why AI Takes Over Agency</h1>
+
+        <h2>🤖 Three Converging Forces</h2>
+        <div class="comparison-3">
+            <div class="service-card">
+                <div class="badge">FORCE 1</div>
+                <h4>🧠 Decision Complexity Has Outgrown Human Cognition</h4>
+                <p style="font-size:0.88em; line-height:1.5;">Every category has too many options, too many dimensions, too many signals. No human can optimally evaluate 150 bus options across 8 criteria.</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">FORCE 2</div>
+                <h4>🔓 Platform Trust Has Eroded</h4>
+                <p style="font-size:0.88em; line-height:1.5;">Consumers increasingly understand that "Top Result" often means "paid placement," not "best for you." Platform incentives have visibly diverged from user interests.</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">FORCE 3</div>
+                <h4>⚡ AI Capability Threshold</h4>
+                <p style="font-size:0.88em; line-height:1.5;">LLMs can now understand preferences, process unstructured reviews, and reason across multiple criteria simultaneously — at scale and speed.</p>
+            </div>
+        </div>
+
+        <h2>🔄 Platform-Mediated vs. Agent-Mediated Commerce</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Platform-Mediated (Today)</th>
+                    <th>Agent-Mediated (Emerging)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Decision-making</strong></td>
+                    <td>User searches, filters, evaluates</td>
+                    <td>Agent searches, filters, decides or shortlists</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Monetisation</strong></td>
+                    <td>Platform monetises attention and clicks</td>
+                    <td>Agent bypasses attention-based monetisation</td>
+                </tr>
+                <tr>
+                    <td><strong>Reviews & ratings</strong></td>
+                    <td>Influence the human directly</td>
+                    <td>Become machine-readable data for the agent</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Brand signals</strong></td>
+                    <td>Work through emotion and recognition</td>
+                    <td>Must translate to measurable attributes</td>
+                </tr>
+                <tr>
+                    <td><strong>Impulse buying</strong></td>
+                    <td>A feature of browsing</td>
+                    <td>May disappear from agentic transactions</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Cognitive load</strong></td>
+                    <td>User bears full load</td>
+                    <td>Delegated entirely to the agent</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> Agentic commerce represents a <strong>new principal-agent relationship</strong> — this time with AI as the agent. The promise is an agent that genuinely represents <em>your</em> interests. The risk is that it becomes yet another intermediary with its own misaligned incentives.</p>
+        </div>
+    </div>
+</div> -->
+
+<!-- ===================== SLIDE 9: THREAT TO PLATFORMS ===================== -->
+<!-- <div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 9 of 12</div>
+        <h1>The Existential Threat to Platform Business Models</h1>
+
+        <h2>💀 Why Agentic AI Threatens Platforms</h2>
+        <p>If agentic AI solves the decision problem effectively, it fundamentally threatens the platform business model. Here's the chain of logic:</p>
+
+        <div class="scenario-block">
+            <h4>🔗 The Value Extraction Chain</h4>
+            <p><strong>Platforms monetise through attention, ads, and promoted listings</strong> → An AI agent skips straight to the optimal choice → The user <strong>never browses</strong>, never sees banner ads, never impulse-orders → The platform shows 150 results because <strong>that's where the monetisation lives</strong> → An agent that collapses that to one answer <strong>extracts value while undermining revenue</strong>.</p>
+        </div>
+
+        <h2>📱 The Swiggy Scenario</h2>
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>📱 Today: You Open Swiggy</h4>
+                <ul>
+                    <li>You see the homepage → <strong>banner ads</strong></li>
+                    <li>You browse restaurants → <strong>promoted listings</strong></li>
+                    <li>You scroll the menu → <strong>impulse add dessert</strong></li>
+                    <li>You see "Trending Near You" → <strong>discovery revenue</strong></li>
+                    <li>Every tap is a <strong>monetisation surface</strong></li>
+                </ul>
+            </div>
+            <div class="comparison-box" style="border-left-color:#e06060;">
+                <h4>🤖 Tomorrow: Your AI Agent Orders</h4>
+                <ul>
+                    <li>Agent calls Swiggy API → <strong>bypasses homepage</strong></li>
+                    <li>Agent evaluates restaurants by your criteria → <strong>ignores promoted listings</strong></li>
+                    <li>Agent orders optimally → <strong>no impulse purchases</strong></li>
+                    <li>Agent compares across platforms → <strong>no loyalty</strong></li>
+                    <li>Every surface is <strong>bypassed</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>💣 What's at Stake for Each Player</h2>
+        <div class="comparison-3">
+            <div class="comparison-box">
+                <h4>🏢 For Platforms</h4>
+                <ul>
+                    <li>Lose surface area for influence</li>
+                    <li>Ad-based revenue model collapses</li>
+                    <li>Become invisible infrastructure</li>
+                    <li>Must shift to <strong>API-first monetisation</strong></li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>🏷️ For Brands</h4>
+                <ul>
+                    <li>Emotional branding loses impact</li>
+                    <li>Brand = measurable attributes</li>
+                    <li>Shelf presence becomes irrelevant</li>
+                    <li>Must optimise for <strong>agent-readability</strong></li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>👤 For Consumers</h4>
+                <ul>
+                    <li>Cognitive load eliminated</li>
+                    <li>Better decisions on known needs</li>
+                    <li>But: preference loop risk</li>
+                    <li>Identity question: <strong>who's doing the wanting?</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The platform's 150 results aren't a design flaw — they're the business model. An AI agent that compresses that to one answer is a <strong>direct attack on the revenue engine</strong>.</p>
+        </div>
+    </div>
+</div> -->
+
+<!-- ===================== SLIDE 10: FUTURE OF DISCOVERY ===================== -->
+<!-- <div class="slide">
+    <div class="container">
+        <div class="slide-number">Slide 10 of 12</div>
+        <h1>The Future of Discovery — When Agency Takes Over</h1>
+
+        <h2>🔍 Two Fundamentally Different Modes of Discovery</h2>
+        <div class="comparison">
+            <div class="service-card">
+                <div class="badge">MODE 1</div>
+                <h4>🎯 Known-Need Discovery</h4>
+                <p style="font-size:0.9em; line-height:1.55;">You <strong>know what you want</strong> and need to find the best version. <em>"Delhi to Manali, overnight, good operator, under ₹1,500."</em></p>
+                <p style="font-size:0.88em; margin-top:8px;"><strong>AI agent verdict:</strong></p>
+                <div class="responsibility-row">
+                    <span class="resp-you">✅ AI handles this beautifully</span>
+                </div>
+                <p style="font-size:0.85em; color:#555; margin-top:8px;">Collapses search, optimises across criteria, delivers the answer. This is where delegating agency genuinely helps.</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">MODE 2</div>
+                <h4>✨ Unknown-Need Discovery (Serendipity)</h4>
+                <p style="font-size:0.9em; line-height:1.55;">You <strong>didn't know you wanted it</strong> until you encountered it. Browsing a bookstore, a cover catches your eye. Walking through Jaipur, you discover block-printed fabrics.</p>
+                <p style="font-size:0.88em; margin-top:8px;"><strong>AI agent verdict:</strong></p>
+                <div class="responsibility-row">
+                    <span class="resp-provider">⚠️ AI struggles — and may destroy this</span>
+                </div>
+                <p style="font-size:0.85em; color:#555; margin-top:8px;">Agent optimises for existing preferences. You never encounter what would have expanded your taste.</p>
+            </div>
+        </div>
+
+        <h2>🔒 The Optimisation Trap</h2>
+        <div class="warning-box">
+            <strong>⚠️ The Preference Loop:</strong> Your AI agent learns what you chose → reinforces those patterns → serves you more of the same → your preferences narrow → the agent serves you even more of the same. The space for preference evolution shrinks. You get trapped in an <strong>optimisation loop of your own past self</strong>.
+        </div>
+
+        <h2>🗺️ The New Bottleneck</h2>
+        <div class="scenario-block">
+            <h4>The bottleneck moves from:</h4>
+            <p style="text-align:center; font-size:1.05em;">
+                <span class="value-focus">"I can't find what I need"</span>
+                &nbsp;→&nbsp;
+                <span style="color:#e06060; font-weight:700; background:#fff0f0; padding:4px 8px; border-radius:4px;">"I never encounter what I didn't know I needed"</span>
+            </p>
+            <p style="margin-top:10px;">Discovery becomes narrower, more efficient, but also more closed. The serendipity that messy, inefficient browsing once provided — the <strong>human equivalent of a random walk</strong> — gets optimised away.</p>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The bottleneck hasn't just shifted to a new place — it's shifted to a <strong>new kind of problem</strong>. One that's less about information and more about identity, serendipity, and who gets to shape what you want.</p>
+        </div>
+    </div>
+</div> -->
+
+<!-- ===================== SLIDE 11: PLATFORM STRATEGY ===================== -->
+<div class="slide">
+    <div class="container">
+        <!-- <div class="slide-number">Slide 11 of 12</div> -->
+        <h1>Platform Strategy — Building & Participating in Ecosystems</h1>
+
+        <h2>🐔🥚 The Chicken-and-Egg Problem</h2>
+        <p>Every platform faces a cold-start challenge: how do you get one side when the other isn't there yet?</p>
+
+        <div class="comparison-4" style="grid-template-columns: 1fr 1fr;">
+            <div class="comparison-box">
+                <h4>💸 Subsidise One Side</h4>
+                <p style="font-size:0.88em;">Uber gave drivers guaranteed earnings before rider demand materialised. Paytm offered cashback to onboard merchants and users simultaneously.</p>
+            </div>
+            <div class="comparison-box">
+                <h4>🌱 Seed Value Yourself</h4>
+                <p style="font-size:0.88em;">Reddit's founders created early content under pseudonyms. Quora's founders wrote high-quality answers to simulate an active community.</p>
+            </div>
+            <div class="comparison-box">
+                <h4>🧑‍💻 Single-Player Use Case</h4>
+                <p style="font-size:0.88em;">OpenTable gave restaurants reservation software valuable even without diners. Razorpay offered payment tools useful even before marketplace effects kicked in.</p>
+            </div>
+            <div class="comparison-box">
+                <h4>🔗 Piggyback an Existing Network</h4>
+                <p style="font-size:0.88em;">PayPal grew by integrating with eBay's buyer-seller network. Instagram launched on Facebook's social graph.</p>
+            </div>
+        </div>
+
+        <h2>💰 Monetisation: Who Pays, Who's Subsidised?</h2>
+        <p>The price-sensitive side gets in free or cheap. The side gaining disproportionate value pays.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Subsidised Side (Free/Cheap)</th>
+                    <th>Monetised Side (Pays)</th>
+                    <th>Revenue Model</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Google</strong></td>
+                    <td>Searchers (free access)</td>
+                    <td>Advertisers</td>
+                    <td>Pay-per-click ads</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>Zomato</strong></td>
+                    <td>Diners (subsidised delivery)</td>
+                    <td>Restaurants</td>
+                    <td>Commissions + promoted listings</td>
+                </tr>
+                <tr>
+                    <td><strong>App Store</strong></td>
+                    <td>Users (free to download)</td>
+                    <td>Developers</td>
+                    <td>30% commission on sales</td>
+                </tr>
+                <tr style="background:#f0f8ff;">
+                    <td><strong>LinkedIn</strong></td>
+                    <td>Basic users (free profiles)</td>
+                    <td>Recruiters & advertisers</td>
+                    <td>Premium subscriptions + ads</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🏗️ Build vs. Participate — Choosing Your Role</h2>
+        <div class="comparison">
+            <div class="comparison-box">
+                <h4>🌐 Be the Platform (Orchestrator)</h4>
+                <ul>
+                    <li>Highest upside, highest risk</li>
+                    <li>Requires solving chicken-and-egg</li>
+                    <li>Winner-take-most if network effects are strong</li>
+                    <li><strong>Example:</strong> Flipkart building the marketplace</li>
+                </ul>
+            </div>
+            <div class="comparison-box">
+                <h4>🧩 Be a Participant (Complementor)</h4>
+                <ul>
+                    <li>Lower risk, leverage existing traffic</li>
+                    <li>Build indispensability, not the platform</li>
+                    <li>Win if you become <strong>hard to replace</strong></li>
+                    <li><strong>Example:</strong> Stripe thriving inside many ecosystems</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> Not every company should try to be the orchestrator. The strategic question is: <strong>where does the leverage sit?</strong> Sometimes the smartest play is to be the indispensable component, not the platform itself.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 12: DISCUSSION & CASES ===================== -->
+
+<div class="slide">
+    <div class="container">
+        <h1>Creating a Platform — Solving the Cold Start Problem</h1>
+
+        <h2>🐔🥚 The Chicken-and-Egg Challenge</h2>
+        <p>Every platform faces the same existential question at birth: <strong>how do you attract one side when the other side isn't there yet?</strong> No drivers means no riders. No riders means no drivers. This is the cold start problem — and most platforms die here.</p>
+
+        <h2>🛠️ Four Proven Launch Strategies</h2>
+        <div class="comparison">
+            <div class="service-card">
+                <div class="badge">STRATEGY 1</div>
+                <h4>💸 Subsidise One Side</h4>
+                <p style="font-size:0.88em; line-height:1.5;">Pay one side to show up so the other side has a reason to come. The subsidised side is your <strong>loss leader</strong>.</p>
+                <ul>
+                    <li><strong>Uber India:</strong> Guaranteed ₹2,000/day to drivers before rider demand existed</li>
+                    <li><strong>Paytm:</strong> Cashback for both merchants and users to bootstrap UPI adoption</li>
+                    <li><strong>PhonePe:</strong> ₹75-100 cashback per transaction in early days</li>
+                </ul>
+                <div class="responsibility-row">
+                    <span class="resp-neutral">⚠️ Risk: Subsidy addiction — users leave when incentives stop</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="badge">STRATEGY 2</div>
+                <h4>🌱 Seed Value Yourself</h4>
+                <p style="font-size:0.88em; line-height:1.5;">Create the initial supply yourself so the demand side sees value from day one.</p>
+                <ul>
+                    <li><strong>Reddit:</strong> Founders created early posts under fake accounts</li>
+                    <li><strong>Quora:</strong> Founders personally answered hundreds of questions</li>
+                    <li><strong>Zomato (early days):</strong> Team manually scanned and uploaded restaurant menus across Delhi</li>
+                </ul>
+                <div class="responsibility-row">
+                    <span class="resp-you">✅ Low cost, high credibility — but doesn't scale</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison" style="margin-top:15px;">
+            <div class="service-card">
+                <div class="badge">STRATEGY 3</div>
+                <h4>🧑‍💻 Single-Player Use Case</h4>
+                <p style="font-size:0.88em; line-height:1.5;">Build a tool that's useful to one side <strong>even without the other side</strong>. Then add the marketplace layer.</p>
+                <ul>
+                    <li><strong>OpenTable:</strong> Gave restaurants reservation management software — valuable before any diners joined</li>
+                    <li><strong>Razorpay:</strong> Payment tools useful to merchants even before marketplace effects kicked in</li>
+                    <li><strong>Shopify:</strong> Store builder for merchants; marketplace came later</li>
+                </ul>
+                <div class="responsibility-row">
+                    <span class="resp-you">✅ Most sustainable — creates real value before network effects</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="badge">STRATEGY 4</div>
+                <h4>🔗 Piggyback an Existing Network</h4>
+                <p style="font-size:0.88em; line-height:1.5;">Attach to a platform that already has both sides and siphon users to yours.</p>
+                <ul>
+                    <li><strong>PayPal:</strong> Integrated into eBay's buyer-seller network</li>
+                    <li><strong>Instagram:</strong> Launched on Facebook's social graph</li>
+                    <li><strong>Airbnb:</strong> Cross-posted listings to Craigslist to capture existing demand</li>
+                </ul>
+                <div class="responsibility-row">
+                    <span class="resp-neutral">⚠️ Risk: Host platform may cut you off (Zynga + Facebook)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The cold start is the #1 killer of platforms. The smartest founders don't try to build both sides simultaneously — they <strong>make one side inevitable</strong>, then let the other follow.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 12: ECOSYSTEM DESIGN — ROLES & ARCHITECTURE ===================== -->
+<div class="slide">
+    <div class="container">
+        <h1>Ecosystem Design — Roles, Architecture & Value Flow</h1>
+
+        <h2>🏗️ The Ecosystem Map</h2>
+        <p>A platform ecosystem is not just the platform and its two sides. It's a <strong>layered network</strong> of roles, each extracting and contributing value differently. Understanding these roles is essential for both creators and participants.</p>
+
+        <div class="comparison-4" style="grid-template-columns: 1fr 1fr 1fr;">
+            <div class="service-card">
+                <div class="badge">ROLE 1</div>
+                <h4>👑 Platform Orchestrator</h4>
+                <p style="font-size:0.85em; line-height:1.5;">Sets the rules, owns the infrastructure, governs interactions, captures the largest share of value.</p>
+                <ul>
+                    <li><strong>Examples:</strong> Apple (App Store), Amazon (Marketplace), Google (Play Store)</li>
+                    <li><strong>Power:</strong> Controls access, pricing, visibility</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="badge">ROLE 2</div>
+                <h4>🧩 Complementors</h4>
+                <p style="font-size:0.85em; line-height:1.5;">Build products/services on top of the platform that make it more valuable — without owning the platform.</p>
+                <ul>
+                    <li><strong>Examples:</strong> App developers on iOS, sellers on Amazon, restaurants on Zomato</li>
+                    <li><strong>Power:</strong> Depends on substitutability — are you one of thousands or one of a kind?</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="badge">ROLE 3</div>
+                <h4>🔧 Infrastructure Providers</h4>
+                <p style="font-size:0.85em; line-height:1.5;">Enable the platform to function — payments, logistics, cloud, identity verification.</p>
+                <ul>
+                    <li><strong>Examples:</strong> Razorpay (payments), AWS (cloud), Delhivery (logistics), Aadhaar (identity)</li>
+                    <li><strong>Power:</strong> Often invisible but deeply embedded — high switching costs</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>💰 Value Flow in an Ecosystem</h2>
+        <div class="analogy-box">
+            <span class="analogy-title">🌊 The River Analogy</span>
+            <p>Think of value as water flowing through a river system. The <strong>orchestrator builds the dam</strong> — they control the flow and take the biggest share. <strong>Complementors are tributaries</strong> — they add water (value) to the system. <strong>Infrastructure providers are the riverbed</strong> — invisible but without them, nothing flows. The question for any firm is: <strong>where in this river system do you want to sit, and can you control a chokepoint?</strong></p>
+        </div>
+
+        <h2>📊 Value Capture by Role — Who Wins?</h2>
+        <table>
+            <thead>
+                <tr><th>Role</th><th>Value Created</th><th>Value Captured</th><th>Vulnerability</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Orchestrator</strong></td><td>Moderate (enables, doesn't produce)</td><td>Highest (commission, data, attention)</td><td>Regulatory action, platform alternatives</td></tr>
+                <tr style="background:#f0f8ff;"><td><strong>Complementor</strong></td><td>High (makes platform useful)</td><td>Low–Medium (depends on differentiation)</td><td>Platform competing with you, commoditisation</td></tr>
+                <tr><td><strong>Infrastructure Provider</strong></td><td>Critical (enables everything)</td><td>Medium (B2B pricing power)</td><td>Standardisation, open-source alternatives</td></tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The orchestrator captures disproportionate value relative to what they create. The strategic question is not just "can we build a platform?" but <strong>"can we control a chokepoint in the value flow?"</strong></p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 13: MONETISATION DEEP DIVE ===================== -->
+<div class="slide">
+    <div class="container">
+        <h1>Platform Monetisation — Who Pays and Why</h1>
+
+        <h2>💰 The Fundamental Pricing Question</h2>
+        <p>Platforms serve multiple sides. The question isn't "what do we charge?" — it's <strong>"which side do we charge, which side do we subsidise, and why?"</strong> Get this wrong and you kill the network effect before it starts.</p>
+
+        <div class="analogy-box">
+            <span class="analogy-title">🎪 The Nightclub Analogy</span>
+            <p>Nightclubs often let women in free and charge men a cover fee. Why? Because the presence of women <strong>attracts the paying side</strong>. The subsidised side is the one whose presence makes the platform valuable to the side that pays. Platforms follow the same logic — <strong>subsidise the side you need more of, charge the side that extracts more value.</strong></p>
+        </div>
+
+        <h2>📊 Monetisation Models Across Platforms</h2>
+        <table>
+            <thead>
+                <tr><th>Platform</th><th>Subsidised Side</th><th>Monetised Side</th><th>Revenue Model</th><th>Why This Structure?</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Google</strong></td><td>Searchers (free)</td><td>Advertisers</td><td>Pay-per-click ads</td><td>Searchers create attention; advertisers pay to access it</td></tr>
+                <tr style="background:#f0f8ff;"><td><strong>Zomato</strong></td><td>Diners (subsidised delivery)</td><td>Restaurants</td><td>Commissions + promoted listings</td><td>Diners are price-sensitive; restaurants gain incremental orders</td></tr>
+                <tr><td><strong>App Store</strong></td><td>Users (free downloads)</td><td>Developers</td><td>30% commission on sales</td><td>Users are the scarce asset; developers compete for them</td></tr>
+                <tr style="background:#f0f8ff;"><td><strong>LinkedIn</strong></td><td>Basic users (free profiles)</td><td>Recruiters & advertisers</td><td>Premium subs + ads</td><td>Professionals are the product; recruiters pay to reach them</td></tr>
+                <tr><td><strong>CRED</strong></td><td>Premium users (free, rewarded)</td><td>Brands & financial partners</td><td>B2B partnerships + commerce</td><td>High-net-worth users are the asset; brands pay for access</td></tr>
+                <tr style="background:#f0f8ff;"><td><strong>Razorpay</strong></td><td>Neither (B2B)</td><td>Merchants</td><td>Transaction fees (2% per payment)</td><td>Merchants pay for payment infrastructure; consumers pay nothing</td></tr>
+            </tbody>
+        </table>
+
+        <h2>🔑 Five Revenue Levers for Platforms</h2>
+        <div class="comparison-3" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap:10px;">
+            <div class="comparison-box" style="padding:12px;">
+                <h4 style="font-size:0.9em;">💳 Transaction Fee</h4>
+                <p style="font-size:0.8em;">Cut of each exchange (Uber, Razorpay)</p>
+            </div>
+            <div class="comparison-box" style="padding:12px;">
+                <h4 style="font-size:0.9em;">📢 Advertising</h4>
+                <p style="font-size:0.8em;">Promoted visibility (Google, Zomato)</p>
+            </div>
+            <div class="comparison-box" style="padding:12px;">
+                <h4 style="font-size:0.9em;">⭐ Premium Access</h4>
+                <p style="font-size:0.8em;">Subscription tiers (LinkedIn, Spotify)</p>
+            </div>
+            <div class="comparison-box" style="padding:12px;">
+                <h4 style="font-size:0.9em;">📊 Data Licensing</h4>
+                <p style="font-size:0.8em;">Insights & analytics (Twitter/X, Bloomberg)</p>
+            </div>
+            <div class="comparison-box" style="padding:12px;">
+                <h4 style="font-size:0.9em;">🧩 API Access</h4>
+                <p style="font-size:0.8em;">Developer tools & integrations (Twilio, Stripe)</p>
+            </div>
+        </div>
+
+        <div class="key-insight">
+            <p>🔑 <strong>Key Takeaway:</strong> The most common mistake is charging the wrong side too early. The rule: <strong>subsidise the side that's harder to acquire; monetise the side that extracts disproportionate value.</strong></p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== SLIDE 20: DISCUSSION & CASES ===================== -->
+<div class="slide">
+    <div class="container">
+        <h1>Discussion Questions & Case Exercises</h1>
+
+        <h2>💬 Conceptual Questions</h2>
+        <ol>
+            <li><strong>Shape-Shifting Agency:</strong> Explain why the principal-agent problem didn't disappear with platforms but instead evolved. Use a specific Indian platform as your example.</li>
+            <li style="margin-top:10px;"><strong>Discovery Modes:</strong> What distinguishes known-need from unknown-need discovery? Why does agentic AI threaten the second type?</li>
+            <li style="margin-top:10px;"><strong>Platform Survival:</strong> If AI agents bypass platform interfaces, what strategic options does a platform have to remain relevant?</li>
+            <li style="margin-top:10px;"><strong>Governance Balance:</strong> How does a platform decide the right level of governance? What are the costs of getting it wrong in either direction?</li>
+            <li style="margin-top:10px;"><strong>Complementor Strategy:</strong> You're a D2C brand selling on Amazon India. Amazon launches a competing private-label product. What's your playbook?</li>
+            <li style="margin-top:10px;"><strong>ONDC Impact:</strong> If ONDC succeeds in unbundling discovery, ordering, and fulfilment into interoperable layers, what happens to Swiggy and Zomato's business models?</li>
+        </ol>
+
+        <h2>📋 Case Exercises</h2>
+        <div class="comparison-3">
+            <div class="service-card">
+                <div class="badge">CASE 1</div>
+                <h4>🚌 RedBus & the Bottleneck Migration</h4>
+                <p style="font-size:0.85em; line-height:1.5;">RedBus made bus booking transparent. But today, 150+ results create decision overload. Map this to the bottleneck framework. How might an AI travel agent solve this — and what new problems would it create for RedBus's revenue?</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">CASE 2</div>
+                <h4>🍕 Swiggy in an Agentic World</h4>
+                <p style="font-size:0.85em; line-height:1.5;">30% of Swiggy orders are placed by AI agents that call the API directly. What happens to promoted listings? Impulse add-ons? Brand partnerships? Should Swiggy build its own agent, become infrastructure, or own serendipity?</p>
+            </div>
+            <div class="service-card">
+                <div class="badge">CASE 3</div>
+                <h4>🏷️ D2C Brand: Survival Strategy</h4>
+                <p style="font-size:0.85em; line-height:1.5;">A mid-sized Indian D2C brand sells on Amazon, Flipkart, and Shopify. Design a strategy using the Complementor's Survival Guide: brand building, platform diversification, data ownership, and differentiation. How does AI change the calculus?</p>
+            </div>
+        </div>
+
+        <h2>📚 Recommended Reading</h2>
+        <div class="tag-row">
+            <span class="tag">📖 Platform Revolution — Parker, Van Alstyne & Choudary</span>
+            <span class="tag">📖 Matchmakers — Evans & Schmalensee</span>
+            <span class="tag">📖 The Business of Platforms — Cusumano, Gawer & Yoffie</span>
+        </div>
+        <div class="tag-row">
+            <span class="tag">📄 Multi-Sided Platforms — Hagiu & Wright</span>
+            <span class="tag">📖 Modern Monopolies — Moazed & Johnson</span>
+            <span class="tag">📄 Platform Governance — Gorwa (2019)</span>
+        </div>
+
+        <div class="key-insight" style="margin-top:20px;">
+            <p>🎯 <strong>The Big Picture:</strong> Platforms solved information access but created decision overload. AI agents promise to solve that — but may destroy serendipity, undermine brand equity, and collapse platform revenue models. The next decade belongs to whoever controls the right layer in the emerging stack: agent, data, fulfilment, payment, or discovery. <strong>The bottleneck never disappears. It migrates.</strong></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
