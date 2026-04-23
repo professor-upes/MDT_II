@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Big Data Applications in Business | UPES School of Business</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1a2a3a;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── SLIDE WRAPPER ── */
+  .slide {
+    max-width: 960px;
+    margin: 36px auto;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 28px rgba(45,95,141,0.13);
+    page-break-after: always;
+  }
+
+  /* ── HEADER ── */
+  .slide-header {
+    background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 55%, #5ba8cf 100%);
+    padding: 32px 40px 28px;
+    color: #fff;
+    position: relative;
+  }
+  .slide-header .course-tag {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+  .slide-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .slide-header .subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+    opacity: 0.85;
+  }
+  .slide-number {
+    position: absolute;
+    bottom: 16px;
+    right: 28px;
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* ── TITLE SLIDE ── */
+  .title-slide .slide-header {
+    padding: 60px 40px 50px;
+    text-align: center;
+  }
+  .title-slide .slide-header h1 {
+    font-size: 32px;
+  }
+  .title-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 5px 18px;
+    font-size: 12px;
+    margin-top: 16px;
+    letter-spacing: 1px;
+  }
+  .title-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 20px 40px;
+    background: #f7fafd;
+    border-bottom: 1px solid #e2eaf3;
+    flex-wrap: wrap;
+  }
+  .title-meta span {
+    font-size: 12px;
+    color: #3a7ca5;
+    font-weight: 600;
+  }
+
+  /* ── BODY ── */
+  .slide-body { padding: 32px 40px 36px; }
+
+  /* ── SECTION HEADING ── */
+  h2.section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2d5f8d;
+    border-left: 5px solid #3a7ca5;
+    padding-left: 14px;
+    margin-bottom: 22px;
+    background: linear-gradient(90deg, #eaf2fb 0%, transparent 80%);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card {
+    background: #fff;
+    border: 1px solid #d8e8f4;
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(45,95,141,0.12);
+  }
+  .card .card-stripe {
+    height: 4px;
+    border-radius: 4px 4px 0 0;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+  }
+  .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2d5f8d;
+    margin-bottom: 8px;
+    margin-top: 6px;
+  }
+  .card p, .card li {
+    font-size: 13px;
+    color: #3a4a5a;
+    line-height: 1.55;
+  }
+  .card ul { padding-left: 18px; }
+  .card .icon {
+    font-size: 26px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* stripe colors */
+  .stripe-blue   { background: linear-gradient(90deg, #2d5f8d, #5ba8cf); }
+  .stripe-teal   { background: linear-gradient(90deg, #0d9488, #34d399); }
+  .stripe-orange { background: linear-gradient(90deg, #ea580c, #fb923c); }
+  .stripe-purple { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .stripe-red    { background: linear-gradient(90deg, #dc2626, #f87171); }
+  .stripe-green  { background: linear-gradient(90deg, #16a34a, #4ade80); }
+  .stripe-amber  { background: linear-gradient(90deg, #d97706, #fbbf24); }
+  .stripe-indigo { background: linear-gradient(90deg, #4338ca, #818cf8); }
+
+  /* ── ANALOGY BOX (yellow) ── */
+  .analogy-box {
+    background: #fffbeb;
+    border: 1.5px solid #f59e0b;
+    border-left: 5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .analogy-box .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #d97706;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .analogy-box p { font-size: 13.5px; color: #78350f; }
+
+  /* ── INSIGHT BOX (blue) ── */
+  .insight-box {
+    background: #eff6ff;
+    border: 1.5px solid #3a7ca5;
+    border-left: 5px solid #2d5f8d;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .insight-box .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e40af;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .insight-box p { font-size: 13.5px; color: #1e3a5f; }
+
+  /* ── TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(45,95,141,0.08);
+  }
+  .data-table thead tr {
+    background: linear-gradient(90deg, #2d5f8d, #3a7ca5);
+    color: #fff;
+  }
+  .data-table thead th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .data-table tbody tr:nth-child(even) { background: #f0f6fc; }
+  .data-table tbody tr:hover { background: #dbeafe; }
+  .data-table tbody td { padding: 11px 16px; color: #1a2a3a; }
+  .data-table tbody td:first-child { font-weight: 600; color: #2d5f8d; }
+
+  /* ── PILLS / TAGS ── */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .pill {
+    padding: 4px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .pill-blue   { background: #dbeafe; color: #1e40af; }
+  .pill-teal   { background: #d1fae5; color: #065f46; }
+  .pill-orange { background: #ffedd5; color: #9a3412; }
+  .pill-purple { background: #ede9fe; color: #4c1d95; }
+  .pill-red    { background: #fee2e2; color: #991b1b; }
+  .pill-amber  { background: #fef3c7; color: #92400e; }
+
+  /* ── PROCESS FLOW ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+  }
+  .flow-step {
+    background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 100px;
+  }
+  .flow-arrow { font-size: 18px; color: #3a7ca5; flex-shrink: 0; }
+
+  /* ── V's BANNER ── */
+  .vs-banner {
+    display: flex;
+    gap: 12px;
+    background: linear-gradient(135deg, #2d5f8d, #5ba8cf);
+    border-radius: 12px;
+    padding: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .vs-item { text-align: center; color: #fff; }
+  .vs-item .v-letter {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.9;
+  }
+  .vs-item .v-name { font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .vs-item .v-desc { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+
+  /* ── STAT BOX ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .stat-box {
+    background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .stat-box .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .stat-box .stat-label { font-size: 11px; opacity: 0.85; margin-top: 6px; }
+
+  /* ── COMPARISON GRID ── */
+  .compare-box {
+    background: #f8fafc;
+    border: 1px solid #d1e3f5;
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .compare-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d5f8d;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d1e3f5;
+    padding-bottom: 6px;
+  }
+  .compare-box ul { padding-left: 18px; }
+  .compare-box li { font-size: 12.5px; color: #3a4a5a; margin-bottom: 5px; }
+
+  /* ── FOOTER ── */
+  .slide-footer {
+    background: #f0f4f8;
+    border-top: 1px solid #d8e8f4;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #5a7a9a;
+  }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: #e2eaf3; margin: 22px 0; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .slide { margin: 0; box-shadow: none; border-radius: 0; page-break-after: always; }
+    .card:hover { transform: none; box-shadow: none; }
+  }
+
+  @media (max-width: 680px) {
+    .card-grid.cols-2,
+    .card-grid.cols-3,
+    .card-grid.cols-4 { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .slide-body { padding: 22px 20px; }
+    .slide-header { padding: 24px 22px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 1 — TITLE
+═══════════════════════════════════════════════════════════ -->
+<div class="slide title-slide">
+  <div class="slide-header">
+    <!-- <div class="course-tag">MBA · Business Analytics · UPES School of Business</div> -->
+    <h1>Big Data Applications in Business</h1>
+    <div class="subtitle">Data-Driven Decision Making — In Action & Applications</div>
+    
+    <div class="slide-number">01 / 10</div>
+  </div>
+  <div class="title-meta">
+    <span> Concepts + Real-World Cases</span>
+    <span>🇮🇳 Indian & Global Examples</span>
+    <span> Managerial Perspective</span>
+
+  </div>
+  <!-- <div class="slide-body">
+    <h2 class="section-title">What We'll Cover Today</h2>
+    <div class="card-grid cols-3">
+      <div class="card"><div class="card-stripe stripe-blue"></div><span class="icon">🔍</span><h3>What is Big Data?</h3><p>The 5 Vs framework and why size alone isn't the point.</p></div>
+      <div class="card"><div class="card-stripe stripe-teal"></div><span class="icon">⚙️</span><h3>How Decisions Change</h3><p>From intuition and spreadsheets to real-time data loops.</p></div>
+      <div class="card"><div class="card-stripe stripe-orange"></div><span class="icon">🏭</span><h3>Sector Applications</h3><p>Retail, healthcare, finance, logistics, and more — with Indian cases.</p></div>
+      <div class="card"><div class="card-stripe stripe-purple"></div><span class="icon">🧠</span><h3>Analytics Maturity</h3><p>Descriptive → Diagnostic → Predictive → Prescriptive.</p></div>
+      <div class="card"><div class="card-stripe stripe-amber"></div><span class="icon">⚠️</span><h3>Challenges & Ethics</h3><p>Privacy, bias, governance — the manager's responsibility.</p></div>
+      <div class="card"><div class="card-stripe stripe-green"></div><span class="icon">🔭</span><h3>Emerging Directions</h3><p>AI + Big Data, edge computing, and India's data economy.</p></div>
+    </div>
+  </div> -->
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 2 — WHAT IS BIG DATA? THE 5 Vs
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Foundational Framework</div>
+    <h1>What is Big Data? — The 5 Vs</h1>
+    <div class="subtitle">Understanding data's defining characteristics beyond sheer volume</div>
+    <div class="slide-number">02 / 10</div>
+  </div>
+  <div class="slide-body">
+    <div class="vs-banner">
+      <div class="vs-item"><div class="v-letter">V</div><div class="v-name">Volume</div><div class="v-desc">Scale of data</div></div>
+      <div class="vs-item"><div class="v-letter">V</div><div class="v-name">Velocity</div><div class="v-desc">Speed of generation</div></div>
+      <div class="vs-item"><div class="v-letter">V</div><div class="v-name">Variety</div><div class="v-desc">Types &amp; sources</div></div>
+      <div class="vs-item"><div class="v-letter">V</div><div class="v-name">Veracity</div><div class="v-desc">Quality &amp; trust</div></div>
+      <div class="vs-item"><div class="v-letter">V</div><div class="v-name">Value</div><div class="v-desc">Business outcome</div></div>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="card"><div class="card-stripe stripe-blue"></div>
+        <h3>📦 Volume</h3>
+        <p>Data generated every day globally: <strong>2.5 quintillion bytes</strong>. Reliance Jio processes millions of call records daily. Walmart analyzes 2.5 petabytes of transaction data per hour. Traditional databases simply cannot hold or process this.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-teal"></div>
+        <h3>⚡ Velocity</h3>
+        <p>UPI in India processes <strong>~14 billion transactions/month</strong> — each requiring real-time fraud detection. Stock exchanges match millions of orders per second. Speed of data often determines competitive advantage.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-orange"></div>
+        <h3>🗂️ Variety</h3>
+        <p>Structured (Ratings) and unstructured (social media posts, images, call recordings, sensor streams). Zomato combines GPS coordinates, menu PDFs, user reviews, and time-stamp logs — all simultaneously.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-purple"></div>
+        <h3>✅ Veracity + 💎 Value</h3>
+        <p><strong>Veracity:</strong> Incomplete, inconsistent, or fake data leads to wrong decisions. GIGO — Garbage In, Garbage Out. <strong>Value:</strong> The ultimate V. Raw data has no inherent worth — only the decisions it enables create business value.</p>
+      </div>
+    </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 4 — ANALYTICS MATURITY MODEL
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Framework</div>
+    <h1>The Analytics Maturity Ladder</h1>
+    <div class="subtitle">Four levels of analytical capability — and what each delivers to managers</div>
+    <div class="slide-number">04 / 10</div>
+  </div>
+  <div class="slide-body">
+    <div class="card-grid cols-2">
+      <div class="card"><div class="card-stripe stripe-blue"></div>
+        <h3>📊 Level 1 — Descriptive Analytics</h3>
+        <p><strong>Question:</strong> "What happened?"<br><strong>Method:</strong> Dashboards, reports, KPIs, data aggregation.<br><strong>Indian Example:</strong> HDFC Bank's branch-level dashboard showing daily deposits, withdrawals, and loan disbursements by region.</p>
+        <div class="pill-row"><span class="pill pill-blue">Backward-looking</span><span class="pill pill-blue">~80% of firms</span></div>
+      </div>
+      <div class="card"><div class="card-stripe stripe-teal"></div>
+        <h3>🔍 Level 2 — Diagnostic Analytics</h3>
+        <p><strong>Question:</strong> "Why did it happen?"<br><strong>Method:</strong> Drill-down analysis, root-cause mapping, correlation.<br><strong>Indian Example:</strong> Flipkart diagnosing why return rates spiked 40% in a product category — tracing it to a specific third-party seller's sizing mismatch.</p>
+        <div class="pill-row"><span class="pill pill-teal">Root cause focus</span><span class="pill pill-teal">Comparative</span></div>
+      </div>
+      <div class="card"><div class="card-stripe stripe-orange"></div>
+        <h3>🔮 Level 3 — Predictive Analytics</h3>
+        <p><strong>Question:</strong> "What will happen?"<br><strong>Method:</strong> ML models, regression, time-series forecasting, classification.<br><strong>Indian Example:</strong> IRDAI-mandated risk scoring models used by insurers like Bajaj Allianz to predict claims probability and price health policies dynamically.</p>
+        <div class="pill-row"><span class="pill pill-orange">Forward-looking</span><span class="pill pill-orange">Probabilistic</span></div>
+      </div>
+      <div class="card"><div class="card-stripe stripe-purple"></div>
+        <h3>🤖 Level 4 — Prescriptive Analytics</h3>
+        <p><strong>Question:</strong> "What should we do?"<br><strong>Method:</strong> Optimization, simulation, reinforcement learning, recommendation systems.<br><strong>Indian Example:</strong> Ola's surge pricing and driver dispatch engine automatically recommends optimal driver positioning across 40+ Indian cities in real time.</p>
+        <div class="pill-row"><span class="pill pill-purple">Action-oriented</span><span class="pill pill-purple">Highest value</span></div>
+      </div>
+    </div>
+    <div class="analogy-box">
+      <div class="label">🟡 Analogy</div>
+      <p>A patient visits a doctor. Descriptive: "Your BP is 160/100." Diagnostic: "Stress and poor diet are the likely causes." Predictive: "You have a 35% risk of cardiac event in 5 years." Prescriptive: "Take this medication, exercise 30 min daily, eliminate salt." Most Indian businesses are still at Level 1–2. Level 3–4 is the competitive frontier.</p>
+    </div>
+  </div>
+  <!-- <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div> -->
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 5 — RETAIL & E-COMMERCE
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Sector Application 1</div>
+    <h1>Big Data in Retail &amp; E-Commerce</h1>
+    <div class="subtitle">Personalization, inventory intelligence, and dynamic pricing at scale</div>
+    <div class="slide-number">05 / 10</div>
+  </div>
+  <div class="slide-body">
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num">35%</div><div class="stat-label">Amazon's revenue driven by its recommendation engine</div></div>
+      <div class="stat-box"><div class="stat-num">40%</div><div class="stat-label">Reduction in stockouts at retail chains using demand forecasting</div></div>
+      <div class="stat-box"><div class="stat-num">3×</div><div class="stat-label">Higher conversion for personalized email vs. generic blast</div></div>
+      <div class="stat-box"><div class="stat-num">₹9.5L Cr</div><div class="stat-label">India's e-commerce GMV (2024) — all data-driven</div></div>
+    </div>
+    <div class="card-grid cols-3">
+      <div class="card"><div class="card-stripe stripe-blue"></div>
+        <h3>🎯 Personalization</h3>
+        <ul>
+          <li>Amazon, Myntra, and Nykaa analyze browsing history, purchase frequency, and cart abandonment to surface hyper-relevant products.</li>
+          <li>Collaborative filtering: "Customers like you also bought..."</li>
+          <li>Meesho uses social graph data to recommend products relevant to tier-2/3 India buyers.</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-stripe stripe-teal"></div>
+        <h3>📦 Inventory &amp; Supply Chain</h3>
+        <ul>
+          <li>Big Basket uses demand signals (seasonality, weather, festivals) to predict SKU-level stock requirements at each dark store.</li>
+          <li>D-Mart employs Promotions with EDLP(Every day low Price) + data-driven vendor negotiations to minimize working capital locked in inventory.</li>
+          <li>Predictive replenishment reduces spoilage in perishables by 25–30%.</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-stripe stripe-orange"></div>
+        <h3>💰 Dynamic Pricing</h3>
+        <ul>
+          <li>Flipkart and Amazon India change prices millions of times per day based on competitor pricing, demand elasticity, and session data.</li>
+          <li>AI-driven markdown optimization: when to discount, by how much, and for which customer segment.</li>
+          <li>Price anchoring is now algorithmic, not manual.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight-box">
+      <div class="label">💡 Managerial Takeaway</div>
+      <p>In modern retail, data IS the product strategy. Retailers without real-time inventory visibility and demand intelligence are structurally disadvantaged — they over-stock slow movers and under-stock bestsellers, destroying margin on both ends.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 6 — BANKING, FINANCE & FINTECH
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Sector Application 2</div>
+    <h1>Big Data in Banking, Finance &amp; Fintech</h1>
+    <div class="subtitle">Risk, credit, fraud, and the democratization of financial intelligence</div>
+    <div class="slide-number">06 / 10</div>
+  </div>
+  <div class="slide-body">
+    <div class="card-grid cols-2">
+      <div class="card"><div class="card-stripe stripe-blue"></div>
+        <h3>🛡️ Fraud Detection</h3>
+        <p>Banks analyze thousands of transaction attributes in milliseconds — device fingerprint, location, merchant category, behavioral patterns — to flag anomalies. NPCI uses ML to protect India's UPI network, which processes over 500 crore transactions monthly. Real-time graph analysis detects money mule networks that would be invisible to human reviewers.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-teal"></div>
+        <h3>📋 Credit Scoring 2.0</h3>
+        <p>Traditional CIBIL scoring misses 60 crore Indians with thin credit files. Fintech firms like Cred, Slice, and KreditBee use alternate data: UPI transaction frequency, app usage patterns, GST filing regularity, even utility bill punctuality. This is enabling financial inclusion for the first time at scale — and DDDM is the enabler.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-purple"></div>
+        <h3>📈 Algorithmic Trading</h3>
+        <p>Hedge funds and proprietary trading desks use sentiment NLP on news, social media, and earnings transcripts to trade before the market fully prices in information. High-frequency trading systems execute in microseconds based on order-book imbalance signals — entirely data and model-driven.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-amber"></div>
+        <h3>🔮 Risk &amp; Regulatory Compliance</h3>
+        <p>RBI-mandated stress testing requires banks to model portfolio losses under multiple macro scenarios simultaneously. Big Data platforms enable "what-if" simulations across millions of loan accounts in hours, not weeks. SBI uses advanced analytics for NPA (Non-Performing Asset) early warning — predicting defaults 6–12 months ahead.</p>
+      </div>
+    </div>
+    <div class="analogy-box">
+      <div class="label">🟡 Indian Context</div>
+      <p>India's Account Aggregator (AA) framework — launched under RBI — is creating a consent-based data highway where a borrower can share their entire financial history (tax returns, bank statements, investments) with a lender in seconds. This is Big Data infrastructure at a national scale, built specifically to enable DDDM in lending.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 7 — HEALTHCARE & LOGISTICS
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Sector Applications 3 &amp; 4</div>
+    <h1>Big Data in Healthcare &amp; Logistics</h1>
+    <div class="subtitle">From patient outcomes to last-mile delivery — data as operational backbone</div>
+    <div class="slide-number">07 / 10</div>
+  </div>
+  <div class="slide-body">
+    <h2 class="section-title">🏥 Healthcare</h2>
+    <div class="card-grid cols-3">
+      <div class="card"><div class="card-stripe stripe-teal"></div>
+        <h3>Disease Surveillance</h3>
+        <p>ICMR used big data pipelines to track COVID-19 variants, vaccination coverage, and outbreak clusters across 750+ districts with real-time dashboards guiding lockdown decisions. Google Flu Trends was an early (flawed) example — now refined with mobility + wastewater data.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-blue"></div>
+        <h3>Clinical Decision Support</h3>
+        <p>Apollo Hospitals uses predictive models trained on millions of patient records to flag high-risk patients before deterioration. AI-assisted radiology at Manipal Health reads CT scans 40× faster than radiologists and flags early-stage lung nodules with &gt;90% accuracy.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-orange"></div>
+        <h3>Personalized Medicine</h3>
+        <p>Genomic data + EHR (Electronic Health Records) enables oncologists to prescribe chemotherapy regimens based on a patient's tumor mutation profile — rather than a standard protocol. India's GEMCOVID project is building India's first population-scale genomic database.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <h2 class="section-title">🚚 Logistics &amp; Supply Chain</h2>
+    <div class="card-grid cols-2">
+      <div class="card"><div class="card-stripe stripe-purple"></div>
+        <h3>Route Optimization</h3>
+        <p>Delhivery and Ecom Express use real-time traffic data, weather APIs, and historical delivery success rates to dynamically reroute 10 lakh+ daily shipments across India. Dynamic ETAs are recalculated every few minutes — improving customer experience and driver efficiency simultaneously.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-amber"></div>
+        <h3>Predictive Maintenance &amp; Fleet Intelligence</h3>
+        <p>IoT sensors on trucks (fuel consumption, engine temperature, brake wear) generate continuous data streams. ML models predict breakdowns 72 hours before failure, reducing unplanned downtime by up to 35%. Indian Railways uses sensor data on rail tracks to predict maintenance needs on high-traffic corridors.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 8 — MARKETING & HR
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Sector Applications 5 &amp; 6</div>
+    <h1>Big Data in Marketing &amp; Human Resources</h1>
+    <div class="subtitle">Data reshaping how firms attract customers — and retain talent</div>
+    <div class="slide-number">08 / 10</div>
+  </div>
+  <div class="slide-body">
+    <h2 class="section-title">📣 Marketing Analytics</h2>
+    <div class="card-grid cols-2">
+      <div class="card"><div class="card-stripe stripe-blue"></div>
+        <h3>Customer Segmentation &amp; Targeting</h3>
+        <p>RFM Analysis (Recency, Frequency, Monetary value) combined with behavioral clustering lets brands like Tanishq and Titan identify high-lifetime-value customers and target them with exclusive offers — while suppressing wasteful spend on low-value segments.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-teal"></div>
+        <h3>Churn Prediction &amp; Retention</h3>
+        <p>Telecom companies like Airtel and Vodafone Idea analyze call drop rates, data usage decline, and competitor plan comparisons (via social listening) to score every subscriber on churn probability — and trigger retention offers before they leave, not after.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-orange"></div>
+        <h3>Omni-Channel Attribution</h3>
+        <p>Which touchpoint drove the purchase? Was it the Instagram ad, the influencer video, or the in-store visit? Multi-touch attribution models powered by big data replace the outdated "last-click wins" logic, enabling smarter budget allocation across channels.</p>
+      </div>
+      <div class="card"><div class="card-stripe stripe-purple"></div>
+        <h3>Sentiment &amp; Social Listening</h3>
+        <p>Brands like Amul and Zomato monitor millions of social media posts daily using NLP to track brand health, detect PR crises early, and understand consumer mood around product launches — often with insights HR and product teams act on too.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <h2 class="section-title">👥 People Analytics (HR)</h2>
+    <div class="card-grid cols-3">
+      <div class="card"><div class="card-stripe stripe-amber"></div><h3>Talent Acquisition</h3><p>Infosys and TCS use predictive models to assess résumé data, assessment scores, and interview feedback to predict new-hire performance and cultural fit — reducing hiring bias and early attrition.</p></div>
+      <div class="card"><div class="card-stripe stripe-green"></div><h3>Attrition Prediction</h3><p>Engagement surveys, promotion history, manager feedback cadence, and absenteeism patterns are combined to flag employees at risk of leaving 90 days in advance — enabling targeted interventions.</p></div>
+      <div class="card"><div class="card-stripe stripe-indigo"></div><h3>Workforce Productivity</h3><p>Scheduling optimization using historical workload data ensures right-staffing at retail branches, call centers, and hospitals — reducing overtime costs while maintaining service levels.</p></div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 9 — CHALLENGES & ETHICS
+═══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Critical Lens</div>
+    <h1>Challenges, Risks &amp; Ethics of Big Data</h1>
+    <div class="subtitle">The manager's responsibility: not just what data CAN do, but what it SHOULD do</div>
+    <div class="slide-number">09 / 10</div>
+  </div>
+  <div class="slide-body">
+    <div class="card-grid cols-2">
+      <div class="card"><div class="card-stripe stripe-red"></div>
+        <h3>🔒 Privacy &amp; Consent</h3>
+        <ul>
+          <li>India's Digital Personal Data Protection Act (DPDPA) 2023 mandates explicit consent for data collection and processing.</li>
+          <li>Firms must now maintain data purpose limitation — you cannot use data collected for X to make decisions about Y.</li>
+          <li>Cambridge Analytica-style misuse of aggregated behavioral data remains a live governance risk.</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-stripe stripe-orange"></div>
+        <h3>⚖️ Algorithmic Bias</h3>
+        <ul>
+          <li>If historical data reflects systemic discrimination (e.g., lower loan approval rates for women), ML models trained on it will perpetuate and automate that bias at scale.</li>
+          <li>Facial recognition systems have shown higher error rates for darker skin tones — with serious consequences if used in hiring or law enforcement.</li>
+          <li>Explainability and auditability of models is now a regulatory concern globally.</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-stripe stripe-amber"></div>
+        <h3>🏗️ Infrastructure &amp; Talent Gaps</h3>
+        <ul>
+          <li>India has fewer than 5 lakh data scientists but demand for 10L+ by 2026 (NASSCOM estimate).</li>
+          <li>Data silos across departments prevent integrated analysis — marketing doesn't talk to logistics data.</li>
+          <li>Legacy IT systems cannot ingest or process real-time data streams without significant re-architecture.</li>
+        </ul>
+      </div>
+      <div class="card"><div class="card-stripe stripe-purple"></div>
+        <h3>🔐 Data Security</h3>
+        <ul>
+          <li>Centralizing data for analytics creates a "honeypot" — a single breach can expose millions of records.</li>
+          <li>Air India breach (2021): data of 45 lakh passengers leaked, including passport and credit card information.</li>
+          <li>Zero-trust architecture, data tokenization, and differential privacy are key mitigation strategies.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight-box">
+      <div class="label">💡 The Managerial Imperative</div>
+      <p>Data capability without data governance is a liability. As a manager, your role is not just to ask "What does the data say?" but also "Are we allowed to use this data?", "Could this model disadvantage a group unfairly?", and "If this decision is challenged, can we explain it?" Responsible analytics is not a constraint on business — it is a condition of long-term trust.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SLIDE 10 — SUMMARY & EMERGING DIRECTIONS
+═══════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <div class="slide-header">
+    <div class="course-tag">Synthesis &amp; Emerging Horizons</div>
+    <h1>Key Takeaways &amp; The Road Ahead</h1>
+    <div class="subtitle">Where Big Data and AI converge — and what it means for Indian businesses</div>
+    <div class="slide-number">10 / 10</div>
+  </div>
+  <div class="slide-body">
+    <h2 class="section-title">📌 Lecture Summary</h2>
+    <div class="card-grid cols-2">
+      <div class="compare-box">
+        <h4>Core Concepts Covered</h4>
+        <ul>
+          <li>The 5 Vs define Big Data's nature — Value is the only one that matters to the boardroom.</li>
+          <li>DDDM is a cycle, not a one-time report — it requires feedback loops and iteration.</li>
+          <li>Analytics maturity ranges from descriptive to prescriptive — most firms are still at Level 1–2.</li>
+          <li>Every business function — marketing, HR, finance, logistics — is being restructured by data.</li>
+        </ul>
+      </div>
+      <div class="compare-box">
+        <h4>Indian Market Specifics</h4>
+        <ul>
+          <li>India Stack (UPI, AA, ONDC, DPDPA) is creating a data-rich but governance-intensive environment.</li>
+          <li>Tier-2/3 India represents the next frontier for data-driven business models.</li>
+          <li>The talent gap is real — firms that invest in analytics capability now will lead the next decade.</li>
+          <li>Indian regulators are actively shaping the rules of the game — managers must understand DPDPA.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <h2 class="section-title">🔭 Emerging Directions</h2>
+    <div class="card-grid cols-4">
+      <div class="card"><div class="card-stripe stripe-blue"></div><span class="icon">🤖</span><h3>Generative AI + Big Data</h3><p>LLMs querying enterprise data lakes in natural language — making analytics accessible to non-technical managers.</p></div>
+      <div class="card"><div class="card-stripe stripe-teal"></div><span class="icon">📡</span><h3>Edge Computing</h3><p>Processing data at the source (factory floor, delivery van, hospital device) — reducing latency for real-time decisions.</p></div>
+      <div class="card"><div class="card-stripe stripe-orange"></div><span class="icon">🛒</span><h3>ONDC &amp; Data Economy</h3><p>India's open commerce network creates shared data infrastructure enabling small sellers to access analytics once reserved for Flipkart-scale firms.</p></div>
+      <div class="card"><div class="card-stripe stripe-purple"></div><span class="icon">🔏</span><h3>Federated Learning</h3><p>Training AI models on distributed data without centralizing it — solving privacy concerns while retaining analytical power.</p></div>
+    </div>
+    <div class="insight-box" style="margin-top:20px">
+      <div class="label">💡 Final Thought</div>
+      <p>The firms winning today are not necessarily those with the most data — they are those with the clearest questions, the best talent to answer them, and the organizational culture to act on the answers. Big Data is the raw material. Decision-making culture is the factory. You, as managers, are the engineers who must build both.</p>
+    </div>
+    <div class="pill-row" style="margin-top:16px">
+      <span class="pill pill-blue">Next: Big Data Tools &amp; Technologies (Hadoop, Spark, Cloud)</span>
+      <span class="pill pill-teal">Assignment: Map 3 Big Data use cases in your chosen industry</span>
+    </div>
+  </div>
+  <div class="slide-footer"><span>UPES School of Business · Dehradun</span><span>Big Data Applications in Business</span></div>
+</div> -->
+
+</body>
+</html>

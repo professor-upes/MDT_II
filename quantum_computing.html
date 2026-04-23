@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Computing for Managers | MBA Digital Transformation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #2c3e50;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ── Slide Container ── */
+  .slide {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 48px 52px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #2d5f8d, #3a7ca5, #5ba8cf);
+  }
+
+  /* ── Slide Number ── */
+  .slide-number {
+    position: absolute;
+    bottom: 18px;
+    right: 28px;
+    font-size: 13px;
+    color: #9ab;
+    font-weight: 600;
+  }
+
+  /* ── Title Slide ── */
+  .title-slide {
+    text-align: center;
+    padding: 80px 52px;
+    background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 50%, #5ba8cf 100%);
+    color: #fff;
+  }
+  .title-slide::before { display: none; }
+  .title-slide h1 {
+    font-size: 2.3em;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .title-slide .subtitle {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    opacity: 0.95;
+  }
+  .title-slide .meta {
+    font-size: 0.95em;
+    opacity: 0.85;
+    margin-top: 20px;
+  }
+
+  /* ── Headers ── */
+  h2 {
+    font-size: 1.7em;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-left: 6px solid;
+    border-image: linear-gradient(180deg, #2d5f8d, #5ba8cf) 1;
+    background: linear-gradient(90deg, rgba(45,95,141,0.04), transparent);
+    padding-left: 16px;
+  }
+
+  h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    color: #2d5f8d;
+  }
+
+  h4 {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #3a7ca5;
+    margin: 10px 0 6px;
+  }
+
+  p { margin-bottom: 12px; line-height: 1.8; }
+
+  /* ── Key Insight Box (Blue) ── */
+  .key-insight {
+    background: linear-gradient(135deg, rgba(45,95,141,0.08), rgba(91,168,207,0.06));
+    border-left: 5px solid #2d5f8d;
+    padding: 18px 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .key-insight strong { color: #2d5f8d; font-weight: 600; }
+
+  /* ── Analogy Box (Yellow) ── */
+  .analogy {
+    background: linear-gradient(135deg, rgba(255,193,7,0.12), rgba(255,214,0,0.08));
+    border-left: 5px solid #FFC107;
+    padding: 18px 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .analogy .label {
+    color: #F57F17;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* ── Example Box ── */
+  .example {
+    background: #f5f9fc;
+    border-left: 4px solid #5ba8cf;
+    padding: 14px 16px;
+    border-radius: 6px;
+    margin: 12px 0;
+    font-size: 13.5px;
+    color: #444;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+
+  thead {
+    background: linear-gradient(90deg, #2d5f8d, #3a7ca5);
+    color: #fff;
+  }
+
+  th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    border: none;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e8ecf1;
+  }
+
+  tbody tr:hover { background: #f8f9fa; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ── Application Cards ── */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin: 20px 0;
+  }
+
+  .app-card {
+    background: #fff;
+    border: 1px solid #e8ecf1;
+    border-radius: 10px;
+    padding: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .app-card:hover {
+    border-color: #5ba8cf;
+    box-shadow: 0 6px 18px rgba(91,168,207,0.12);
+    transform: translateY(-2px);
+  }
+
+  .app-card .top-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, #2d5f8d, #5ba8cf);
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+
+  .app-card h4 { margin-bottom: 8px; color: #2d5f8d; }
+  .app-card p { font-size: 13px; color: #555; line-height: 1.6; margin: 0; }
+
+  /* ── Callout Boxes ── */
+  .callout {
+    background: #fff;
+    border-left: 5px solid #d32f2f;
+    padding: 16px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+  .callout.warning { border-left-color: #F57F17; }
+  .callout.success { border-left-color: #388E3C; }
+
+  /* ── Quote ── */
+  .quote {
+    text-align: center;
+    font-size: 1.05em;
+    font-style: italic;
+    color: #2d5f8d;
+    margin: 24px 0;
+    padding: 20px;
+    border-top: 2px solid #e8ecf1;
+    border-bottom: 2px solid #e8ecf1;
+  }
+
+  /* ── MCQ Styles ── */
+  .mcq-block {
+    background: #f8f9fc;
+    border: 1px solid #e0e5ec;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 18px 0;
+  }
+
+  .mcq-block .q-text {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 14.5px;
+  }
+
+  .mcq-block .options {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+  }
+
+  .mcq-block .options li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+  }
+
+  .mcq-block .answer {
+    font-size: 13px;
+    color: #2d5f8d;
+    font-weight: 600;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #ccc;
+  }
+
+  /* ── Caselet Styles ── */
+  .caselet {
+    background: linear-gradient(135deg, #fafbfd, #f0f4f8);
+    border: 2px solid #2d5f8d;
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+  }
+
+  .caselet h3 {
+    color: #2d5f8d;
+    font-size: 1.2em;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(45,95,141,0.15);
+  }
+
+  .caselet .data-table {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .case-question {
+    background: linear-gradient(135deg, rgba(45,95,141,0.06), rgba(91,168,207,0.04));
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+
+  .case-question strong { color: #2d5f8d; }
+
+  /* ── Lists ── */
+  ul, ol { margin: 14px 0 14px 24px; line-height: 1.8; }
+  li { margin-bottom: 6px; }
+
+  /* Print Setup */
+  @media print {
+    body { background: #fff; }
+    .slide { margin: 0; box-shadow: none; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide title-slide">
+  <h1>QUANTUM COMPUTING FOR MANAGERS</h1>
+  <div class="subtitle">What It Is, Why It Matters, and What Changes for Business</div>
+  <div class="meta">
+    <strong>MBA Digital Transformation</strong><br>
+    School of Business, UPES Dehradun
+  </div>
+  <div class="slide-number">1</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 2: WHY SHOULD AN MBA CARE? -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Why Should an MBA Student Care About Quantum?</h2>
+
+  <p>Quantum computing is not a physics course. For a manager, it is an <strong>infrastructure shift</strong> — the same way the internet in 1995 or cloud computing in 2010 was. You didn't need to understand TCP/IP to know the internet would change business. You don't need to understand quantum physics to know quantum will change computing.</p>
+
+  <div class="analogy">
+    <span class="label">🎯 The Manager's Frame:</span>
+    You don't need to build quantum computers. You need to know:<br><br>
+    1. <strong>What problems</strong> quantum solves that classical computers cannot<br>
+    2. <strong>Which industries</strong> will be disrupted first<br>
+    3. <strong>What decisions</strong> you'll face in the next 5–10 years because of it<br>
+    4. <strong>What risks</strong> your company faces if it ignores quantum
+  </div>
+
+  <h3>The Timeline That Matters</h3>
+  <table>
+    <thead>
+      <tr><th>Era</th><th>Shift</th><th>Business Impact</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1990s</td><td>Internet</td><td>Commerce goes online. Companies without websites die.</td></tr>
+      <tr><td>2010s</td><td>Cloud + Mobile</td><td>Everything becomes a service. SaaS replaces software.</td></tr>
+      <tr><td>2020s</td><td>AI / GenAI</td><td>Knowledge work gets augmented. Decision-making shifts.</td></tr>
+      <tr><td><strong>2030s</strong></td><td><strong>Quantum</strong></td><td><strong>Problems that were impossible become solvable. Encryption breaks. Drug discovery accelerates. Finance restructures.</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="key-insight">
+    <strong>Key Insight:</strong> Quantum is not replacing your laptop. It's solving a specific class of problems that today's most powerful supercomputers cannot solve in a human lifetime. That class of problems happens to include some of the most valuable business challenges: drug discovery, portfolio optimisation, logistics, cryptography, and materials science.
+  </div> -->
+
+  <div class="slide-number">2</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 3: CLASSICAL vs QUANTUM — THE CORE IDEA -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <h2>Classical vs. Quantum: The Core Idea </h2>
+
+  <h3>The Classical Computer</h3>
+  <p>Your laptop processes information using <strong>bits</strong>. A bit is either 0 or 1. That's it. Every calculation your computer does — Excel formulas, Google Search, ChatGPT — is built from billions of 0s and 1s processed sequentially or in parallel.</p>
+
+  <div class="analogy">
+    <span class="label">🔦 Analogy — The Light Switch:</span>
+    A classical bit is a light switch. It's either <strong>ON (1)</strong> or <strong>OFF (0)</strong>. Nothing in between. Every operation is flipping switches very, very fast.
+  </div>
+
+  <h3>The Quantum Computer</h3>
+  <p>A quantum computer uses <strong>qubits</strong> (quantum bits). A qubit can be 0, 1, or — here's the key — <strong>both at the same time</strong> (superposition). It can also be <strong>linked to other qubits</strong> so that changing one instantly affects the other (entanglement).</p>
+
+  <div class="analogy">
+    <span class="label">🎯 Analogy — The Spinning Coin:</span>
+    A classical bit is a coin lying flat — heads (1) or tails (0).<br><br>
+    A qubit is a coin <strong>spinning in the air</strong>. While spinning, it's both heads AND tails simultaneously. Only when you catch it (measure it) does it become one or the other. While it's spinning, you can process both possibilities at once.
+  </div>
+
+  <h3>Why This Matters for Computing</h3>
+  <table>
+    <thead>
+      <tr><th>Property</th><th>Classical</th><th>Quantum</th><th>Why It Matters</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bit / Qubit</strong></td>
+        <td>0 or 1 (one state)</td>
+        <td>0 and 1 simultaneously (superposition)</td>
+        <td>Process multiple possibilities at once</td>
+      </tr>
+      <tr>
+        <td><strong>Processing</strong></td>
+        <td>Sequential or parallel (limited)</td>
+        <td>Explores many paths simultaneously</td>
+        <td>Solves combinatorial problems exponentially faster</td>
+      </tr>
+      <!-- <tr>
+        <td><strong>Entanglement</strong></td>
+        <td>Bits are independent</td>
+        <td>Qubits are linked — change one, the other changes</td>
+        <td>Enables correlated computations impossible classically</td>
+      </tr>
+      <tr>
+        <td><strong>Best for</strong></td>
+        <td>Deterministic tasks (spreadsheets, email, CRUD)</td>
+        <td>Optimisation, simulation, cryptography</td>
+        <td>Not everything — only specific problem types</td>
+      </tr> -->
+    </tbody>
+  </table>
+
+  <div class="key-insight">
+    <strong>The MBA Takeaway:</strong> Quantum doesn't make your laptop faster. It makes <em>specific types of impossible problems solvable</em>. The key question is: does YOUR business have those types of problems?
+  </div>
+
+  <div class="slide-number">3</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 4: THREE QUANTUM PROPERTIES — SIMPLIFIED -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Three Properties That Change Everything</h2>
+
+  <div class="app-grid">
+    <div class="app-card" style="grid-column: span 2;">
+      <div class="top-stripe"></div>
+      <h4>1. Superposition — "Being in multiple states at once"</h4>
+      <p style="font-size: 14px; margin-bottom: 10px;">A classical computer trying 1,000 combinations checks them <strong>one by one</strong> (or a few at a time). A quantum computer in superposition explores <strong>all 1,000 simultaneously</strong>.</p>
+      <div class="example" style="font-size: 13px;">
+        <strong>Business analogy:</strong> You're a logistics manager with 50 delivery trucks and 200 delivery points. A classical computer calculates routes one by one — it might take days to find the optimal solution. A quantum computer explores all possible route combinations simultaneously, finding the best one in minutes.
+      </div>
+    </div>
+  </div>
+
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>2. Entanglement — "Linked fates"</h4>
+      <p style="font-size: 14px;">Two qubits are "entangled" — measure one, and you instantly know the state of the other, regardless of distance. This enables correlated computations.</p>
+      <div class="example" style="font-size: 13px;">
+        <strong>Analogy:</strong> Imagine two dice in Delhi and Mumbai. You roll the Delhi die and get 4. You instantly know the Mumbai die shows 4 too. That's entanglement — correlated outcomes across distance. In computing, this means linked qubits can process related variables together.
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>3. Interference — "Cancelling wrong answers"</h4>
+      <p style="font-size: 14px;">Quantum algorithms amplify the probability of correct answers and cancel out wrong ones — like noise-cancelling headphones, but for computation.</p>
+      <div class="example" style="font-size: 13px;">
+        <strong>Analogy:</strong> Imagine 1,000 people shouting answers to a question. Most are wrong. Interference is like a filter that gradually makes the correct voice louder and the wrong voices quieter, until only the right answer remains.
+      </div>
+    </div>
+  </div>
+
+  <div class="key-insight">
+    <strong>Together:</strong> Superposition = try everything at once. Entanglement = link related variables. Interference = filter to the right answer. This is why quantum solves optimisation problems exponentially faster.
+  </div> -->
+
+  <div class="slide-number">4</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 5: WHAT QUANTUM IS GOOD AT (AND NOT GOOD AT) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <h2>What Quantum Can (and Cannot) Do</h2>
+
+  <p>This is the most important slide for managers. Quantum is not a universal upgrade — it excels at specific problem types.</p>
+
+  <table>
+    <thead>
+      <tr><th>Problem Type</th><th>Classical Computer</th><th>Quantum Computer</th><th>Business Example</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Optimisation</strong></td>
+        <td>Slow — checks paths one by one</td>
+        <td>Fast — explores all paths simultaneously</td>
+        <td>Logistics routing, portfolio allocation, supply chain</td>
+      </tr>
+      <tr>
+        <td><strong>Simulation</strong></td>
+        <td>Approximations only (can't simulate nature exactly)</td>
+        <td>Simulates molecular behaviour directly</td>
+        <td>Drug discovery, materials science, battery chemistry</td>
+      </tr>
+      <tr>
+        <td><strong>Cryptography</strong></td>
+        <td>Encryption is secure (would take billions of years to crack)</td>
+        <td>Shor's algorithm breaks RSA encryption in hours</td>
+        <td>Banking security, national defence, blockchain</td>
+      </tr>
+      <tr>
+        <td><strong>Machine Learning</strong></td>
+        <td>Already powerful (GPUs, TPUs)</td>
+        <td>Potential speedup — still early research</td>
+        <td>Training AI models faster, pattern recognition</td>
+      </tr>
+      <tr>
+        <td><strong>Spreadsheets / Email / Web</strong></td>
+        <td>✅ Perfect</td>
+        <td>❌ Overkill — no advantage</td>
+        <td>Your laptop is fine. Quantum won't help here.</td>
+      </tr>
+      <tr>
+        <td><strong>Database queries</strong></td>
+        <td>✅ Very fast (SQL, NoSQL)</td>
+        <td>❌ No significant advantage</td>
+        <td>CRM, ERP, inventory — classical wins.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="analogy">
+    <span class="label">🎯 The Manager's Rule of Thumb:</span>
+    Ask: "Does my problem involve finding the best option among an astronomically large number of possibilities?"<br><br>
+    <strong>Yes →</strong> Quantum might help (optimisation, simulation, crypto).<br>
+    <strong>No →</strong> Classical computing is cheaper, faster, and sufficient.
+  </div>
+
+  <div class="slide-number">5</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 6: BUSINESS APPLICATIONS — INDUSTRY MAP -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <h2>Business Applications: Which Industries Change First?</h2>
+
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>💊 Pharmaceuticals & Drug Discovery</h4>
+      <p>Classical computers cannot simulate molecular interactions at scale. Quantum can model how a drug molecule binds to a protein — reducing drug development from 12 years to potentially 2–3 years.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #2d5f8d;"><strong>India:</strong> Cipla, Sun Pharma, Dr. Reddy's — generic drug R&D could leapfrog with quantum molecular simulation.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🏦 Finance & Portfolio Optimisation</h4>
+      <p>Optimising a portfolio of 500 stocks across 100 constraints (risk, return, ESG, liquidity) has more combinations than atoms in the universe. Quantum solves this in minutes, not days.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #2d5f8d;"><strong>India:</strong> HDFC AMC, Zerodha, SEBI risk modelling — real-time portfolio rebalancing becomes possible.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🚚 Logistics & Supply Chain</h4>
+      <p>The "Travelling Salesman Problem" — finding the shortest route through N cities — is exponentially hard. Quantum finds near-optimal routes for fleets of thousands of vehicles.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #2d5f8d;"><strong>India:</strong> Delhivery, BlueDart, Indian Railways — route optimisation for a country with 600,000+ villages.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🔐 Cybersecurity & Encryption</h4>
+      <p>Quantum computers can break RSA and ECC encryption (which protect banking, e-commerce, defence). Every encrypted system today is vulnerable to a future quantum attack.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #2d5f8d;"><strong>India:</strong> UPI, Aadhaar, RBI systems — all use RSA/ECC. Post-quantum cryptography migration is urgent.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>⚡ Energy & Materials Science</h4>
+      <p>Simulating new battery chemistries, solar cell materials, or superconductors at the atomic level. Quantum can model electron behaviour that classical computers cannot.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #2d5f8d;"><strong>India:</strong> Tata Chemicals, Adani Green — quantum-designed batteries and solar materials could accelerate India's energy transition.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🌾 Agriculture & Climate Modelling</h4>
+      <p>Quantum can model complex weather systems and soil chemistry at molecular level. Better crop yield prediction, fertiliser optimisation, climate risk modelling.</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #2d5f8d;"><strong>India:</strong> 60% of India's agriculture is monsoon-dependent. Better weather modelling = better food security.</p>
+    </div>
+  </div>
+
+  <div class="slide-number">6</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 7: THE CRYPTOGRAPHY THREAT -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <h2>The Quantum Threat: Every Encryption Breaks</h2>
+
+  <p>This is the most <strong>urgent</strong> business implication of quantum computing. Every MBA student must understand this.</p>
+
+  <h3>How Encryption Works Today</h3>
+  <p>When you use UPI, shop on Amazon, or send a WhatsApp message, your data is encrypted using algorithms like RSA or ECC. These algorithms are secure because cracking them requires finding the prime factors of very large numbers — a task that would take a classical computer <strong>billions of years</strong>.</p>
+
+  <h3>What Quantum Changes</h3>
+  <p><strong>Shor's Algorithm</strong> (discovered 1994, waiting for hardware) can factor large numbers exponentially faster. When quantum computers are powerful enough (estimated 2030–2035), they will break RSA encryption in <strong>hours, not billions of years</strong>.</p>
+
+  <div class="callout">
+    <strong>⚠️ "Harvest Now, Decrypt Later" Attack:</strong> Adversaries (nation-states, criminal organisations) are already collecting encrypted data today — banking transactions, military communications, corporate secrets — and storing it. When quantum computers arrive, they'll decrypt everything they've collected. This means data encrypted today is already compromised if it has a shelf life beyond 2035.
+  </div>
+
+  <h3>What This Means for Business</h3>
+  <table>
+    <thead>
+      <tr><th>Sector</th><th>What's at Risk</th><th>Action Required</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Banking</strong></td>
+        <td>All transaction encryption (UPI, NEFT, RTGS)</td>
+        <td>Migrate to post-quantum cryptography (PQC)</td>
+      </tr>
+      <tr>
+        <td><strong>Healthcare</strong></td>
+        <td>Patient records, genomic data</td>
+        <td>Encrypt with quantum-resistant algorithms now</td>
+      </tr>
+      <tr>
+        <td><strong>Defence</strong></td>
+        <td>Military communications, satellite data</td>
+        <td>Quantum key distribution (QKD) research</td>
+      </tr>
+      <tr>
+        <td><strong>E-commerce</strong></td>
+        <td>Customer payment data, passwords</td>
+        <td>Plan PQC migration in 3–5 year IT roadmap</td>
+      </tr>
+      <tr>
+        <td><strong>Blockchain</strong></td>
+        <td>Wallet private keys, transaction signatures</td>
+        <td>Entire blockchain security model must be redesigned</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="key-insight">
+    <strong>For your blockchain lecture:</strong> Quantum computing is an existential threat to blockchain. The cryptographic foundations of Bitcoin, Ethereum, and every smart contract are vulnerable to Shor's algorithm. Post-quantum blockchains are being researched, but migration is a decade-long process.
+  </div>
+
+  <div class="slide-number">7</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 8: QUANTUM + AI -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <h2>Quantum + AI: The Convergence</h2>
+
+  <p>AI (which you already study) and quantum computing are converging. Here's how they interact:</p>
+
+  <table>
+    <thead>
+      <tr><th>Dimension</th><th>AI Today (Classical)</th><th>AI + Quantum (Future)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Training speed</strong></td>
+        <td>GPT-4 training: ~$100M, months on 25,000 GPUs</td>
+        <td>Quantum could reduce training time and cost by orders of magnitude</td>
+      </tr>
+      <tr>
+        <td><strong>Pattern recognition</strong></td>
+        <td>Good at large datasets, slow on complex relationships</td>
+        <td>Quantum ML can detect patterns in high-dimensional data that classical ML misses</td>
+      </tr>
+      <tr>
+        <td><strong>Optimisation</strong></td>
+        <td>Gradient descent — gets stuck in "local minima" (good enough, not best)</td>
+        <td>Quantum annealing finds global optimum — the actual best answer</td>
+      </tr>
+      <tr>
+        <td><strong>Simulation</strong></td>
+        <td>Can't simulate quantum-level phenomena (chemistry, physics)</td>
+        <td>Quantum simulates nature natively — drug design, materials, climate</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="analogy">
+    <span class="label">🎯 Analogy — GPS vs. Compass:</span>
+    Classical AI is like navigating with a compass — it points you in the right direction, but you might take a longer path. Quantum AI is like GPS with satellite view — it sees ALL possible paths and picks the absolute shortest one. The compass works fine for simple journeys. But for routing 10,000 delivery trucks across India simultaneously? You need the satellite view.
+  </div>
+
+  <div class="key-insight">
+    <strong>MBA relevance:</strong> If AI is the "brain" of digital transformation, quantum is the "supercharger." AI decides what to optimise; quantum makes the optimisation exponentially faster. Companies investing in AI today should already be tracking quantum readiness for 2030+.
+  </div>
+
+  <div class="slide-number">8</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 9: WHO IS BUILDING QUANTUM? (THE RACE) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>The Quantum Race: Who's Building It?</h2>
+
+  <h3>Global Players</h3>
+  <table>
+    <thead>
+      <tr><th>Company</th><th>Approach</th><th>Business Model</th><th>Current Status</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>IBM</strong></td>
+        <td>Superconducting qubits</td>
+        <td>Cloud access (IBM Quantum Network)</td>
+        <td>1,000+ qubit processors; enterprise partnerships</td>
+      </tr>
+      <tr>
+        <td><strong>Google</strong></td>
+        <td>Superconducting (Sycamore, Willow)</td>
+        <td>Research-first; cloud integration planned</td>
+        <td>Claimed "quantum supremacy" (2019); error correction breakthroughs</td>
+      </tr>
+      <tr>
+        <td><strong>Microsoft</strong></td>
+        <td>Topological qubits</td>
+        <td>Azure Quantum (cloud platform)</td>
+        <td>Different physics approach; longer timeline but potentially more stable</td>
+      </tr>
+      <tr>
+        <td><strong>Amazon (AWS)</strong></td>
+        <td>Cloud access to multiple hardware providers</td>
+        <td>Amazon Braket (marketplace model)</td>
+        <td>Not building hardware; aggregating access</td>
+      </tr>
+      <tr>
+        <td><strong>China (Govt)</strong></td>
+        <td>Photonic + superconducting</td>
+        <td>National security priority</td>
+        <td>Jiuzhang photonic processor; heavy state investment</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>India's Position</h3>
+  <div class="callout success">
+    <strong>National Quantum Mission (NQM):</strong> ₹6,003 Cr allocated by Government of India (2023–2031). Focus areas: quantum computing, quantum communication, quantum sensing, quantum materials. Institutions: IISc Bangalore, IIT Madras, IIT Bombay, TIFR, C-DAC. India is a late entrant but investing seriously.
+  </div>
+
+  <div class="key-insight">
+    <strong>Strategic insight:</strong> Quantum is a geopolitical race, not just a technology race. The country that achieves scalable quantum first can break every other country's encryption. This is why the US, China, and EU are spending billions. India's ₹6,000 Cr is significant but modest compared to China's estimated $15 billion+ investment.
+  </div>
+
+  <div class="slide-number">9</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 10: RISKS & LIMITATIONS -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <h2>Risks, Limitations & Hard Truths</h2>
+
+  <h3>1. Hardware Is Extremely Fragile</h3>
+  <p>Qubits are sensitive to temperature (must be cooled to near absolute zero: -273°C), vibration, electromagnetic interference, and even cosmic rays. A quantum computer looks like a giant gold chandelier inside a refrigerator, not a laptop.</p>
+
+  <div class="analogy">
+    <span class="label">🎯 Analogy:</span>
+    A classical computer is like a Toyota Innova — works in any weather, on any road. A quantum computer is like a Formula 1 car — incredibly fast on the right track, but needs a ₹500 Cr pit crew, breaks down if the temperature changes by 0.001°C, and can only race on a perfectly smooth surface.
+  </div>
+
+  <h3>2. Error Rates Are High</h3>
+  <p>Qubits "decohere" (lose their quantum state) extremely quickly — within microseconds. Current quantum computers make frequent errors. Error correction is the #1 engineering challenge and requires thousands of physical qubits to create one reliable "logical" qubit.</p>
+
+  <h3>3. Not a Replacement for Classical Computers</h3>
+  <div class="callout warning">
+    <strong>Common misconception:</strong> "Quantum will replace my laptop." No. Quantum computers will be specialised co-processors used alongside classical computers — like GPUs are used for graphics alongside CPUs. You'll use classical for email and Excel; quantum for molecular simulation and portfolio optimisation.
+  </div>
+
+  <h3>4. Talent Shortage</h3>
+  <p>The intersection of quantum physics + computer science + business application is extremely rare. India has fewer than 500 quantum computing researchers. The global talent pool is tiny.</p>
+
+  <h3>5. Quantum Hype Cycle</h3>
+  <table>
+    <thead>
+      <tr><th>Claim</th><th>Reality</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>"Quantum computers are faster than classical"</td>
+        <td>Only for specific problems. For most tasks, your laptop is faster and cheaper.</td>
+      </tr>
+      <tr>
+        <td>"Quantum will be mainstream by 2027"</td>
+        <td>Useful quantum for business is likely 2032–2040. Current machines are experimental.</td>
+      </tr>
+      <tr>
+        <td>"Every company needs a quantum strategy"</td>
+        <td>Most companies need a quantum <em>awareness</em>. Only pharma, finance, logistics, and defence need active investment now.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 11: QUANTUM RISK LANDSCAPE (NEW) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>The Quantum Risk Landscape: Six Dimensions</h2>
+
+  <p>Quantum computing is not only a <em>capability</em> — it is a <em>threat vector</em>. Understanding the distinct risk dimensions helps managers prioritise their response rather than treating quantum risk as a single undifferentiated problem.</p>
+
+  <div class="app-grid">
+
+    <div class="app-card">
+      <div class="top-stripe" style="background: linear-gradient(90deg,#c0392b,#e05252);"></div>
+      <h4>🔐 Cryptographic Collapse</h4>
+      <p>RSA and ECC — which protect banking, email, and government systems — are mathematically broken by Shor's algorithm on a sufficiently large quantum computer. Every public-key system in use today is at risk.</p>
+      <p style="font-size:12px; color:#c0392b; font-weight:600; margin-top:6px;">⚠ CRITICAL RISK</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe" style="background: linear-gradient(90deg,#d97b2a,#f4a952);"></div>
+      <h4>📦 Harvest Now, Decrypt Later</h4>
+      <p>Nation-states are collecting encrypted data today to decrypt it once quantum machines mature. Sensitive data from 2024 could be exposed in 2034 — making this an <strong>active, present-day threat</strong>, not a future one.</p>
+      <p style="font-size:12px; color:#d97b2a; font-weight:600; margin-top:6px;">⚠ ACTIVE THREAT NOW</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe" style="background: linear-gradient(90deg,#6a4caf,#9b7de0);"></div>
+      <h4>🏦 Financial System Exposure</h4>
+      <p>Interbank transactions, SWIFT messages, stock exchange communications, and UPI all rely on public-key cryptography. A quantum adversary could silently intercept or forge financial messages.</p>
+      <p style="font-size:12px; color:#6a4caf; font-weight:600; margin-top:6px;">HIGH SYSTEMIC IMPACT</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe" style="background: linear-gradient(90deg,#2a8a8a,#52c4c4);"></div>
+      <h4>🌐 Digital Identity Crisis</h4>
+      <p>TLS/SSL certificates securing every HTTPS website depend on RSA/ECC. A successful quantum attack could enable mass impersonation of banks, government portals, and e-commerce platforms simultaneously.</p>
+      <p style="font-size:12px; color:#2a8a8a; font-weight:600; margin-top:6px;">INTERNET-WIDE RISK</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe" style="background: linear-gradient(90deg,#2d5f8d,#5ba8cf);"></div>
+      <h4>⚡ Critical Infrastructure</h4>
+      <p>Power grids, water treatment systems, railway signalling, and defence networks use encrypted communication protocols. Quantum decryption of operational commands is a national security scenario governments are actively war-gaming.</p>
+      <p style="font-size:12px; color:#2d5f8d; font-weight:600; margin-top:6px;">NATIONAL SECURITY</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe" style="background: linear-gradient(90deg,#3a3a5c,#6060a0);"></div>
+      <h4>🤖 Quantum + AI Arms Race</h4>
+      <p>Adversaries combining quantum decryption with AI-driven cyberattacks could create an automated exploitation pipeline. Vulnerabilities discovered by AI, exploited at quantum speed — a qualitatively new threat category.</p>
+      <p style="font-size:12px; color:#3a3a5c; font-weight:600; margin-top:6px;">EMERGING CONVERGENCE</p>
+    </div>
+
+  </div>
+
+  <div class="key-insight">
+    <strong>The Asymmetry Problem:</strong> Breaking encryption with quantum requires one large quantum computer (a single adversarial investment). Defending against it requires replacing the <em>entire global cryptographic infrastructure</em> — every server, device, and protocol. Migration takes 10–15 years; adversaries may be ready in 5–10. That gap is the risk.
+  </div>
+
+  <div class="slide-number">11</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 12: THE QUANTUM FUTURE (NEW) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>The Quantum Future: Timeline & Opportunities</h2>
+
+  <p>Beyond the risks, quantum computing offers genuinely transformative opportunities across industries. The question for managers is not whether to engage — but <em>when and how</em>.</p>
+
+  <h3>The Road to Q-Day: Milestone Timeline</h3>
+  <table>
+    <thead>
+      <tr><th>Horizon</th><th>Expected Development</th><th>Business Signal</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Now (NISQ Era)</strong></td>
+        <td>50–1,000 noisy qubits; experimental only</td>
+        <td>Run pilots via IBM/AWS cloud; begin PQC migration audit</td>
+      </tr>
+      <tr>
+        <td><strong>2026–2028</strong></td>
+        <td>Quantum error correction breakthroughs; logical qubit stability improves</td>
+        <td>Pharma and finance start using quantum for real pilot problems</td>
+      </tr>
+      <tr>
+        <td><strong>2028–2032</strong></td>
+        <td>Early fault-tolerant machines; Shor's algorithm becomes more feasible</td>
+        <td>PQC migration must be complete for sensitive industries by this point</td>
+      </tr>
+      <tr>
+        <td><strong>2030–2035</strong></td>
+        <td>NIST PQC standards fully adopted globally; quantum-safe internet emerging</td>
+        <td>Companies without PQC migration face regulatory and reputational risk</td>
+      </tr>
+      <tr>
+        <td><strong>2035+ ("Q-Day")</strong></td>
+        <td>RSA-2048 potentially breakable; quantum advantage demonstrated at scale</td>
+        <td>Quantum becomes a competitive moat for pharma, logistics, finance leaders</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Positive Futures: What Quantum Will Unlock</h3>
+  <div class="app-grid">
+
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>💊 Medicine & Drug Discovery</h4>
+      <p>Quantum simulation of molecular interactions could reduce drug development from 12 years to 2–3 years. Protein folding, antibiotic design, and personalised oncology treatments become computationally tractable.</p>
+      <p style="font-size:12px; color:#2d5f8d; margin-top:6px;"><strong>India angle:</strong> Cipla, Dr. Reddy's, Sun Pharma — generic drug R&D and biosimilars pipeline could leapfrog with quantum molecular simulation under NQM partnerships.</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🌍 Climate & Energy Transition</h4>
+      <p>Quantum can design better solar cells, battery chemistries, and superconductors at the atomic level. Modelling climate systems with greater precision enables better disaster preparation and carbon sequestration strategies.</p>
+      <p style="font-size:12px; color:#2d5f8d; margin-top:6px;"><strong>India angle:</strong> Adani Green, Tata Power — quantum-designed batteries could accelerate India's 500 GW renewable energy target.</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🔐 Quantum-Safe Security</h4>
+      <p>NIST has finalised post-quantum standards (CRYSTALS-Kyber, FALCON, SPHINCS+). Quantum Key Distribution (QKD) creates theoretically unhackable communication channels. India's C-DOT is actively researching QKD deployment.</p>
+      <p style="font-size:12px; color:#2d5f8d; margin-top:6px;"><strong>India angle:</strong> National Quantum Mission allocates ₹6,003 Cr (2023–31) with specific quantum communication and cryptography tracks.</p>
+    </div>
+
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>💹 Finance & Optimisation</h4>
+      <p>Portfolio optimisation across billions of scenarios in real-time. Quantum-enhanced fraud detection. Supply chain routing solved optimally for networks too large for classical computers. Risk modelling for tail events becomes precise.</p>
+      <p style="font-size:12px; color:#2d5f8d; margin-top:6px;"><strong>India angle:</strong> HDFC AMC, Zerodha, RBI stress testing — quantum-optimised portfolios and systemic risk models by 2030.</p>
+    </div>
+
+  </div>
+
+  <div class="analogy">
+    <span class="label">🎯 The Manager's Takeaway:</span>
+    Think of quantum like Y2K — but the stakes are higher and the timeline is longer. Companies that audited and migrated their systems before Y2K deadline spent far less than those who scrambled at the end. <strong>The same logic applies to post-quantum cryptography: the cost of early migration is 5–10× lower than emergency response after Q-Day.</strong>
+  </div>
+
+  <div class="slide-number">12</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 13: WHAT MANAGERS SHOULD DO NOW -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <!-- <h2>What Should a Manager Do Today?</h2>
+
+  <p>Quantum is 5–15 years from business-critical impact. But preparation starts now. Here's a tiered action framework:</p>
+
+  <h3>Tier 1: Every Company (Do Now)</h3>
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🔐 Crypto-Agility Audit</h4>
+      <p>Inventory every system that uses RSA/ECC encryption. Build a migration plan to post-quantum cryptography (PQC). NIST has already published PQC standards (2024). Start migrating.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>📚 Quantum Literacy</h4>
+      <p>Ensure your CTO/CIO team understands quantum basics. Add quantum awareness to your technology strategy reviews. You don't need a quantum team — you need informed leadership.</p>
+    </div>
+  </div>
+
+  <h3>Tier 2: Industries at Risk (Start Planning)</h3>
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>💊 Pharma: Pilot Quantum Simulation</h4>
+      <p>Partner with IBM Quantum Network or AWS Braket. Run pilot molecular simulations on current (noisy) quantum hardware. Build internal capability before competitors.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🏦 Finance: Quantum Optimisation Pilots</h4>
+      <p>Test portfolio optimisation, risk modelling, or fraud detection on quantum platforms. Goldman Sachs, JPMorgan already running pilots. Indian banks should follow.</p>
+    </div>
+  </div>
+
+  <h3>Tier 3: Strategic Bets (For Innovation Leaders)</h3>
+  <div class="app-grid">
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🧪 R&D Investment</h4>
+      <p>If your company does materials science, chemicals, or energy research — quantum simulation will be transformative. Establish partnerships with IISc, IIT research groups under National Quantum Mission.</p>
+    </div>
+    <div class="app-card">
+      <div class="top-stripe"></div>
+      <h4>🎓 Talent Pipeline</h4>
+      <p>Fund quantum computing fellowships at IITs. Recruit from the ~500 Indian quantum researchers before the talent war intensifies.</p>
+    </div>
+  </div>
+
+  <div class="key-insight">
+    <strong>The rule:</strong> You don't need to build a quantum computer. You need to know when your industry crosses the line from "quantum is interesting" to "quantum is necessary." For encryption — that line is approaching fast.
+  </div>
+
+  <div class="slide-number">13</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 14: QUANTUM IN DIGITAL TRANSFORMATION -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Where Quantum Fits in Your Digital Transformation Strategy</h2>
+
+  <p>Quantum is <strong>Layer 4</strong> in your digital transformation stack — not the foundation, but the ceiling:</p>
+
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Technology</th><th>Status</th><th>Manager's Role</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Layer 1: Foundation</strong></td>
+        <td>Cloud, Mobile, APIs</td>
+        <td>✅ Mature — must-have</td>
+        <td>Ensure your company is cloud-native</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 2: Intelligence</strong></td>
+        <td>AI/ML, Analytics, GenAI</td>
+        <td>✅ Rapidly maturing</td>
+        <td>Deploy AI across business functions</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 3: Trust & Settlement</strong></td>
+        <td>Blockchain, Smart Contracts, CBDC</td>
+        <td>⚠️ Emerging (5–8 years to maturity)</td>
+        <td>Pilot where multi-party trust is the problem</td>
+      </tr>
+      <tr>
+        <td><strong>Layer 4: Computation Ceiling</strong></td>
+        <td>Quantum Computing</td>
+        <td>🔬 Experimental (8–15 years)</td>
+        <td>Build awareness, protect encryption, watch for industry-specific breakthroughs</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="analogy">
+    <span class="label">📊 Strategy Analogy:</span>
+    Think of digital transformation as building a skyscraper:<br><br>
+    <strong>Layer 1 (Cloud)</strong> = Foundation and plumbing. Without this, nothing works.<br>
+    <strong>Layer 2 (AI)</strong> = Electrical and HVAC. Makes the building intelligent.<br>
+    <strong>Layer 3 (Blockchain)</strong> = Security system and smart locks. Manages trust between tenants.<br>
+    <strong>Layer 4 (Quantum)</strong> = Penthouse laboratory. Not everyone needs it, but for those who do, it's transformative.
+  </div>
+
+  <div class="key-insight">
+    <strong>Strategic error to avoid:</strong> Don't invest in quantum before Layers 1–3 are solid. A company without cloud infrastructure and AI capability gains nothing from quantum. Get the foundations right first.
+  </div>
+
+  <div class="slide-number">14</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 15: KEY TAKEAWAYS -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Core Takeaways: Commit These to Memory</h2>
+
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <div class="key-insight" style="margin: 0; padding: 16px; background: linear-gradient(135deg, rgba(45,95,141,0.12), rgba(91,168,207,0.08));">
+      <strong>1. Not Faster — Different</strong><br>
+      Quantum doesn't make your computer faster. It solves a specific class of problems (optimisation, simulation, cryptography) that classical computers cannot solve in a human lifetime.
+    </div>
+    <div class="key-insight" style="margin: 0; padding: 16px; background: linear-gradient(135deg, rgba(45,95,141,0.12), rgba(91,168,207,0.08));">
+      <strong>2. Encryption Is the Urgent Problem</strong><br>
+      "Harvest Now, Decrypt Later" is real. Data encrypted today can be broken by quantum in 10 years. Post-quantum cryptography migration should start now.
+    </div>
+    <div class="key-insight" style="margin: 0; padding: 16px; background: linear-gradient(135deg, rgba(45,95,141,0.12), rgba(91,168,207,0.08));">
+      <strong>3. Industry-Specific, Not Universal</strong><br>
+      Pharma, finance, logistics, defence, and materials science will be transformed. Retail, media, and most service businesses won't need quantum directly.
+    </div>
+    <div class="key-insight" style="margin: 0; padding: 16px; background: linear-gradient(135deg, rgba(45,95,141,0.12), rgba(91,168,207,0.08));">
+      <strong>4. Layer 4 — Not Layer 1</strong><br>
+      Quantum is the ceiling, not the foundation. Get cloud (Layer 1) and AI (Layer 2) right before thinking about quantum. The companies that benefit from quantum will be those with mature data and AI infrastructure.
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top: 28px;">
+    "Quantum computing won't replace your laptop. It will solve the problems your laptop will never be able to. The manager's job is to know which problems those are — and whether they're yours."
+  </div>
+
+  <div class="slide-number">15</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 16: MCQs -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Self-Assessment: MCQs</h2>
+
+  <div class="mcq-block">
+    <div class="q-text">Q1. What is a qubit?</div>
+    <ul class="options">
+      <li>A) A faster version of a classical bit that processes 0s and 1s more quickly</li>
+      <li>B) A quantum bit that can exist in superposition — representing 0, 1, or both simultaneously</li>
+      <li>C) A type of encryption key used in quantum-safe cryptography</li>
+      <li>D) A unit of measurement for quantum computer speed</li>
+    </ul>
+    <div class="answer">✅ Answer: B — Superposition is the defining feature. A qubit is not "faster" — it processes differently.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q2. Which type of business problem is quantum computing BEST suited to solve?</div>
+    <ul class="options">
+      <li>A) Sending emails and managing databases</li>
+      <li>B) Finding the optimal solution among an astronomically large number of possibilities</li>
+      <li>C) Running Excel spreadsheets with more rows</li>
+      <li>D) Hosting websites with higher traffic</li>
+    </ul>
+    <div class="answer">✅ Answer: B — Quantum excels at combinatorial optimisation, not routine computing tasks.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q3. What is the "Harvest Now, Decrypt Later" threat?</div>
+    <ul class="options">
+      <li>A) A farming technique using quantum sensors for crop optimisation</li>
+      <li>B) Adversaries collecting encrypted data today, planning to decrypt it when quantum computers can break current encryption</li>
+      <li>C) A quantum algorithm for faster data harvesting from web sources</li>
+      <li>D) A blockchain vulnerability where tokens are mined now and sold later</li>
+    </ul>
+    <div class="answer">✅ Answer: B — This is a real and present cybersecurity threat. Nation-states are already collecting encrypted data for future decryption.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q4. Why can't quantum computers replace classical computers for everyday tasks?</div>
+    <ul class="options">
+      <li>A) Quantum computers are slower at everything</li>
+      <li>B) Quantum computers only work offline</li>
+      <li>C) Quantum advantage exists only for specific problem types; for routine tasks, classical computers are faster, cheaper, and more practical</li>
+      <li>D) Quantum computers have been banned by most governments</li>
+    </ul>
+    <div class="answer">✅ Answer: C — Quantum is a specialised tool, not a universal upgrade. Your laptop is better for email, spreadsheets, and browsing.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q5. What does "entanglement" mean in quantum computing?</div>
+    <ul class="options">
+      <li>A) Qubits get physically tangled in the hardware, causing errors</li>
+      <li>B) Two qubits become linked such that measuring one instantly determines the state of the other, enabling correlated computations</li>
+      <li>C) A quantum computer becomes entangled with the internet for faster data transfer</li>
+      <li>D) The process of connecting a quantum computer to a classical computer</li>
+    </ul>
+    <div class="answer">✅ Answer: B — Entanglement links qubits so their states are correlated, enabling computations impossible with independent bits.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q6. Which industry faces the most URGENT quantum threat today?</div>
+    <ul class="options">
+      <li>A) Agriculture — quantum will destroy crop yields</li>
+      <li>B) Entertainment — quantum will make movies obsolete</li>
+      <li>C) Banking & Cybersecurity — quantum will break current encryption standards (RSA, ECC) that protect financial transactions</li>
+      <li>D) Retail — quantum will replace all e-commerce platforms</li>
+    </ul>
+    <div class="answer">✅ Answer: C — Shor's algorithm threatens all RSA/ECC-based encryption. Banking, UPI, Aadhaar — all vulnerable.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q7. In the Digital Transformation stack, quantum computing sits at which layer?</div>
+    <ul class="options">
+      <li>A) Layer 1 — Foundation (every company needs it immediately)</li>
+      <li>B) Layer 2 — Intelligence (deploy alongside AI)</li>
+      <li>C) Layer 3 — Trust & Settlement (use for blockchain applications)</li>
+      <li>D) Layer 4 — Computation Ceiling (experimental; relevant for specific industries only)</li>
+    </ul>
+    <div class="answer">✅ Answer: D — Quantum is the ceiling, not the foundation. Cloud and AI must come first.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q8. What is the primary engineering challenge preventing quantum computers from being commercially reliable today?</div>
+    <ul class="options">
+      <li>A) They are too expensive to manufacture</li>
+      <li>B) Qubit decoherence and high error rates — qubits lose their quantum state within microseconds</li>
+      <li>C) There are no programming languages for quantum computers</li>
+      <li>D) Quantum computers require too much electricity</li>
+    </ul>
+    <div class="answer">✅ Answer: B — Decoherence is the #1 challenge. Qubits are extremely fragile and require near-absolute-zero temperatures and error correction using thousands of physical qubits per logical qubit.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q9. India's National Quantum Mission (NQM) has allocated approximately how much funding?</div>
+    <ul class="options">
+      <li>A) ₹500 Cr</li>
+      <li>B) ₹6,000 Cr</li>
+      <li>C) ₹25,000 Cr</li>
+      <li>D) ₹1,00,000 Cr</li>
+    </ul>
+    <div class="answer">✅ Answer: B — ₹6,003 Cr allocated for 2023–2031, covering quantum computing, communication, sensing, and materials research.</div>
+  </div>
+
+  <div class="mcq-block">
+    <div class="q-text">Q10. A logistics company with 500 trucks and 2,000 delivery points wants to find the optimal routes. Why might quantum computing help here?</div>
+    <ul class="options">
+      <li>A) Quantum computers can drive the trucks autonomously</li>
+      <li>B) The number of possible route combinations is astronomically large — quantum's superposition allows exploring all routes simultaneously rather than checking them one by one</li>
+      <li>C) Quantum computers have built-in GPS systems</li>
+      <li>D) Classical computers cannot do logistics at all</li>
+    </ul>
+    <div class="answer">✅ Answer: B — This is a combinatorial optimisation problem. The number of possible routes for 500 trucks across 2,000 points exceeds the number of atoms in the universe. Quantum's superposition explores these simultaneously.</div>
+  </div>
+
+  <div class="slide-number">16</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 17: CASELET -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Business Caselet: MedGenix Pharmaceuticals</h2>
+
+  <div class="caselet">
+    <h3>Background: MedGenix Pharmaceuticals Ltd.</h3>
+    <p><strong>MedGenix</strong> is a mid-size Indian pharmaceutical company headquartered in Hyderabad, with ₹4,200 Cr annual revenue. The company specialises in generic drug manufacturing and has recently established a New Drug Discovery (NDD) division with a ₹300 Cr R&D budget. MedGenix exports to 45 countries and has FDA-approved manufacturing facilities.</p>
+
+    <h3>The Strategic Challenge</h3>
+    <p>MedGenix's CEO, Priya Sharma, faces three converging pressures:</p>
+
+    <p><strong>Pressure 1 — Drug Discovery Speed:</strong> MedGenix's NDD division has been working on a novel anti-diabetic compound (MG-4071) for 4 years. Classical computational chemistry simulations can model the drug's interaction with target proteins, but each simulation takes 3 weeks on their HPC (High Performance Computing) cluster. They need to test 50,000 molecular variations to find the optimal compound. At current speed, this will take <strong>57 years</strong>.</p>
+
+    <p><strong>Pressure 2 — Competitive Threat:</strong> Pfizer and Roche have announced partnerships with IBM Quantum Network to accelerate their own drug discovery pipelines. MedGenix's global competitors will be able to simulate molecular interactions in hours rather than weeks. If MedGenix doesn't respond, its NDD pipeline becomes permanently uncompetitive.</p>
+
+    <p><strong>Pressure 3 — Cybersecurity:</strong> MedGenix holds 12 years of proprietary molecular research data, clinical trial records, and patient genomic data — all encrypted with RSA-2048. The CISO has flagged the "Harvest Now, Decrypt Later" risk: if a competitor or nation-state has been collecting MedGenix's encrypted R&D transmissions, quantum computers could decrypt them within the next decade, exposing MedGenix's entire drug discovery pipeline.</p>
+
+    <h3>Key Data Points</h3>
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>Current State</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Annual Revenue</td><td>₹4,200 Cr</td></tr>
+          <tr><td>R&D Budget (NDD Division)</td><td>₹300 Cr/year</td></tr>
+          <tr><td>HPC Cluster Cost</td><td>₹45 Cr/year (operational)</td></tr>
+          <tr><td>Time per Molecular Simulation</td><td>3 weeks (classical HPC)</td></tr>
+          <tr><td>Molecular Variations to Test</td><td>50,000</td></tr>
+          <tr><td>Time to Complete All Simulations</td><td>~57 years (classical) vs. ~6 months (estimated quantum)</td></tr>
+          <tr><td>Encryption Standard</td><td>RSA-2048 (vulnerable to quantum by ~2035)</td></tr>
+          <tr><td>Competitors with Quantum Partnerships</td><td>Pfizer (IBM), Roche (IBM), Merck (Google)</td></tr>
+          <tr><td>India's Quantum Computing Researchers</td><td>~500 nationally</td></tr>
+          <tr><td>IBM Quantum Network Annual Fee</td><td>~$500K–$2M (estimated)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The Decision</h3>
+    <p>Priya Sharma must present a quantum strategy to MedGenix's board next month. She has three options on the table:</p>
+
+    <div class="case-question">
+      <strong>Option A — Wait and Watch:</strong> Continue with classical HPC. Monitor quantum developments. Invest only when the technology matures. Risk: competitors build 5–8 year lead in quantum drug discovery.
+    </div>
+
+    <div class="case-question">
+      <strong>Option B — Cloud Quantum Pilot:</strong> Join IBM Quantum Network or AWS Braket. Run a 12-month pilot on MG-4071 molecular simulations using current (noisy) quantum hardware. Budget: ₹15 Cr. Simultaneously begin post-quantum cryptography migration. Risk: current quantum hardware may not be reliable enough for production-grade molecular simulation.
+    </div>
+
+    <div class="case-question">
+      <strong>Option C — Full Quantum Investment:</strong> Establish an in-house quantum computing lab. Partner with IISc Bangalore under National Quantum Mission. Hire 15 quantum researchers. Budget: ₹120 Cr over 5 years. Migrate all encryption to PQC immediately. Risk: massive capital commitment with uncertain ROI timeline.
+    </div>
+  </div>
+
+  <div class="slide-number">17</div>
+</div> -->
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SLIDE 18: CASELET DISCUSSION QUESTIONS -->
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- <div class="slide">
+  <h2>Caselet Discussion Questions</h2>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q1. Strategic Choice:</strong> Which option (A, B, or C) should Priya recommend to the board? Justify your answer using a cost-benefit analysis. Consider MedGenix's revenue, R&D budget, competitive position, and risk tolerance.
+  </div>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q2. Competitive Dynamics:</strong> Pfizer and Roche have partnered with IBM Quantum. Does this create a "winner-takes-all" dynamic in drug discovery? Or can a mid-size Indian pharma company like MedGenix compete through different strategies (e.g., focused molecule classes, partnerships with Indian quantum labs)?
+  </div>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q3. The Encryption Problem:</strong> The CISO says RSA-2048 will be vulnerable by ~2035. Migration to post-quantum cryptography (PQC) takes 3–5 years. If MedGenix starts migration today, they'll be ready by 2029–2031. If they wait 3 years, they'll be ready by 2032–2034 — potentially too late. Is the encryption migration more urgent than the drug discovery application? Why or why not?
+  </div>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q4. Talent Constraint:</strong> India has ~500 quantum computing researchers nationally. MedGenix wants to hire 15. Is this realistic? What alternative talent strategies could they use (global hiring, university partnerships, training internal computational chemists in quantum)?
+  </div>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q5. Risk Analysis:</strong> Option B costs ₹15 Cr with uncertain results. Option C costs ₹120 Cr with even more uncertainty. MedGenix's total R&D budget is ₹300 Cr. What percentage of R&D budget is reasonable to allocate to a technology that may not be production-ready for 8–10 years? How do you manage board expectations?
+  </div>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q6. Digital Transformation Layer Model:</strong> MedGenix has cloud infrastructure (Layer 1) and uses AI/ML for clinical trial data analysis (Layer 2). They do NOT use blockchain (Layer 3). Should they skip Layer 3 and invest directly in Layer 4 (quantum)? Or does skipping layers create structural weakness in their digital transformation?
+  </div>
+
+  <div class="case-question" style="margin: 16px 0;">
+    <strong>Q7. India's National Quantum Mission:</strong> NQM offers ₹6,003 Cr in government funding. Can MedGenix leverage this to reduce its own investment? What's the realistic timeline for NQM-funded research to produce commercially useful quantum computing capabilities?
+  </div>
+
+  <div class="key-insight" style="margin-top: 20px;">
+    <strong>Teaching Note:</strong> There is no single "correct" answer. The best responses will recognise that Option B (cloud pilot) is the most defensible near-term strategy — it limits capital commitment, builds internal capability, and provides real data for future investment decisions. But the encryption migration (from all options) is non-negotiable and should be treated as the most urgent action item regardless of the quantum computing strategy chosen.
+  </div> -->
+
+  <!-- <div class="slide-number">18</div> -->
+
+
+</body>
+</html>
