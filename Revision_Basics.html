@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Transformation: A Conceptual Reading</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root {
+  /* Text */
+  --ink:         #18120e;   /* primary headings */
+  --body:        #241a10;   /* body paragraphs — warm dark, high contrast */
+  --caption:     #3d3028;   /* secondary text, labels */
+  --muted:       #5e4e40;   /* de-emphasised, captions */
+
+  /* Backgrounds */
+  --bg:          #f4efe6;   /* page — warm off-white */
+  --bg-card:     #f9f6f0;   /* card surfaces */
+  --bg-mid:      #ede7db;   /* slightly tinted panels */
+  --bg-amber:    #fdf2dc;   /* amber tinted panel */
+
+  /* Accent */
+  --amber:       #a8650e;   /* primary accent — darkened for contrast on light */
+  --amber-ui:    #c47c18;   /* UI elements like badges */
+  --amber-light: #dba44a;   /* on dark backgrounds */
+  --amber-pale:  #fdf2dc;
+
+  /* Semantic */
+  --correct-bg:  #e6f4ed;
+  --correct-tx:  #144d2c;
+  --correct-bd:  #228b4e;
+  --wrong-bg:    #f8eaea;
+  --wrong-tx:    #5c1212;
+  --wrong-bd:    #9e2828;
+
+  /* Structure */
+  --border:      #c8bfaf;
+  --border-lt:   #dcd4c6;
+
+  /* Dark surface */
+  --dk-bg:       #16100a;
+  --dk-tx:       #ede8df;
+  --dk-muted:    #a8957e;
+  --dk-accent:   #dba44a;
+}
+
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; display: block; }
+
+/* ═══════════════════════════════════════
+   BASE
+═══════════════════════════════════════ */
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--body);
+  line-height: 1.85;
+  font-size: 17px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════════ */
+#prog {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--amber), var(--amber-light));
+  width: 0%; z-index: 300;
+  transition: width 0.12s linear;
+}
+
+/* ═══════════════════════════════════════
+   MASTHEAD
+═══════════════════════════════════════ */
+.masthead {
+  background: var(--dk-bg);
+  color: var(--dk-tx);
+  padding: clamp(32px,7vw,60px) clamp(20px,6vw,48px) clamp(28px,6vw,52px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px; height: 200px;
+  background: radial-gradient(ellipse, rgba(184,115,32,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.mh-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dk-accent);
+  margin-bottom: 16px;
+}
+.masthead h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 5.5vw, 48px);
+  font-weight: 700; line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--dk-tx);
+}
+.mh-sub {
+  font-size: clamp(14px,2.2vw,16px);
+  color: var(--dk-muted);
+  font-style: italic;
+  max-width: 500px;
+  margin: 0 auto 26px;
+  line-height: 1.65;
+}
+.meta-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(14px,4vw,36px);
+  flex-wrap: wrap;
+}
+.meta-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 1.5px;
+  color: rgba(168,149,126,0.65);
+  text-transform: uppercase;
+}
+.meta-item span {
+  display: block;
+  font-family: 'Source Serif 4', serif;
+  font-style: italic; font-size: 13px;
+  letter-spacing: 0; text-transform: none;
+  color: var(--dk-accent); margin-top: 3px;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════ */
+.wrap {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: clamp(32px,6vw,60px) clamp(18px,5vw,32px) 80px;
+}
+
+/* ═══════════════════════════════════════
+   SECTION LABEL
+═══════════════════════════════════════ */
+.sec-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: clamp(40px,8vw,60px) 0 clamp(18px,3vw,28px);
+}
+.sec-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--amber); font-weight: 600;
+  white-space: nowrap;
+}
+.sec-line { height: 1px; background: var(--border); flex: 1; }
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════ */
+.lead {
+  font-size: clamp(16px,2.8vw,19px);
+  line-height: 1.8; font-weight: 400;
+  color: var(--body);
+  border-left: 3px solid var(--amber);
+  padding-left: 18px;
+  margin-bottom: 26px;
+}
+
+p { margin-bottom: 20px; color: var(--body); }
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(21px,4vw,27px);
+  font-weight: 700; line-height: 1.28;
+  color: var(--ink);
+  margin: 6px 0 14px;
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px,2.5vw,19px);
+  font-weight: 400; font-style: italic;
+  color: var(--caption);
+  margin: 30px 0 12px;
+}
+
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; }
+
+hr.div { border: none; border-top: 1px solid var(--border-lt); margin: clamp(32px,5vw,50px) 0; }
+
+/* ═══════════════════════════════════════
+   PULL QUOTE
+═══════════════════════════════════════ */
+.pq {
+  border-top: 2px solid var(--amber);
+  border-bottom: 1px solid var(--border-lt);
+  padding: clamp(16px,3vw,24px) 0;
+  margin: clamp(26px,4vw,38px) 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px,2.8vw,20px);
+  font-style: italic; line-height: 1.55;
+  color: var(--caption);
+}
+.pq cite {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  font-style: normal; letter-spacing: 1.5px;
+  margin-top: 12px; text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════
+   DISTINCTION BOX (dark)
+═══════════════════════════════════════ */
+.dist-box {
+  background: var(--dk-bg);
+  padding: clamp(20px,4vw,30px);
+  margin: clamp(22px,4vw,34px) 0;
+  border-radius: 3px;
+}
+.dist-box .box-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--dk-accent);
+  text-transform: uppercase;
+  margin-bottom: 18px; font-weight: 600;
+}
+.dist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 20px;
+}
+.dist-col h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dk-accent);
+  margin-bottom: 12px; font-weight: 600;
+}
+.dist-col ul {
+  list-style: none;
+  font-size: clamp(13px,2.1vw,15px);
+  line-height: 1.9;
+  color: var(--dk-tx);          /* full contrast on dark */
+}
+.dist-col ul li::before { content: '→ '; color: var(--dk-accent); }
+.dist-div { background: rgba(237,232,223,0.12); }
+
+/* ═══════════════════════════════════════
+   INSIGHT CARDS (2-up)
+═══════════════════════════════════════ */
+.insight-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px; margin: 22px 0;
+}
+.ins-card {
+  background: var(--bg-mid);
+  border-top: 3px solid var(--amber);
+  padding: clamp(14px,3vw,20px);
+}
+.ins-card h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--amber); margin-bottom: 8px; font-weight: 600;
+}
+.ins-card p {
+  font-size: clamp(13px,2vw,14px);
+  line-height: 1.72; margin: 0;
+  color: var(--caption);        /* was muted — now darker for readability */
+}
+
+/* ═══════════════════════════════════════
+   PAUSE & THINK
+═══════════════════════════════════════ */
+.pt {
+  border: 1.5px dashed var(--amber-ui);
+  padding: clamp(16px,3.5vw,24px);
+  margin: clamp(26px,4vw,38px) 0;
+  background: var(--bg-amber);
+  border-radius: 3px;
+}
+.pt-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--amber); text-transform: uppercase;
+  margin-bottom: 10px; font-weight: 600;
+}
+.pt p {
+  font-size: clamp(14px,2.2vw,15px);
+  font-style: italic;
+  color: var(--caption);        /* was muted */
+  margin: 0; line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════
+   CASELET
+═══════════════════════════════════════ */
+.caselet {
+  background: var(--bg-amber);
+  border: 1px solid #c8aa72;
+  border-left: 4px solid var(--amber);
+  padding: clamp(18px,4vw,28px);
+  margin: clamp(28px,5vw,42px) 0;
+  border-radius: 0 3px 3px 0;
+}
+.cs-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber); margin-bottom: 10px; font-weight: 600;
+}
+.caselet h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px,2.5vw,19px);
+  font-style: normal; font-weight: 700;
+  color: var(--ink); margin: 0 0 14px;
+}
+.caselet p {
+  font-size: clamp(14px,2.2vw,15px);
+  line-height: 1.78; margin-bottom: 12px;
+  color: var(--body);
+}
+.cs-q {
+  background: #fff;
+  border: 1px solid var(--border-lt);
+  padding: clamp(12px,2.5vw,16px);
+  margin-top: 12px; border-radius: 2px;
+}
+.cs-q .ql {
+  font-size: clamp(12px,2vw,13px);
+  font-weight: 600; color: var(--caption);
+  margin-bottom: 5px;
+}
+.cs-q .qh {
+  font-size: clamp(13px,2vw,14px);
+  font-style: italic; color: var(--muted);
+  margin: 0; line-height: 1.72;
+}
+
+/* ═══════════════════════════════════════
+   MCQ BLOCK
+═══════════════════════════════════════ */
+.mcq {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: clamp(18px,4vw,28px);
+  margin: clamp(28px,5vw,46px) 0;
+  border-radius: 3px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+.mcq-hdr {
+  display: flex;
+  align-items: center;
+  gap: 12px; flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--bg-mid);
+}
+.mcq-badge {
+  background: var(--amber-ui);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; padding: 4px 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  border-radius: 2px; font-weight: 600;
+}
+.mcq-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--muted);
+}
+.mcq-q {
+  font-size: clamp(14px,2.2vw,16px);
+  line-height: 1.65; margin-bottom: 16px;
+  color: var(--body);
+}
+.mcq-opts { display: flex; flex-direction: column; gap: 10px; }
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: clamp(12px,2vw,14px) clamp(14px,2.5vw,18px);
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: clamp(13px,2.2vw,15px);
+  line-height: 1.6; background: var(--bg);
+  color: var(--body);
+  min-height: 52px;                      /* comfortable tap target */
+  transition: border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.opt:active { opacity: 0.88; }
+.opt:hover:not(.done) {
+  border-color: var(--amber-ui);
+  background: var(--bg-amber);
+}
+.opt.correct {
+  border-color: var(--correct-bd);
+  background: var(--correct-bg);
+  color: var(--correct-tx);
+}
+.opt.wrong {
+  border-color: var(--wrong-bd);
+  background: var(--wrong-bg);
+  color: var(--wrong-tx);
+}
+.opt.show-right {
+  border-color: var(--correct-bd);
+  background: var(--correct-bg);
+  color: var(--correct-tx);
+  opacity: 0.72;
+}
+.opt-let {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  min-width: 18px; margin-top: 2px;
+  flex-shrink: 0; color: inherit;
+}
+
+.mcq-fb {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 2px;
+  font-size: clamp(13px,2vw,14px);
+  line-height: 1.7; display: none;
+}
+.mcq-fb.show { display: block; }
+.mcq-fb.ok  { background: var(--correct-bg); border-left: 3px solid var(--correct-bd); color: var(--correct-tx); }
+.mcq-fb.bad { background: var(--wrong-bg);   border-left: 3px solid var(--wrong-bd);   color: var(--wrong-tx); }
+.mcq-fb strong { font-weight: 600; }
+
+/* ═══════════════════════════════════════
+   FRAMEWORK GRID
+═══════════════════════════════════════ */
+.fw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 26px 0; border-radius: 3px; overflow: hidden;
+}
+.fw-cell {
+  background: var(--bg-card);
+  padding: clamp(14px,3vw,20px);
+}
+.fw-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px; font-weight: 600;
+  color: var(--amber); line-height: 1;
+  margin-bottom: 6px;
+}
+.fw-cell h4 {
+  font-size: clamp(12px,2vw,14px);
+  font-weight: 600; color: var(--ink);
+  margin-bottom: 8px; line-height: 1.35;
+}
+.fw-cell p {
+  font-size: clamp(12px,1.8vw,13px);
+  color: var(--caption);          /* was --muted: readable now */
+  line-height: 1.68; margin: 0;
+}
+
+/* ═══════════════════════════════════════
+   COMPANY GRID
+═══════════════════════════════════════ */
+.co-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
+  gap: 12px; margin: 22px 0;
+}
+.co-card {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: clamp(14px,3vw,18px);
+  border-radius: 2px;
+}
+.co-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--amber); margin-bottom: 4px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.co-from {
+  font-size: 11px; color: var(--muted);
+  font-style: italic; margin-bottom: 8px; line-height: 1.4;
+}
+.co-card p {
+  font-size: clamp(12px,1.9vw,13px);
+  line-height: 1.68; color: var(--caption);  /* improved from muted */
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════
+   SCORE CHIP (fixed)
+═══════════════════════════════════════ */
+#score {
+  position: fixed;
+  bottom: 16px; right: 16px;
+  background: var(--dk-bg);
+  color: var(--dk-tx);
+  padding: 10px 16px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.5px;
+  z-index: 200; display: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+  line-height: 1.4;
+}
+#score em { color: var(--dk-accent); font-size: 15px; font-weight: 600; font-style: normal; }
+
+/* ═══════════════════════════════════════
+   FINAL SUMMARY
+═══════════════════════════════════════ */
+.summary {
+  background: var(--dk-bg);
+  color: var(--dk-tx);
+  padding: clamp(32px,7vw,54px) clamp(20px,5vw,48px);
+  text-align: center;
+}
+.summary h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--dk-tx); font-size: clamp(19px,3.5vw,25px);
+  margin-bottom: 10px;
+}
+.summary .sub {
+  color: var(--dk-muted); font-size: 14px;
+  font-style: italic; max-width: 460px;
+  margin: 0 auto 30px; line-height: 1.6;
+}
+.sum-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px,1fr));
+  gap: 18px; text-align: left;
+}
+.sum-item { border-top: 1px solid rgba(237,232,223,0.16); padding-top: 14px; }
+.sum-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px; color: var(--dk-accent);
+  font-weight: 600; line-height: 1; margin-bottom: 7px;
+}
+.sum-item p {
+  font-size: 13px; color: var(--dk-muted);
+  line-height: 1.62; margin: 0;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════ */
+
+/* Tablet landscape & smaller laptops */
+@media (max-width: 1024px) {
+  .wrap { max-width: 100%; }
+}
+
+/* Tablet portrait — 2-column grids */
+@media (max-width: 880px) {
+  body { line-height: 1.78; }
+  .co-grid  { grid-template-columns: 1fr 1fr; }
+  .sum-grid { grid-template-columns: repeat(3, 1fr); }
+  .fw-grid  { grid-template-columns: repeat(2, 1fr); }
+  .insight-row { gap: 12px; }
+}
+
+/* Mobile — large phones & small tablets in portrait */
+@media (max-width: 580px) {
+  body { font-size: 15px; line-height: 1.72; }
+
+  /* Single-column collapse */
+  .dist-grid { grid-template-columns: 1fr; gap: 18px; }
+  .dist-div  { display: none; }
+  .insight-row { grid-template-columns: 1fr; gap: 12px; }
+  .co-grid     { grid-template-columns: 1fr; gap: 10px; }
+  .fw-grid     { grid-template-columns: 1fr; }
+  .sum-grid    { grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* Masthead refinements */
+  .meta-row { gap: 14px; }
+
+  /* Lead paragraph */
+  .lead { padding-left: 14px; }
+
+  /* MCQ touch targets */
+  .opt { min-height: 56px; }
+  .mcq-hdr { gap: 8px; }
+
+  /* Score chip centered on mobile */
+  #score {
+    right: 50%; transform: translateX(50%);
+    bottom: 10px; text-align: center;
+    padding: 8px 14px;
+  }
+}
+
+/* Small phones — very narrow screens (≤400px) */
+@media (max-width: 400px) {
+  body { font-size: 14.5px; }
+
+  .masthead { padding: 32px 16px 28px; }
+  .mh-label { letter-spacing: 2px; margin-bottom: 12px; font-size: 9px; }
+  .mh-sub { margin-bottom: 22px; }
+
+  .meta-row { gap: 12px; }
+  .meta-item { font-size: 8px; letter-spacing: 1px; }
+
+  .sec-label { margin: 30px 0 18px; }
+  .sec-tag { font-size: 9px; letter-spacing: 2px; }
+
+  .lead { padding-left: 12px; }
+
+  /* Tighter cards on small screens */
+  .mcq { padding: 16px; }
+  .caselet { padding: 16px; }
+  .pt { padding: 14px; }
+  .dist-box { padding: 18px; }
+  .pq { padding: 14px 0; margin: 22px 0; }
+
+  /* Summary collapses to single column */
+  .sum-grid { grid-template-columns: 1fr; gap: 14px; }
+  .sum-n { font-size: 22px; }
+}
+
+/* Print styles — clean PDF / paper output */
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; line-height: 1.55; }
+  #prog, #score { display: none !important; }
+  .masthead, .summary, .dist-box {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .mcq, .caselet, .pt, .pq, .dist-box, .ins-card, .co-card, .fw-cell, .insight-row {
+    page-break-inside: avoid;
+  }
+  .wrap { max-width: 100%; padding: 24px; }
+  .mcq-fb { display: block !important; }  /* show all feedback when printing */
+  a[href]::after { content: ""; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="score">Score&thinsp;<em id="sc">0</em>&thinsp;/&thinsp;<em id="tot">0</em></div>
+
+<!-- MASTHEAD ──────────────────────────── -->
+<div class="masthead">
+  <div class="mh-label">Conceptual Reading · Digital Strategy</div>
+  <h1>What Digital Transformation Actually Means</h1>
+  <p class="mh-sub">A synthesis of research, real-world cases, and the ideas most commonly confused with transformation — but aren't.</p>
+  <div class="meta-row">
+    <div class="meta-item">Reading Time <span>~50–60 min</span></div>
+    <div class="meta-item">Interactives <span>5 MCQs · 3 Caselets</span></div>
+    <div class="meta-item">Sources <span>HBR · McKinsey</span></div>
+  </div>
+</div>
+
+<!-- BODY ──────────────────────────────── -->
+<div class="wrap">
+
+  <p class="lead">Every organisation today is, in some sense, "doing digital." The question is whether any of it constitutes transformation — or whether most of it is something far more modest, and far less durable.</p>
+
+  <p>This reading does not start with technology. It starts with a provocation: the majority of what executives call "digital transformation" is, in fact, neither digital in the strategic sense nor transformation in any meaningful sense. It is maintenance dressed up in new language.</p>
+
+  <p>By the end of this reading, you should be able to distinguish between three commonly conflated concepts, understand what a genuine transformation demands from leaders and organisations, recognise the patterns that separate successful transformations from expensive experiments, and think critically about real cases where these ideas played out — or failed to.</p>
+
+  <div class="pt">
+    <div class="pt-lbl">Before you read on — pause and think</div>
+    <p>Think of an organisation you know — your bank, a retailer, a university. What "digital" changes have you noticed in the last three years? As you read, consider whether any of those changes constitute transformation.</p>
+  </div>
+
+  <!-- ── PART 1 ── -->
+  <div class="sec-label">
+    <div class="sec-tag">Part One</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <h2>Three Things That Are Not the Same</h2>
+
+  <p>A critical source of confusion in business today comes from treating <em>digitization</em>, <em>digitalization</em>, and <em>digital transformation</em> as synonyms. They are not — and the failure to distinguish them costs organisations both money and competitive position.</p>
+
+  <p><strong>Digitization</strong> is the conversion of analogue information into digital form. Scanning paper records. Moving a printed catalogue online. Replacing a physical form with a PDF. This is purely technical — infrastructure work. It changes the medium but nothing about how the organisation creates value.</p>
+
+  <p><strong>Digitalization</strong> is a step further: using digital technologies to improve existing processes. An airline that lets you check in via an app has digitalized its check-in process. The process itself is unchanged; the channel is different. Digitalization generally improves efficiency and customer experience, but it does not alter what value is being created or for whom.</p>
+
+  <p><strong>Digital transformation</strong>, by contrast, is a fundamental reimagining of how an organisation creates, delivers, and captures value — made possible by, but not reducible to, digital technology. It asks not "how do we do this more efficiently?" but "should we be doing this at all, and if so, in what form, for what purpose?"</p>
+
+  <div class="dist-box">
+    <div class="box-lbl">The Core Distinction</div>
+    <div class="dist-grid">
+      <div class="dist-col">
+        <h4>Digitizing / Digitalizing</h4>
+        <ul>
+          <li>Improves existing processes</li>
+          <li>Same value proposition</li>
+          <li>Technology as efficiency tool</li>
+          <li>Stays within current business model</li>
+          <li>Asks "how do we work better?"</li>
+        </ul>
+      </div>
+      <div class="dist-div"></div>
+      <div class="dist-col">
+        <h4>Digital Transformation</h4>
+        <ul>
+          <li>Reimagines the business model</li>
+          <li>New or expanded value proposition</li>
+          <li>Technology as strategic enabler</li>
+          <li>May shed existing revenue streams</li>
+          <li>Asks "why do we exist, and for whom?"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <p>Why does this distinction matter practically? Because the investments, the leadership behaviours, the timelines, and the success criteria are entirely different. A digitalization project can be scoped, managed, and delivered by an IT team in a quarter. A genuine transformation takes years, involves the whole organisation, and cannot be project-managed in any conventional sense.</p>
+
+  <p>Research from Accenture reinforces the stakes: firms that led their industries in enterprise technology adoption grew twice as fast as laggards in the three years before 2018. By 2021, that gap had widened to five times faster. The risk has shifted from being left behind to being eliminated.</p>
+
+  <!-- MCQ 1 -->
+  <div class="mcq" id="q1">
+    <div class="mcq-hdr">
+      <div class="mcq-badge">Check Your Understanding</div>
+      <div class="mcq-num">Question 1 of 5</div>
+    </div>
+    <div class="mcq-q">A large retail bank replaces paper loan forms with an online form that customers complete on their phones. The data auto-populates into the same back-office system the bank has used for 15 years. Which concept best describes this change?</div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="pick(this,'q1',false)" data-q="q1"><span class="opt-let">A</span><span>Digital transformation — the bank has moved into mobile banking</span></div>
+      <div class="opt" onclick="pick(this,'q1',false)" data-q="q1"><span class="opt-let">B</span><span>Innovation — this is a new product offered to customers</span></div>
+      <div class="opt" onclick="pick(this,'q1',true)"  data-q="q1"><span class="opt-let">C</span><span>Digitalization — the same process runs through a digital channel, but the underlying model is unchanged</span></div>
+      <div class="opt" onclick="pick(this,'q1',false)" data-q="q1"><span class="opt-let">D</span><span>Digitization — paper records have been converted to digital files</span></div>
+    </div>
+    <div class="mcq-fb" id="q1-fb"></div>
+  </div>
+
+  <!-- ── PART 2 ── -->
+  <div class="sec-label">
+    <div class="sec-tag">Part Two</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <h2>The Nature of the Change</h2>
+
+  <p>What, then, does a genuine transformation involve? Three dimensions are worth examining closely, because each is commonly misunderstood.</p>
+
+  <h3>It Is Not the Same as Innovation</h3>
+
+  <p>The pace of technological change over the past two decades has been extraordinary — e-commerce, social media, mobile, video streaming, AI. It is understandable that leaders, dazzled by these possibilities, treat digital transformation as an exercise in adopting new technologies. But this is a category error.</p>
+
+  <p>Innovation asks: what new thing can we create? Transformation asks: what does our business need to become? These are different questions. An organisation can innovate constantly — launching features, experimenting with AI, deploying automation — without transforming at all. Transformation is about achieving fundamentally different business outcomes, not about being at the frontier of technology adoption for its own sake.</p>
+
+  <p>A practical consequence: leaders should begin not with technology decisions but with business questions. What do our customers need that we cannot currently give them? Where are we losing ground and why? Technology decisions should follow from business questions — not precede them.</p>
+
+  <div class="pq">
+    The most powerful use of digital tools is not to cut costs or create efficiencies, but to ask fundamentally different questions.
+    <cite>Satell, Kates &amp; McLees — HBR, 2021</cite>
+  </div>
+
+  <h3>It Is Not Primarily a Technology Problem</h3>
+
+  <p>Perhaps the deepest misconception is that digital transformation is fundamentally a technology challenge — and therefore something to be delegated to IT departments or technology vendors. The evidence consistently contradicts this.</p>
+
+  <p>McKinsey research on over 1,650 firms found that one of the most statistically robust predictors of successful digital reinvention was leadership commitment — specifically, CEO-level sponsorship. The technology itself is rarely the limiting factor. Culture, resistance, misaligned incentives, and organisational inertia are.</p>
+
+  <div class="insight-row">
+    <div class="ins-card">
+      <h4>The Technology Fallacy</h4>
+      <p>Most failed transformations invested adequately in technology but underinvested in the cultural and organisational change needed to realise its value.</p>
+    </div>
+    <div class="ins-card">
+      <h4>The People Imperative</h4>
+      <p>Successful transformations treat technology as the enabler and people — their behaviours, incentives, and mindsets — as the core of the change programme.</p>
+    </div>
+  </div>
+
+  <h3>It Is Not a Project with a Finish Line</h3>
+
+  <p>Executives often speak of "completing" a digital transformation as if it were a construction project with a defined endpoint. This framing is both wrong and dangerous.</p>
+
+  <p>Wrong, because the competitive environment that makes transformation necessary is itself continuously shifting. What constitutes competitive differentiation today becomes table stakes tomorrow. Intuit frames this clearly: the moment a product genuinely solves a customer problem, customers stop noticing it. Today's breakthrough is tomorrow's baseline. Transformation must become an ongoing organisational capability — a muscle to be exercised continuously — not a one-time initiative.</p>
+
+  <p>Dangerous, because a project mindset creates false endpoints. Teams declare victory, budgets are closed, and the organisation reverts to its old mode of operation — only to face the same structural challenges a few years later, now compounded by the debt of an unfinished change.</p>
+
+  <!-- MCQ 2 -->
+  <div class="mcq" id="q2">
+    <div class="mcq-hdr">
+      <div class="mcq-badge">Check Your Understanding</div>
+      <div class="mcq-num">Question 2 of 5</div>
+    </div>
+    <div class="mcq-q">A CEO announces a "three-year digital transformation programme" with a defined budget and a declared completion date. What is the primary risk of this framing?</div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="pick(this,'q2',false)" data-q="q2"><span class="opt-let">A</span><span>Three years is too short a timeline for any meaningful technology adoption</span></div>
+      <div class="opt" onclick="pick(this,'q2',true)"  data-q="q2"><span class="opt-let">B</span><span>It treats transformation as a finite project rather than a continuously evolving capability, creating a false endpoint</span></div>
+      <div class="opt" onclick="pick(this,'q2',false)" data-q="q2"><span class="opt-let">C</span><span>The budget is likely too large for a focused transformation effort</span></div>
+      <div class="opt" onclick="pick(this,'q2',false)" data-q="q2"><span class="opt-let">D</span><span>A CEO should not be involved in technology decisions, which belong to the CTO</span></div>
+    </div>
+    <div class="mcq-fb" id="q2-fb"></div>
+  </div>
+
+  <!-- CASELET 1 -->
+  <div class="caselet">
+    <div class="cs-lbl">Caselet · Read and Reflect</div>
+    <h3>Levi Strauss &amp; Co.: When Culture Is the Harder Problem</h3>
+    <p>Levi's had a deeply embedded "perfectionist" culture. The company's standard approach to any new initiative was to plan for six months, develop what it considered the ideal solution, and then spend another six months or more refining it before launch. By the time a product reached the market, the market had often moved on.</p>
+    <p>When Levi's began its digital transformation journey, its leaders realised that the bigger obstacle was not technology — it was this perfectionist mindset. A digital-first approach requires tolerance for imperfection, willingness to ship early, and the ability to iterate rapidly based on real-world feedback. These were culturally foreign to the organisation.</p>
+    <p>The lessons Levi's drew from its experience: it is acceptable to fail during a major transition; focus on how to leapfrog competitors rather than on how far behind you are; view transformation as an opportunity to build data literacy across the workforce; and allow time for technical confidence to grow — it cannot be forced.</p>
+    <div class="cs-q">
+      <p class="ql">🤔 Reflection Question 1</p>
+      <p class="qh">Levi's chief challenge was cultural, not technological. What specific aspects of a "perfectionist" culture would conflict most directly with digital transformation? Consider: speed of decision-making, risk tolerance, the role of failure, and customer feedback loops.</p>
+    </div>
+    <div class="cs-q">
+      <p class="ql">🤔 Reflection Question 2</p>
+      <p class="qh">Could Levi's have changed its technology systems without addressing its culture? What would the organisation have looked like — and what would have been missing?</p>
+    </div>
+  </div>
+
+  <!-- ── PART 3 ── -->
+  <div class="sec-label">
+    <div class="sec-tag">Part Three</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <h2>How Transformation Actually Happens: Four Structural Realities</h2>
+
+  <p>Across the research and cases in this reading, several structural features of how transformations unfold emerge with enough consistency to be treated not as isolated observations but as conditions. These are not a checklist — they are interconnected dynamics.</p>
+
+  <h3>Resistance is structural, not personal</h3>
+
+  <p>Every transformation encounters resistance. This is not because people are irrational or obstructionist. The status quo has genuine momentum: existing processes are optimised for existing objectives, incentives are aligned with current metrics, and people have built careers on competencies that transformation may render less central. Loss aversion — the human tendency to feel losses more acutely than equivalent gains — is a fundamental cognitive reality, not a character flaw.</p>
+
+  <p>Effective transformation leaders do not try to overcome resistance through force or mandate. They identify pockets of enthusiasm that exist in every organisation — and start there. Experian's CIO illustrates this when he sought to shift the company to cloud architecture. Knowing that some groups would resist, he began with the product managers already enthusiastic about cloud capabilities. By demonstrating business value in a supportive environment first, he built the evidence base that eventually brought the sceptics along.</p>
+
+  <h3>Small wins open large doors</h3>
+
+  <p>One of the most consistent findings across transformation cases is the importance of what might be called a "keystone change" — a focused, achievable intervention that produces visible results and builds momentum for broader transformation. The concept is strategic, not incremental: the keystone change is a precisely chosen entry point that shifts the organisation's understanding of what is possible.</p>
+
+  <p>Amarillo College in Texas offers a compelling example. The institution had troublingly high dropout rates. Rather than launching a broad institutional overhaul, its president invested specifically in data analytics to understand <em>why</em> students were leaving. The analysis revealed a cluster of causes — financial insecurity, food and housing instability, transportation gaps — that had nothing to do with academic ability. This single, focused investment reshaped the college's entire understanding of its mission, ultimately more than tripling completion rates and closing the equity gap for several student populations.</p>
+
+  <h3>The goal is reinvention of value, not optimisation of operations</h3>
+
+  <p>Winning in the digital era requires reimagining not just <em>how</em> an organisation works, but <em>what</em> it does to create value. The test is this: could a competitor replicate your digital changes and thereby neutralise your advantage? If yes, you have achieved efficiency, not differentiation. Genuine transformation produces value that competitors cannot easily replicate because it flows from a distinct strategic position, not merely from faster processes.</p>
+
+  <p>Philips understood this. The company did not simply digitize its existing manufacturing and product lines. It reconceived its entire reason for existing — shedding its lighting division and repositioning itself as a health technology solutions company integrating hardware, software, data, and clinical expertise. When Covid-19 hit, this repositioning allowed Philips to respond in ways that a pure manufacturer simply could not.</p>
+
+  <h3>Data is infrastructure, not a feature</h3>
+
+  <p>Honeywell's experience illustrates what happens when data infrastructure is absent. The company entered its transformation with over 150 separate enterprise resource planning systems, nearly 2,700 applications, and 1,700 websites — all operating without any unified data strategy. Its transformation began not with new products but with systematic simplification: consolidating to 10 ERP systems, fewer than 100 websites, and fewer than 1,000 applications. Only once that foundational data infrastructure was in place could the company build the higher-value services that transformation was meant to enable.</p>
+
+  <!-- MCQ 3 -->
+  <div class="mcq" id="q3">
+    <div class="mcq-hdr">
+      <div class="mcq-badge">Check Your Understanding</div>
+      <div class="mcq-num">Question 3 of 5</div>
+    </div>
+    <div class="mcq-q">An online apparel company invests in a data analytics system to reduce excess inventory. Over time, this data allows them to proactively design clothing based on emerging customer patterns — rather than reacting to trends — enabling double-digit revenue growth. Which best explains why this constitutes digital transformation rather than mere digitalization?</div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="pick(this,'q3',false)" data-q="q3"><span class="opt-let">A</span><span>The company used advanced analytics software, which is a sophisticated digital technology</span></div>
+      <div class="opt" onclick="pick(this,'q3',false)" data-q="q3"><span class="opt-let">B</span><span>The project started with a cost-reduction objective, which is always a sign of transformation</span></div>
+      <div class="opt" onclick="pick(this,'q3',true)"  data-q="q3"><span class="opt-let">C</span><span>The technology fundamentally changed how the company creates value — shifting from reactive trend-following to data-driven proactive design — producing a new competitive position</span></div>
+      <div class="opt" onclick="pick(this,'q3',false)" data-q="q3"><span class="opt-let">D</span><span>Revenue growth was achieved, and any initiative that grows revenue qualifies as transformation</span></div>
+    </div>
+    <div class="mcq-fb" id="q3-fb"></div>
+  </div>
+
+  <!-- ── PART 4 ── -->
+  <div class="sec-label">
+    <div class="sec-tag">Part Four</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <h2>Digital Transformation in Action</h2>
+
+  <p>The following cases are drawn from multiple industries. Rather than reading them as isolated success stories, read them as illustrations of the structural principles explored above. In each case, ask: what was the keystone change? Where was the resistance, and how was it managed? How did the value proposition change?</p>
+
+  <div class="co-grid">
+    <div class="co-card">
+      <div class="co-name">Moody's</div>
+      <div class="co-from">Financial services · AI adoption</div>
+      <p>Chose to embrace generative AI early, framing inaction as the riskier path. Set three cultural guidelines: universal employee involvement, a "yes, and..." posture in compliance teams, and measurable business value at every step.</p>
+    </div>
+    <div class="co-card">
+      <div class="co-name">Honeywell</div>
+      <div class="co-from">Industrial · Infrastructure-first</div>
+      <p>Reduced 150+ ERP systems to 10, 2,700 apps to fewer than 1,000, then built master databases — enabling a cloud analytics layer that became a new revenue model on top of existing hardware.</p>
+    </div>
+    <div class="co-card">
+      <div class="co-name">IKEA</div>
+      <div class="co-from">Retail · Omnichannel reinvention</div>
+      <p>Redesigned supply chains, logistics, and fulfillment while integrating AR/VR tools and new data policies — blurring the line between physical and digital retail. Required earning cultural acceptance first.</p>
+    </div>
+    <div class="co-card">
+      <div class="co-name">Philips</div>
+      <div class="co-from">Manufacturing → Health tech</div>
+      <p>Shed its lighting business entirely. Moved from manufacturing products to delivering integrated health technology solutions — combining hardware, software, data, and AI-enabled clinical insights.</p>
+    </div>
+    <div class="co-card">
+      <div class="co-name">Microsoft</div>
+      <div class="co-from">Software → Solutions ecosystem</div>
+      <p>Shifted from pushing mass-market software to solution-oriented teams that tailor cross-functional services to specific customer needs. Historic cloud revenue growth at pandemic scale was only possible because this structural shift had already occurred.</p>
+    </div>
+    <div class="co-card">
+      <div class="co-name">Komatsu</div>
+      <div class="co-from">Construction equipment → Smart platforms</div>
+      <p>Built the Landlog platform — opening its data to customers and competitors alike to improve total construction productivity. Monetised as a managed service, generating recurring revenue independent of equipment sales.</p>
+    </div>
+  </div>
+
+  <!-- CASELET 2 -->
+  <div class="caselet">
+    <div class="cs-lbl">Caselet · Read and Reflect</div>
+    <h3>Moody's and the Fog Sprint: Transforming Without a Map</h3>
+    <p>When ChatGPT launched in late 2022, most large organisations adopted a cautious, observational stance. Moody's took the opposite view. Its leadership concluded that the real risk lay not in adopting an unproven technology but in allowing competitors to gain experience and advantage while Moody's waited for certainty.</p>
+    <p>The challenge was that the transformation's endpoint was genuinely unclear. The CEO described the initiative as "sprinting into the fog." Rather than letting this ambiguity become a reason for inaction, Moody's converted it into a design principle: the transformation was not about a specific set of technology outcomes, but about building an organisational culture capable of adapting to a technology that would itself keep evolving.</p>
+    <p>Three cultural commitments underpinned the effort: every employee at every level would be involved (requiring buy-in from 14,000 people); teams would actively resist the instinct to reject unfamiliar ideas, particularly in legal and compliance functions; and every initiative would be expected to contribute measurable business value.</p>
+    <div class="cs-q">
+      <p class="ql">🤔 Reflection Question 1</p>
+      <p class="qh">Moody's leadership framed inaction as the riskier path. Under what circumstances is this argument valid? When might waiting for greater certainty actually be the wiser strategic choice? Consider the nature of the technology, the competitive environment, and the reversibility of early commitments.</p>
+    </div>
+    <div class="cs-q">
+      <p class="ql">🤔 Reflection Question 2</p>
+      <p class="qh">The transformation targeted a cultural shift, not a technology outcome. What makes this approach unusual — and potentially more durable? What are the risks of defining a transformation goal in cultural rather than technical or financial terms?</p>
+    </div>
+  </div>
+
+  <!-- MCQ 4 -->
+  <div class="mcq" id="q4">
+    <div class="mcq-hdr">
+      <div class="mcq-badge">Check Your Understanding</div>
+      <div class="mcq-num">Question 4 of 5</div>
+    </div>
+    <div class="mcq-q">Komatsu opened its Landlog platform to competitors and other companies in the construction ecosystem. From a traditional competitive strategy perspective, this seems counterintuitive. What principle of digital-era strategy does this decision reflect?</div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="pick(this,'q4',false)" data-q="q4"><span class="opt-let">A</span><span>Diversification — Komatsu wanted to enter the software industry and needed external partners</span></div>
+      <div class="opt" onclick="pick(this,'q4',false)" data-q="q4"><span class="opt-let">B</span><span>Cost leadership — sharing data reduces the cost of platform development across multiple parties</span></div>
+      <div class="opt" onclick="pick(this,'q4',true)"  data-q="q4"><span class="opt-let">C</span><span>Ecosystem value creation — competitive advantage often comes from orchestrating a platform that grows more valuable as more participants join, even rivals</span></div>
+      <div class="opt" onclick="pick(this,'q4',false)" data-q="q4"><span class="opt-let">D</span><span>Regulatory compliance — construction data sharing is mandated in Komatsu's key markets</span></div>
+    </div>
+    <div class="mcq-fb" id="q4-fb"></div>
+  </div>
+
+  <!-- ── PART 5 ── -->
+  <div class="sec-label">
+    <div class="sec-tag">Part Five</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <h2>What the Evidence Says About Who Succeeds</h2>
+
+  <p>McKinsey research across 1,650 firms identified six statistically robust factors that predict whether an incumbent organisation will successfully pursue digital reinvention. These complicate the common narrative that success depends primarily on being "tech-forward."</p>
+
+  <div class="fw-grid">
+    <div class="fw-cell">
+      <div class="fw-num">01</div>
+      <h4>Obsess about turbulence on the horizon</h4>
+      <p>Companies that correctly perceive the degree of digital disruption act more aggressively. Those in highly digitised sectors act 2.5× more often than average. Underestimating threat leads to underinvesting in response.</p>
+    </div>
+    <div class="fw-cell">
+      <div class="fw-num">02</div>
+      <h4>Track all competitors, not just new entrants</h4>
+      <p>In a typical industry, three traditional rivals are already actively digitising and one is morphing into a reinventor. Ignoring established competitors who are changing is a critical blind spot.</p>
+    </div>
+    <div class="fw-cell">
+      <div class="fw-num">03</div>
+      <h4>Invest dually: core and beyond</h4>
+      <p>True reinventors allocate equal resources to revising their core business models and investing outside the core. Focusing only on diversification dilutes both revenue and profit growth.</p>
+    </div>
+    <div class="fw-cell">
+      <div class="fw-num">04</div>
+      <h4>Fix leadership before technology</h4>
+      <p>CEO sponsorship and executive-level accountability are among the strongest predictors of success. Technology without leadership commitment produces pockets of innovation, not organisational transformation.</p>
+    </div>
+    <div class="fw-cell">
+      <div class="fw-num">05</div>
+      <h4>Prioritise demand-side platform models</h4>
+      <p>Organisations that shift to platform models generate stronger network effects and greater profitability. Digital attackers choose platform models 2.5× more often than incumbents going for reinvention.</p>
+    </div>
+    <div class="fw-cell">
+      <div class="fw-num">06</div>
+      <h4>Experiment with frontier tech — in order</h4>
+      <p>Reinventors master the full digital technology stack in sequence. Companies that adopt AI without mastering earlier waves (mobile, social, cloud) do not achieve full returns. Each generation must be built upon.</p>
+    </div>
+  </div>
+
+  <p>One finding deserves particular attention: the concept of "tipping points." Organisations tend to act decisively when perceived cannibalization of their traditional revenue reaches a threshold — around 25% in high-tech and 35% in banking. Leaders who want to act proactively must deliberately create a sense of urgency before the market forces it.</p>
+
+  <div class="pq">
+    Less than 20% of companies take the path of digital reinvention. Despite warnings, most incumbent firms are failing to adjust to the digital era.
+    <cite>Bughin &amp; Catlin — McKinsey Global Institute, 2017</cite>
+  </div>
+
+  <!-- CASELET 3 -->
+  <div class="caselet">
+    <div class="cs-lbl">Caselet · Read and Reflect</div>
+    <h3>Adobe: When the Biggest Risk Is the AI You Don't Understand</h3>
+    <p>Adobe faced a particular challenge as it integrated AI across its product suite: the sheer variety of contexts in which AI operates means that evaluating AI at the level of its inputs and outputs provides only a partial picture. A tool that behaves appropriately in one context — generating stock imagery for commercial use — may behave problematically in another, such as generating images resembling specific individuals.</p>
+    <p>Adobe's response was to reframe how it thinks about AI entirely. Rather than assessing each AI tool in isolation, the company developed a framework for evaluating AI in specific operational contexts — accounting for who uses it, how, and what downstream effects might follow. This led to four organisational commitments: human involvement must be embedded in AI workflows; hype around AI capabilities does not equal quality or reliability; the evolution of AI is predictable enough that ethical risks can be anticipated; and AI adoption requires a robust, standing ethics framework.</p>
+    <div class="cs-q">
+      <p class="ql">🤔 Reflection Question 1</p>
+      <p class="qh">Adobe argues that AI should be evaluated "in context" rather than in isolation. Think of a specific industry — healthcare, education, or financial services — and consider two different contexts in which the same AI tool might be used. How might the ethical considerations differ between those contexts?</p>
+    </div>
+    <div class="cs-q">
+      <p class="ql">🤔 Reflection Question 2</p>
+      <p class="qh">Adobe's fourth commitment is to a "robust ethics framework." Why might a standing framework be more effective than making ethical decisions on a case-by-case basis? What organisational conditions would make case-by-case ethics particularly risky?</p>
+    </div>
+  </div>
+
+  <!-- MCQ 5 -->
+  <div class="mcq" id="q5">
+    <div class="mcq-hdr">
+      <div class="mcq-badge">Check Your Understanding</div>
+      <div class="mcq-num">Question 5 of 5</div>
+    </div>
+    <div class="mcq-q">McKinsey's research found that companies which attempt to adopt AI without first mastering earlier digital technologies — such as mobile, social, and cloud — do not achieve full returns on their AI investments. What does this finding most directly challenge?</div>
+    <div class="mcq-opts">
+      <div class="opt" onclick="pick(this,'q5',false)" data-q="q5"><span class="opt-let">A</span><span>The view that AI is the most important technology investment a company can make</span></div>
+      <div class="opt" onclick="pick(this,'q5',false)" data-q="q5"><span class="opt-let">B</span><span>The idea that platform business models generate stronger returns than product models</span></div>
+      <div class="opt" onclick="pick(this,'q5',true)"  data-q="q5"><span class="opt-let">C</span><span>The strategy of "leapfrogging" — skipping foundational digital capabilities to adopt frontier technologies directly — suggesting each technological generation must be built upon</span></div>
+      <div class="opt" onclick="pick(this,'q5',false)" data-q="q5"><span class="opt-let">D</span><span>The role of culture in digital transformation, suggesting technology is after all the central factor</span></div>
+    </div>
+    <div class="mcq-fb" id="q5-fb"></div>
+  </div>
+
+  <!-- ── PART 6 ── -->
+  <div class="sec-label">
+    <div class="sec-tag">Part Six</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <h2>Synthesis: What Transformation Demands of Leaders</h2>
+
+  <p>Pulling together the research, frameworks, and cases across this reading, three demands emerge for leaders who want to lead genuine transformation rather than perform it.</p>
+
+  <p><strong>Clarity of purpose before deployment of technology.</strong> Every successful transformation reviewed began with a business question, not a technology selection. The apparel company asked how to reduce inventory costs. Amarillo College asked why students were dropping out. Experian asked how real-time data could serve customers better. Technology was the answer to a question already formed — not the source of the question itself. Leaders who begin by asking "what should we do with AI?" rather than "what problem are we trying to solve?" have the sequence backwards.</p>
+
+  <p><strong>Willingness to reimagine the enterprise, not merely optimise it.</strong> The distinction between digitization and transformation is ultimately a distinction between two different ambitions: doing the same things better, and doing fundamentally different things. Genuine transformation requires leaders to question business models, value propositions, even the purpose of the enterprise. Philips shed its lighting business. Microsoft dismantled its product-push model. Komatsu gave away data that could have remained proprietary. These were acts of strategic self-disruption in service of a larger vision.</p>
+
+  <p><strong>Recognition that transformation is a human project first.</strong> Technology enables transformation; it does not cause it. The limiting factors in virtually every transformation reviewed were human: resistance, loss aversion, cultural inertia, the difficulty of articulating a vision compelling enough to inspire change. Leaders who treat transformation as a technology implementation project will find, reliably, that the technology gets deployed and the transformation does not occur. The question is not what tools to buy, but what kind of organisation you are trying to become — and who you need to bring on that journey, in what order, and through what experiences.</p>
+
+  <hr class="div">
+
+  <div class="pt">
+    <div class="pt-lbl">Final Reflection — Before you close this reading</div>
+    <p>Return to the organisation you thought about at the beginning. With the frameworks from this reading, would you now classify any of those changes as digitization, digitalization, or transformation? What would need to change — in leadership, in culture, or in strategy — for that organisation to move toward genuine transformation?</p>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- SUMMARY ──────────────────────────── -->
+<div class="summary">
+  <h2>Key Ideas from This Reading</h2>
+  <p class="sub">These are not facts to memorise — they are frameworks for thinking. Use them as lenses.</p>
+  <div class="sum-grid">
+    <div class="sum-item">
+      <div class="sum-n">3</div>
+      <p>Distinct concepts often conflated: digitization, digitalization, and digital transformation</p>
+    </div>
+    <div class="sum-item">
+      <div class="sum-n">≠</div>
+      <p>Digital transformation is not innovation, not an IT project, and not a finite programme</p>
+    </div>
+    <div class="sum-item">
+      <div class="sum-n">6</div>
+      <p>McKinsey factors predicting digital reinvention — led by leadership commitment, not technology</p>
+    </div>
+    <div class="sum-item">
+      <div class="sum-n">↑</div>
+      <p>The real goal: reimagining how the organisation creates value — not optimising delivery of existing value</p>
+    </div>
+    <div class="sum-item">
+      <div class="sum-n">&lt;20%</div>
+      <p>Of incumbent firms have genuinely pursued digital reinvention, despite the evidence of its necessity</p>
+    </div>
+    <div class="sum-item">
+      <div class="sum-n">∞</div>
+      <p>Transformation is an ongoing capability — today's breakthrough is tomorrow's baseline</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* progress */
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  const pct = ((d.scrollTop || document.body.scrollTop) / (d.scrollHeight - d.clientHeight)) * 100;
+  document.getElementById('prog').style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
+
+/* MCQ feedback copy */
+const FB = {
+  q1: {
+    y: "<strong>Correct.</strong> The bank changed the channel, not the business model. The loan process, the back-office system, and the value proposition (providing loans) are all unchanged. This is digitalization: improving an existing process through a digital channel — not reimagining it.",
+    n: "<strong>Not quite.</strong> Has anything about the bank's business model changed? The loan process is identical, the back-office system is the same, and the bank serves the same customers with the same product. The only change is the channel — the definition of digitalization, not transformation."
+  },
+  q2: {
+    y: "<strong>Correct.</strong> A defined completion date implies transformation ends. But competitive environments continuously evolve, and today's differentiation becomes tomorrow's table stakes. Treating transformation as an ongoing capability — not a bounded programme — is one of the central insights of this reading.",
+    n: "<strong>Not quite.</strong> The problem is not the timeline length or the budget size. It is framing transformation as something with a definable end. Both Intuit's experience and McKinsey's findings indicate that successful organisations treat transformation as an adaptive, ongoing capability."
+  },
+  q3: {
+    y: "<strong>Correct.</strong> The transformation moved the company from a reactive model (adapting to market trends) to a proactive one (generating its own data-driven design insights). This is a change in how value is created — not just how efficiently existing operations run.",
+    n: "<strong>Not quite.</strong> Consider what changed in how the company creates value, not just what technology was used. The company moved from following market trends to generating its own data-driven insights — fundamentally altering its competitive model. That shift is the transformation, not the data system itself."
+  },
+  q4: {
+    y: "<strong>Correct.</strong> Platform models create value by facilitating interactions between multiple parties. The more participants join, the more valuable the platform becomes for all — including the owner. By opening Landlog to competitors, Komatsu accelerated network effects, turning a proprietary asset into an industry utility that Komatsu operates and benefits from.",
+    n: "<strong>Not quite.</strong> The decision reflects the logic of platform economics and ecosystem value creation. In the digital era, competitive advantage increasingly comes from orchestrating ecosystems rather than owning and protecting proprietary assets."
+  },
+  q5: {
+    y: "<strong>Correct.</strong> The 'leapfrogging' idea — skipping foundational digital capabilities to jump to frontier technologies — is directly contradicted by McKinsey's data. Companies that attempt this do not get full returns on their AI investments. Each technological generation builds the capabilities and infrastructure the next generation requires.",
+    n: "<strong>Not quite.</strong> The key finding is about the sequencing of technology adoption. Companies that skip earlier waves (mobile, social, cloud) and jump straight to AI underperform on AI investments — directly challenging the leapfrog strategy."
+  }
+};
+
+let ans = 0, cor = 0;
+
+function pick(el, qid, isRight) {
+  const opts = document.querySelectorAll(`[data-q="${qid}"]`);
+  if (opts[0].classList.contains('done')) return;
+
+  ans++; if (isRight) cor++;
+
+  opts.forEach(o => {
+    o.classList.add('done');
+    o.style.pointerEvents = 'none';
+  });
+
+  el.classList.add(isRight ? 'correct' : 'wrong');
+
+  if (!isRight) {
+    opts.forEach(o => {
+      if (o.getAttribute('onclick') && o.getAttribute('onclick').includes('true'))
+        o.classList.add('show-right');
+    });
+  }
+
+  const fb = document.getElementById(qid + '-fb');
+  fb.innerHTML = isRight ? FB[qid].y : FB[qid].n;
+  fb.className = 'mcq-fb show ' + (isRight ? 'ok' : 'bad');
+
+  const panel = document.getElementById('score');
+  panel.style.display = 'block';
+  document.getElementById('sc').textContent  = cor;
+  document.getElementById('tot').textContent = ans;
+}
+</script>
+</body>
+</html>
