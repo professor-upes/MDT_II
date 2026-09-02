@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to Terminology</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .slide {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%);
+      padding: 40px 30px 50px 30px;
+      box-sizing: border-box;
+      page-break-after: always;
+      border-bottom: 3px solid #2d5f8d;
+    }
+    .slide:nth-of-type(5n+2) { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); }
+    .slide:nth-of-type(5n+3) { background: linear-gradient(135deg, #4a94ba 0%, #3a7ca5 100%); }
+    .slide:nth-of-type(5n+4) { background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%); }
+    .slide:nth-of-type(5n+5) { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); }
+    .slide:last-of-type { border-bottom: none; }
+
+    .container {
+      max-width: 1050px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.97);
+      padding: 40px;
+      text-align: left;
+      border-radius: 15px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      color: #2d5f8d;
+      font-size: 2em;
+      margin: 0 0 25px 0;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    h2 {
+      color: #ffffff;
+      background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+      font-size: 1.3em;
+      padding: 12px 15px;
+      margin: 24px 0 12px 0;
+      font-weight: 700;
+      border-radius: 8px;
+      border-left: 5px solid #5ba8cf;
+    }
+    .container > h2:first-of-type { margin-top: 0; }
+    h3 {
+      color: #2d5f8d;
+      font-size: 1.15em;
+      margin: 18px 0 10px 0;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    h3::before {
+      content: "\25B8";
+      color: #5ba8cf;
+      margin-right: 10px;
+      font-size: 1.4em;
+    }
+    ul {
+      font-size: 0.97em;
+      line-height: 1.65;
+      margin: 10px 0;
+      padding-left: 25px;
+    }
+    li { margin: 7px 0; color: #333; font-weight: 500; }
+    p { font-size: 0.97em; line-height: 1.65; margin: 10px 0; }
+    strong { color: #2d5f8d; font-weight: 700; }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.15em;
+      color: #3a7ca5;
+      font-weight: 600;
+      margin: -12px 0 22px 0;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .comparison-three { grid-template-columns: 1fr 1fr 1fr; }
+    .comparison-box {
+      background: linear-gradient(135deg, #f0f4f8 0%, #e6eef7 100%);
+      padding: 18px;
+      border-left: 6px solid #5ba8cf;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(45, 95, 141, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .comparison-box:hover { transform: translateY(-5px); }
+    .comparison-box h4 {
+      color: #2d5f8d;
+      margin: 0 0 10px 0;
+      font-size: 1em;
+      font-weight: 700;
+    }
+    .comparison-box ul { margin: 0; font-size: 0.93em; }
+    .comparison-box p { margin: 0; font-size: 0.93em; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.88em;
+      box-shadow: 0 4px 12px rgba(45, 95, 141, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th {
+      background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 100%);
+      color: white;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 4px solid #5ba8cf;
+      font-size: 0.95em;
+    }
+    td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #e0e8f0;
+      color: #333;
+      font-weight: 500;
+      vertical-align: top;
+    }
+    td:first-child { color: #2d5f8d; font-weight: 700; }
+    tr:hover { background-color: #f8fafb; }
+    tr:last-child td { border-bottom: none; }
+
+    .key-insight {
+      background: linear-gradient(135deg, #e6f0f7 0%, #f0f4f8 100%);
+      border-left: 6px solid #5ba8cf;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 18px 0 0 0;
+      box-shadow: 0 4px 12px rgba(91, 168, 207, 0.2);
+    }
+    .key-insight p {
+      margin: 0;
+      font-size: 0.98em;
+      line-height: 1.6;
+      color: #2d5f8d;
+      font-weight: 700;
+    }
+
+    .quote {
+      background: #eef8ff;
+      border-left: 6px solid #5ba8cf;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 14px 0;
+    }
+    .quote p {
+      margin: 0;
+      font-size: 1.02em;
+      line-height: 1.6;
+      color: #1a3a52;
+      font-style: italic;
+    }
+    .quote span {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.87em;
+      font-style: normal;
+      color: #3a7ca5;
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e6f0f7;
+      border: 1px solid rgba(91, 168, 207, 0.5);
+      color: #2d5f8d;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85em;
+      font-weight: 700;
+      margin: 0 6px 6px 0;
+      white-space: nowrap;
+    }
+
+    .ladder {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+      align-items: end;
+      margin: 20px 0 5px 0;
+    }
+    .rung {
+      border-radius: 8px;
+      padding: 18px;
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(45, 95, 141, 0.25);
+    }
+    .rung h4 { margin: 0 0 8px 0; font-size: 1.1em; font-weight: 700; }
+    .rung p { margin: 0; font-size: 0.9em; line-height: 1.5; color: #eaf3fa; }
+    .rung-1 { background: linear-gradient(135deg, #5ba8cf 0%, #4a94ba 100%); min-height: 130px; }
+    .rung-2 { background: linear-gradient(135deg, #3a7ca5 0%, #2d5f8d 100%); min-height: 175px; }
+    .rung-3 { background: linear-gradient(135deg, #2d5f8d 0%, #1a3a52 100%); min-height: 220px; }
+
+    .case { margin: 14px 0 0 0; }
+    .case h3 { margin-bottom: 8px; }
+    .case-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .case-step {
+      background: #f7fafc;
+      border: 1px solid #e0e8f0;
+      border-top: 4px solid #5ba8cf;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .case-step strong { display: block; margin-bottom: 5px; font-size: 0.93em; }
+    .case-step p { margin: 0; font-size: 0.88em; line-height: 1.5; }
+    .case-step:nth-child(2) { border-top-color: #3a7ca5; }
+    .case-step:nth-child(3) { border-top-color: #1a3a52; }
+
+    @media (max-width: 820px) {
+      .comparison, .comparison-three, .ladder, .case-steps { grid-template-columns: 1fr; }
+      .rung-1, .rung-2, .rung-3 { min-height: 0; }
+      .container { padding: 26px 20px; }
+      h1 { font-size: 1.6em; }
+    }
+
+    @media print {
+      .slide {
+        min-height: 0;
+        height: auto;
+        margin: 0;
+        padding: 30px;
+        page-break-after: always;
+        page-break-inside: avoid;
+      }
+      .container { max-height: none; overflow: visible; box-shadow: none; }
+      body { margin: 0; padding: 0; }
+      .comparison-box:hover, tr:hover { transform: none; background: inherit; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 1: Title -->
+  <div class="slide">
+    <div class="container">
+      <h1>Digitization, Digitalization &amp; Digital Transformation</h1>
+      <p class="subtitle">Three words that are not synonyms</p>
+
+      <h2>🎯 Core Insight</h2>
+      <ul>
+        <li>We <strong>digitize information</strong>, we <strong>digitalize processes and roles</strong>, and we <strong>digitally transform the business and its strategy</strong>.</li>
+        <li>Each term names a different <strong>scope of change</strong> — and scope decides the budget, the sponsor, the timeline and the measure of success.</li>
+        <li>Using them interchangeably is not a vocabulary problem. It is a <strong>governance problem</strong>.</li>
+      </ul>
+
+      <h2>🧭 What This Session Covers</h2>
+      <div style="margin-top: 8px;">
+        <span class="tag">Why the confusion is costly</span>
+        <span class="tag">The three definitions</span>
+        <span class="tag">Worked examples</span>
+        <span class="tag">A three-question test</span>
+        <span class="tag">Six industry scenarios</span>
+        <span class="tag">How firms get it wrong</span>
+      </div>
+
+      <div class="key-insight">
+        <p>Manager's Lens: Naming the altitude correctly is the first act of governing the work. Get the word wrong and everything downstream is sized wrong.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Why it matters -->
+  <div class="slide">
+    <div class="container">
+      <h1>Why the Distinction Is Not Pedantry</h1>
+
+      <h2>⚠️ Two Expensive Errors</h2>
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>Calling small change "transformation"</h4>
+          <ul>
+            <li>A scanning or ERP project is sold to the board as transformation</li>
+            <li>Expectations are set at the level of competitive repositioning</li>
+            <li>What is delivered is a searchable archive</li>
+            <li>The project succeeds on its own terms and is judged a <strong>failure</strong></li>
+            <li>Conclusion drawn: "digital doesn't work here"</li>
+          </ul>
+        </div>
+        <div class="comparison-box">
+          <h4>Handing transformation to IT</h4>
+          <ul>
+            <li>The word sounds technical, so ownership lands with the CIO</li>
+            <li>IT can deliver systems — it cannot rewrite a business model</li>
+            <li>It has no mandate over pricing, incentives or structure</li>
+            <li>The programme <strong>stalls at the edge of IT's authority</strong></li>
+            <li>Nobody is accountable for the change that mattered</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>📌 What Scope Actually Decides</h2>
+      <ul>
+        <li><strong>Who sponsors it</strong> — a function head, the COO, or the CEO and board</li>
+        <li><strong>What it costs</strong> and how long it runs</li>
+        <li><strong>What governance it needs</strong> — project, programme, or continuous strategic agenda</li>
+        <li><strong>What counts as success</strong> — retrieval time, cycle time, or revenue mix</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>The budget gets approved on one premise and spent on another. Two years later the position is unchanged and the wrong lesson is learned.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: The definitions -->
+  <div class="slide">
+    <div class="container">
+      <h1>The Standard Definitions</h1>
+
+      <h2>📖 Digitization — Gartner</h2>
+      <div class="quote">
+        <p>"Digitization is the process of changing from analog to digital form, also known as digital enablement."</p>
+        <span>Gartner adds the decisive qualifier: it changes an analog process to digital form <em>without any different-in-kind changes to the process itself</em>.</span>
+      </div>
+
+      <h2>📖 Digitalization — Gartner</h2>
+      <div class="quote">
+        <p>"Digitalization is the use of digital technologies to change a business model and provide new revenue and value-producing opportunities; it is the process of moving to a digital business."</p>
+        <span>Jason Bloomberg flags this wording as part of the problem — it reads almost exactly like a definition of digital transformation. He argues the useful boundary is narrower: digitalization is about <em>operations</em>.</span>
+      </div>
+
+      <h2>📖 The Formulation to Remember</h2>
+      <div class="quote">
+        <p>"We digitize information, we digitalize processes and roles that make up the operations of a business, and we digitally transform the business and its strategy."</p>
+        <span>Jason Bloomberg</span>
+      </div>
+
+      <div class="key-insight">
+        <p>Three verbs, three objects. The object of the verb tells you which level you are on — information, operations, or the business itself.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: The ladder -->
+  <div class="slide">
+    <div class="container">
+      <h1>Three Ascending Levels of Change</h1>
+
+      <div class="ladder">
+        <div class="rung rung-1">
+          <h4>Digitization</h4>
+          <p>Changes the <strong style="color:#ffffff">format of information</strong>.<br />Analog → digital.</p>
+        </div>
+        <div class="rung rung-2">
+          <h4>Digitalization</h4>
+          <p>Changes <strong style="color:#ffffff">operations and roles</strong>.<br />How work gets done.</p>
+        </div>
+        <div class="rung rung-3">
+          <h4>Digital Transformation</h4>
+          <p>Changes the <strong style="color:#ffffff">business model and strategy</strong>.<br />What we sell, and to whom.</p>
+        </div>
+      </div>
+
+      <h2>🔗 How the Levels Relate</h2>
+      <ul>
+        <li>Each level is <strong>necessary but not sufficient</strong> for the one above it.</li>
+        <li>You cannot digitalize a process whose information is still on paper.</li>
+        <li>You cannot transform a business whose operations are still manual.</li>
+        <li>The error firms make is <strong>not skipping a level</strong> — it is stopping at one and calling it the next.</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>Digitization and digitalization are essentially about technology. Digital transformation is not — it is about the customer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Digitization -->
+  <div class="slide">
+    <div class="container">
+      <h1>Level 1 — Digitization</h1>
+      <p class="subtitle">Encoding analog information into digital form</p>
+
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>What changes</h4>
+          <p>The <strong>format</strong> of information. Storage cost collapses, retrieval becomes instant, transmission becomes free, copies become perfect and unlimited.</p>
+        </div>
+        <div class="comparison-box">
+          <h4>What does not change</h4>
+          <p>The process, the roles, the org chart, the business model. A scanned approval form is still routed, signed and filed by the same people in the same order.</p>
+        </div>
+      </div>
+
+      <h3>Worked examples</h3>
+      <ul>
+        <li>Vinyl LP or cassette → audio file; VHS tape → video file</li>
+        <li>Paper contracts and case files → scanned PDFs, made searchable by OCR</li>
+        <li>Paper patient charts → electronic records; X-ray film → DICOM images</li>
+        <li>Handwritten machine logs → sensor telemetry from an instrumented line</li>
+        <li>Hand-drawn engineering drawings → CAD files</li>
+        <li>Library holdings and microfiche → a digital repository</li>
+      </ul>
+
+      <h3>Why it still matters</h3>
+      <ul>
+        <li>It is the least glamorous level and the most frequently oversold.</li>
+        <li>But it creates the <strong>raw material — data</strong> — that Levels 2 and 3 depend on entirely.</li>
+        <li>A firm with its information still on paper has <strong>no path upward</strong>.</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>Test: If you switched the new system off tomorrow, would the process still be the same process, just slower? If yes, this is digitization.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Digitalization -->
+  <div class="slide">
+    <div class="container">
+      <h1>Level 2 — Digitalization</h1>
+      <p class="subtitle">Putting digitized information to work</p>
+
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>What changes</h4>
+          <p><strong>How work gets done.</strong> Workflows, decision rights, cycle times, cost-to-serve — and the definition of the jobs people hold.</p>
+        </div>
+        <div class="comparison-box">
+          <h4>What does not change</h4>
+          <p><strong>What the business sells and how it earns.</strong> The value proposition, the revenue model and the competitive position are untouched.</p>
+        </div>
+      </div>
+
+      <h3>Worked examples</h3>
+      <ul>
+        <li>E-signature and workflow routing replacing a wet-ink approval chain</li>
+        <li>Self-service portals and chatbots absorbing the queue ahead of the call centre</li>
+        <li>Straight-through loan origination with automated credit decisioning and e-KYC</li>
+        <li>Demand forecasting and algorithmic replenishment replacing a planner's spreadsheet</li>
+        <li>Predictive maintenance triggered by sensor data, not a fixed service calendar</li>
+        <li>Live dashboards replacing the monthly management pack</li>
+      </ul>
+
+      <h3>The part most often missed: roles</h3>
+      <ul>
+        <li>Digitalization does not merely speed work up — it changes <strong>what people are for</strong>.</li>
+        <li>A claims clerk who keyed every claim becomes an <strong>exception handler</strong>.</li>
+        <li>A branch teller becomes an <strong>advisor</strong>.</li>
+        <li>That role shift is where most of the value and nearly all of the resistance live.</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>The characteristic failure: "paving the cow path" — automating a process instead of redesigning it. The result is a broken process that now fails faster, at scale, with a licence fee attached.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Digital Transformation -->
+  <div class="slide">
+    <div class="container">
+      <h1>Level 3 — Digital Transformation</h1>
+      <p class="subtitle">Changing what the business is, for the customer</p>
+
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>What changes</h4>
+          <p><strong>The business and its strategy.</strong> What is sold, who it is sold to, how revenue is earned, how the organisation is structured and what it rewards.</p>
+        </div>
+        <div class="comparison-box">
+          <h4>What it is not</h4>
+          <p>A technology programme, a project with an end date, an IT budget line, or a digitalization roadmap with a more ambitious cover page.</p>
+        </div>
+      </div>
+
+      <h3>The questions it actually asks</h3>
+      <ul>
+        <li>What are we really selling? To whom? Why would they choose us?</li>
+        <li>How do we make money — and does that still work?</li>
+        <li><strong>No technology decision answers any of these.</strong></li>
+      </ul>
+
+      <h3>Two properties that set it apart</h3>
+      <ul>
+        <li><strong>It is continuous.</strong> There is no go-live date after which the firm is transformed — which makes it a poor fit for conventional project governance.</li>
+        <li><strong>It is owned by the business.</strong> A transformation sponsored by the CIO alone has already failed. It needs a mandate over incentives, structure and culture that no technology function holds.</li>
+      </ul>
+
+      <h3>Recurring patterns</h3>
+      <ul>
+        <li><strong>Product → service:</strong> selling an outcome rather than an asset</li>
+        <li><strong>Linear → platform:</strong> becoming the marketplace rather than the seller</li>
+        <li><strong>Ownership → access:</strong> subscription and usage replacing one-time purchase</li>
+        <li><strong>Product firm → data firm:</strong> monetising analytics, ad inventory, risk services</li>
+        <li><strong>Channel → ecosystem:</strong> embedding your capability in someone else's journey via APIs</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>Test: Has what we sell, who we serve, or how we earn changed — and would a competitor have to change their business model to answer us?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Comparison table -->
+  <div class="slide">
+    <div class="container">
+      <h1>The Three Levels Side by Side</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Digitization</th>
+            <th>Digitalization</th>
+            <th>Digital Transformation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Object of change</td>
+            <td>Information</td>
+            <td>Processes and roles</td>
+            <td>Business model and strategy</td>
+          </tr>
+          <tr>
+            <td>Core question</td>
+            <td>Is our information machine-readable?</td>
+            <td>Is our way of working the best available?</td>
+            <td>Is our business still the right business?</td>
+          </tr>
+          <tr>
+            <td>Typical sponsor</td>
+            <td>Function head, records or IT ops</td>
+            <td>COO, process owner, CIO</td>
+            <td>CEO and board</td>
+          </tr>
+          <tr>
+            <td>Horizon</td>
+            <td>Weeks to months; finite project</td>
+            <td>Months to years; programme</td>
+            <td>Continuous; no completion date</td>
+          </tr>
+          <tr>
+            <td>Typical output</td>
+            <td>A searchable archive</td>
+            <td>A redesigned, automated workflow</td>
+            <td>A new revenue line or operating model</td>
+          </tr>
+          <tr>
+            <td>Success measure</td>
+            <td>Coverage, accuracy, retrieval time</td>
+            <td>Cycle time, cost-to-serve, error rate</td>
+            <td>Revenue mix, customer lifetime value, share shift</td>
+          </tr>
+          <tr>
+            <td>Principal risk</td>
+            <td>Digitizing what should have been discarded</td>
+            <td>Automating what should have been redesigned</td>
+            <td>Transformation theatre — the language without the change</td>
+          </tr>
+          <tr>
+            <td>It is about…</td>
+            <td>Technology</td>
+            <td>Technology</td>
+            <td>The customer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Slide 9: Diagnostic -->
+  <div class="slide">
+    <div class="container">
+      <h1>A Three-Question Test for Any Initiative</h1>
+      <p class="subtitle">Apply in order — the first "yes" tells you the level you are actually at</p>
+
+      <div class="comparison comparison-three">
+        <div class="comparison-box">
+          <h4>1. Did only the format of the information change?</h4>
+          <p>The same people do the same steps in the same order — on a screen rather than on paper.<br /><br /><strong>→ Digitization</strong></p>
+        </div>
+        <div class="comparison-box">
+          <h4>2. Did the way work gets done change, while the business model stayed the same?</h4>
+          <p>Steps removed, decisions automated, roles redefined — but the firm sells the same things to the same customers.<br /><br /><strong>→ Digitalization</strong></p>
+        </div>
+        <div class="comparison-box">
+          <h4>3. Did what we sell, who we serve, or how we earn change?</h4>
+          <p>The value proposition or revenue model is different, and rivals cannot match it without changing their own.<br /><br /><strong>→ Transformation</strong></p>
+        </div>
+      </div>
+
+      <h3>If nothing returns a "yes"</h3>
+      <ul>
+        <li>Then the initiative is a <strong>technology purchase</strong>.</li>
+        <li>That may still be a sound decision — but it should be justified and measured as one.</li>
+        <li>It should not be presented to a board as strategic change.</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>Use this on any case in the course, and on any programme you meet in practice — whatever the deck calls it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Industry scenarios I -->
+  <div class="slide">
+    <div class="container">
+      <h1>Industry Scenarios</h1>
+      <p class="subtitle">The same three rungs, traced through different sectors</p>
+
+      <div class="case">
+        <h3>Banking &amp; Payments</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <strong>Digitization</strong>
+            <p>Loan files, signature cards and cheques imaged; statements moved from print to electronic records.</p>
+          </div>
+          <div class="case-step">
+            <strong>Digitalization</strong>
+            <p>e-KYC, straight-through loan origination, automated fraud scoring, a mobile app. Still a bank selling deposits and credit.</p>
+          </div>
+          <div class="case-step">
+            <strong>Transformation</strong>
+            <p>Open-banking APIs and banking-as-a-service; credit embedded in a retailer's checkout. Rivals become fintechs, not banks.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case">
+        <h3>Retail &amp; Grocery</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <strong>Digitization</strong>
+            <p>Barcoded SKU catalogues, digitized stock ledgers, product photography and price lists as data.</p>
+          </div>
+          <div class="case-step">
+            <strong>Digitalization</strong>
+            <p>POS integrated to the warehouse, demand forecasting, digital loyalty, e-commerce bolted onto the store business.</p>
+          </div>
+          <div class="case-step">
+            <strong>Transformation</strong>
+            <p>Omnichannel fulfilment and dark stores, plus a retail-media network selling ads against shopper data — a media business with a grocery attached.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case">
+        <h3>Automotive &amp; Manufacturing</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <strong>Digitization</strong>
+            <p>Paper drawings to CAD; handwritten shift and machine logs to sensor telemetry.</p>
+          </div>
+          <div class="case-step">
+            <strong>Digitalization</strong>
+            <p>MES and SCADA on the line, digital twins, predictive maintenance, IIoT quality control. Cost per unit falls; the firm still sells machines.</p>
+          </div>
+          <div class="case-step">
+            <strong>Transformation</strong>
+            <p>Selling uptime or output instead of the asset; software-defined products improved after sale by over-the-air updates.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <p>Notice: Levels 1 and 2 look broadly similar across industries. Level 3 is where sectors diverge — because transformation is specific to a customer and a market, not to a technology.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 11: Industry scenarios II -->
+  <div class="slide">
+    <div class="container">
+      <h1>Industry Scenarios (continued)</h1>
+
+      <div class="case">
+        <h3>Media &amp; Entertainment</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <strong>Digitization</strong>
+            <p>Film and tape masters encoded as files; print archives converted to digital text.</p>
+          </div>
+          <div class="case-step">
+            <strong>Digitalization</strong>
+            <p>Online catalogue and queue management, automated logistics and recommendation on top of an existing distribution business.</p>
+          </div>
+          <div class="case-step">
+            <strong>Transformation</strong>
+            <p>Distribution gives way to a subscription streaming relationship, then to original commissioning — owning demand rather than renting content.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case">
+        <h3>Energy &amp; Power</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <strong>Digitization</strong>
+            <p>Manual meter readings replaced by smart-meter data; asset and network records converted to digital form.</p>
+          </div>
+          <div class="case-step">
+            <strong>Digitalization</strong>
+            <p>Automated billing, outage detection and grid analytics; field crews dispatched by algorithm rather than roster.</p>
+          </div>
+          <div class="case-step">
+            <strong>Transformation</strong>
+            <p>From selling kilowatt-hours to selling energy outcomes — demand response, storage, EV charging, virtual power plants. The customer becomes a supplier too.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case">
+        <h3>Healthcare</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <strong>Digitization</strong>
+            <p>Paper charts scanned into electronic records; X-ray film replaced by DICOM imaging.</p>
+          </div>
+          <div class="case-step">
+            <strong>Digitalization</strong>
+            <p>Computerised order entry, e-prescribing, automated scheduling and claims, clinical decision support at the point of care.</p>
+          </div>
+          <div class="case-step">
+            <strong>Transformation</strong>
+            <p>Telehealth-first pathways, remote monitoring, hospital-at-home — and reimbursement shifting from activity to outcomes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="key-insight">
+        <p>Trace any case in this course through the three rungs before judging it. Most "digital failures" are Level 2 programmes that were sold as Level 3.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 12: Where firms go wrong -->
+  <div class="slide">
+    <div class="container">
+      <h1>Where Organisations Go Wrong</h1>
+      <p class="subtitle">Each is a mislabelling problem before it is an execution problem</p>
+
+      <h3>Level 1 sold as Level 3</h3>
+      <ul>
+        <li>A scanning or migration project presented to the board as transformation. It delivers exactly what it promised and is still judged a failure.</li>
+      </ul>
+
+      <h3>Transformation delegated to IT</h3>
+      <ul>
+        <li>IT can deliver systems but holds no authority over pricing, channel strategy, incentives or organisational design — the levers transformation actually moves.</li>
+      </ul>
+
+      <h3>Technology bought before the process is redesigned</h3>
+      <ul>
+        <li>Automating an existing workflow preserves its defects and industrialises them. The tell: a business case built entirely on headcount reduction.</li>
+      </ul>
+
+      <h3>Adoption measured instead of outcomes</h3>
+      <ul>
+        <li>Logins, uploads and licences deployed are Level 1 measures. Reported against a transformation they describe activity, not change.</li>
+      </ul>
+
+      <h3>Culture treated as a communications workstream</h3>
+      <ul>
+        <li>Levels 2 and 3 both change what people's jobs are. Leave incentives and decision rights untouched and the old process runs quietly beside the new system.</li>
+      </ul>
+
+      <h3>Stopping at Level 2 and declaring victory</h3>
+      <ul>
+        <li>The most consequential error, because it is invisible from inside. The firm becomes efficient and digital-looking — at a business model a competitor is about to make irrelevant.</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>Excellent digitalization is exactly what a firm displaced by a new entrant usually has.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 13: Discussion -->
+  <div class="slide">
+    <div class="container">
+      <h1>Discussion</h1>
+
+      <h2>💬 Questions for the Session</h2>
+      <ul>
+        <li>Take an initiative you have seen called a "digital transformation". Apply the three-question test. What level was it actually at, and what did the mislabelling cost?</li>
+        <li>Gartner's definition of digitalization mentions changing the business model — arguably that is transformation. Is the narrower reading right, or does the boundary dissolve under scrutiny?</li>
+        <li>Netflix and GE both invested heavily in digital. Using the three levels, account for why one is taught as a success and the other as a failure. Where did ambition and mandate part company?</li>
+        <li>Is digital transformation always "about the customer"? Name an industry where it was driven by regulation, cost or supply-side economics instead.</li>
+        <li>Can a firm reach Level 3 without completing Levels 1 and 2 — and is a digital-native entrant, which never had analog information to digitize, playing a different game altogether?</li>
+      </ul>
+
+      <div class="key-insight">
+        <p>We digitize information, we digitalize processes and roles, and we digitally transform the business and its strategy. Confuse them at your peril.</p>
+      </div>
+
+      <p style="margin-top:22px; font-size:0.85em; color:#5a6b7a;">Based on Jason Bloomberg, "Digitization, Digitalization, and Digital Transformation: Confuse Them at Your Peril", Forbes, 2018, with definitions from the Gartner IT Glossary.</p>
+    </div>
+  </div>
+
+</body>
+</html>
