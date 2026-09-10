@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Case Discussion Brief — The Disruption of Blockbuster</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 50%, #5ba8cf 100%);
+    padding: 40px 20px;
+    color: #23384d;
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 920px;
+    margin: 0 auto 40px auto;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    overflow: hidden;
+  }
+  .banner {
+    background: linear-gradient(135deg, #2d5f8d 0%, #3a7ca5 55%, #5ba8cf 100%);
+    color: #fff;
+    padding: 38px 44px;
+  }
+  .banner .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12.5px;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+  .banner h1 {
+    font-size: 30px;
+    margin-top: 8px;
+    font-weight: 700;
+  }
+  .banner .sub {
+    margin-top: 8px;
+    font-size: 14.5px;
+    opacity: 0.92;
+  }
+  .content { padding: 38px 44px 46px 44px; }
+
+  h2.section-header {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2d5f8d;
+    background: linear-gradient(90deg, #eaf3fa 0%, #ffffff 85%);
+    border-left: 6px solid #3a7ca5;
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin: 30px 0 18px 0;
+  }
+  .content > h2.section-header:first-child { margin-top: 0; }
+
+  h3.theme-header {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #2d5f8d;
+    margin: 22px 0 10px 0;
+  }
+
+  a.reading-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    background: #f7fafc;
+    border: 1px solid #dce8f0;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  a.reading-card:hover {
+    box-shadow: 0 6px 16px rgba(45,95,141,0.15);
+    transform: translateY(-1px);
+    background: #eef5fa;
+    border-color: #3a7ca5;
+  }
+  a.reading-card:hover .rc-title { color: #2d5f8d; text-decoration: underline; }
+  .reading-card .rc-main { flex: 1; }
+  .reading-card .rc-title { font-weight: 600; font-size: 14.5px; color: #1e3a52; }
+  .reading-card .rc-note { font-size: 13px; color: #55707f; margin-top: 4px; }
+  .pill {
+    flex-shrink: 0;
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+    background: linear-gradient(135deg, #3a7ca5, #5ba8cf);
+    padding: 5px 11px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .pill.article { background: linear-gradient(135deg, #3a7ca5, #5ba8cf); }
+  .pill.report  { background: linear-gradient(135deg, #2d5f8d, #3a7ca5); }
+  .pill.video   { background: linear-gradient(135deg, #b6543a, #d97a5a); }
+  .pill.book    { background: linear-gradient(135deg, #4a7d4a, #6fae6f); }
+  .pill.case    { background: linear-gradient(135deg, #7a5ba8, #a084c7); }
+
+  .key-insight-box {
+    background: #eaf3fa;
+    border-left: 5px solid #2d5f8d;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: #1e3a52;
+  }
+  .key-insight-box strong { color: #2d5f8d; }
+
+  .analogy-box {
+    background: #fff8e1;
+    border-left: 5px solid #d9a441;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: #5a4a1e;
+  }
+  .analogy-box strong { color: #a17b1f; }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 18px 0;
+  }
+  .comparison-grid .col {
+    background: #f7fafc;
+    border: 1px solid #dce8f0;
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .comparison-grid .col h4 {
+    font-size: 13.5px;
+    color: #2d5f8d;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .comparison-grid ul { padding-left: 18px; font-size: 13.5px; }
+  .comparison-grid li { margin-bottom: 5px; }
+
+  table.fact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+  table.fact-table th {
+    background: linear-gradient(135deg, #2d5f8d, #3a7ca5);
+    color: #fff;
+    text-align: left;
+    padding: 9px 14px;
+    font-weight: 600;
+  }
+  table.fact-table td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #e3ecf2;
+  }
+  table.fact-table tr:nth-child(even) td { background: #f7fafc; }
+
+  .discussion-q {
+    background: #ffffff;
+    border: 2px solid #3a7ca5;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+  .discussion-q .q-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #3a7ca5;
+    margin-bottom: 6px;
+  }
+  .discussion-q p { font-size: 14.5px; font-weight: 600; color: #1e3a52; }
+
+  .page-footer {
+    text-align: center;
+    font-size: 11.5px;
+    color: #7d95a5;
+    padding: 16px 0 4px 0;
+    border-top: 1px solid #e3ecf2;
+    margin-top: 10px;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; page-break-after: always; margin-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="banner">
+    <div class="eyebrow">Managing Digital Transformation · Case Discussion Brief</div>
+    <h1>Reading List</h1>
+    <div class="sub">The Disruption of Blockbuster — Digital Evolution, Disruption, and Transformation</div>
+  </div>
+
+  <div class="content">
+
+    <h2 class="section-header"> Reading List</h2>
+    <p style="font-size:13.5px; color:#55707f; margin-bottom:18px;">References used to prepare the case discussion, organized by theme. Shared here for pre-reading and citation.</p>
+
+    <h3 class="theme-header">1. Disintermediation</h3>
+
+    <a class="reading-card" href="https://m.thewire.in/article/economy/us-pressure-on-payment-systems-and-rupay-upi-bill/amp" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">US Pressure on Payment Systems and the RuPay–UPI Bill</div>
+        <div class="rc-note">The Wire — geopolitics of India's UPI stack; why US card networks want trade-policy concessions on India's domestic payment rails</div>
+      </div>
+      <span class="pill article">Article</span>
+    </a>
+
+    <a class="reading-card" href="https://www.shopify.com/in/blog/disintermediation" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">What Is Disintermediation? (And How It's Reshaping Commerce)</div>
+        <div class="rc-note">Shopify — foundational framework for how middlemen get displaced when they stop adding defensible value</div>
+      </div>
+      <span class="pill article">Article</span>
+    </a>
+
+    <h3 class="theme-header">2. How It Works — Strategy &amp; Competitive Advantage</h3>
+
+    <a class="reading-card" href="https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/strategys-biggest-blind-spot-erosion-of-competitive-advantage" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">Strategy's Biggest Blind Spot: The Erosion of Competitive Advantage</div>
+        <div class="rc-note">McKinsey — why moats decay faster than leadership teams admit, and what that means for incumbents like Blockbuster</div>
+      </div>
+      <span class="pill report">McKinsey</span>
+    </a>
+
+    <a class="reading-card" href="https://www.youtube.com/watch?v=t0GiTyz4syY" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">Netflix Is Betting on Systems Thinkers</div>
+        <div class="rc-note">YouTube — why systems-level thinking, not functional expertise alone, is Netflix's organizational edge</div>
+      </div>
+      <span class="pill video">Video</span>
+    </a>
+
+    <a class="reading-card" href="https://www.mckinsey.com/capabilities/operations/our-insights/operations-blog/ops-40-the-human-factor-a-class-size-of-1" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">Ops 4.0 — The Human Factor: A Class Size of 1</div>
+        <div class="rc-note">McKinsey — the case for T-shaped skills in digitally transforming organizations</div>
+      </div>
+      <span class="pill report">McKinsey</span>
+    </a>
+
+    <a class="reading-card" href="https://www.shopify.com/in/blog/how-to-start-a-subscription-business" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">How to Start a Subscription Business</div>
+        <div class="rc-note">Shopify — subscription-model mechanics: recurring revenue, CLV economics, and retention design</div>
+      </div>
+      <span class="pill article">Article</span>
+    </a>
+
+    <h3 class="theme-header">3. Foundational Text</h3>
+
+    <a class="reading-card" href="https://members.predictableprofits.com/wp-content/uploads/2012/08/scientificadvertising.pdf" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">Scientific Advertising — Claude Hopkins (1923)</div>
+        <div class="rc-note">The origin point of data-driven, testable decision-making in marketing — direct intellectual lineage to Cinematch and modern recommendation engines</div>
+      </div>
+      <span class="pill book">Book</span>
+    </a>
+
+    <h3 class="theme-header">4. Parallel Indian Case — Incumbent Collapse</h3>
+
+    <a class="reading-card" href="https://www.linkedin.com/pulse/fall-future-group-masterclass-debt-retail-vaxyf/" target="_blank">
+      <div class="rc-main">
+        <div class="rc-title">The Fall of Future Group — A Masterclass in Debt &amp; Retail</div>
+        <div class="rc-note">LinkedIn — an Indian retail-incumbent collapse to compare against Blockbuster's; debt structure and format rigidity as failure modes</div>
+      </div>
+      <span class="pill case">Case Parallel</span>
+    </a>
+
+    <div class="key-insight-box">
+      <strong>Why these five threads together:</strong> disintermediation explains <em>who</em> gets cut out and why; the strategy pieces explain <em>how</em> an incumbent's advantage erodes even while it looks strong; Scientific Advertising supplies the intellectual root of the data-driven logic that beat Blockbuster; and the Future Group case tests whether the same structural failure mode reproduces in a completely different industry and geography.
+    </div>
+
+  </div>
+  <div class="page-footer">Managing Digital Transformation · Reading List — page 1</div>
+</div>
+
+<div class="page">
+  <div class="banner">
+    <div class="eyebrow">One-Page Problem Statement</div>
+    <h1>The Disruption of Blockbuster</h1>
+    <div class="sub">Digital Evolution vs. Disruption vs. Transformation — a case for classroom discussion</div>
+  </div>
+
+  <div class="content">
+
+    <h2 class="section-header"> Situation</h2>
+    <p style="font-size:14px;">
+      In 2000, Blockbuster commanded the U.S. home-video rental market with roughly 9,000 stores, a globally recognized brand, and studio relationships built over two decades. That same year, Reed Hastings offered to sell Netflix — then a small DVD-by-mail subscription service with under $6M in revenue — to Blockbuster for $50 million. Blockbuster's leadership declined. Ten years later, Blockbuster filed for Chapter 11 bankruptcy; by 2013–14 it had effectively ceased to exist as a national chain. Netflix, meanwhile, became the company that would go on to reshape the economics of the entire media industry.
+    </p>
+
+    <div class="key-insight-box">
+      <strong>The puzzle this case forces you to confront:</strong> Blockbuster did not lack capital, brand equity, customer data, or studio access. It had every conventional advantage. So why did it lose — and why did it lose <em>slowly</em>, in full view, with multiple documented chances to change course?
+    </div>
+
+    <h2 class="section-header"> The Core Tension</h2>
+    <div class="comparison-grid">
+      <div class="col">
+        <h4>Blockbuster's Model</h4>
+        <ul>
+          <li>Revenue per transaction (rental + late fees)</li>
+          <li>Value = physical access to inventory</li>
+          <li>Customer relationship: episodic</li>
+          <li>Core asset: 9,000 leased retail stores</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Netflix's Model</h4>
+        <ul>
+          <li>Revenue from subscription (flat, recurring)</li>
+          <li>Value = the right film found for you</li>
+          <li>Customer relationship: continuous</li>
+          <li>Core asset: recommendation data (Cinematch)</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="font-size:14px;">
+      This was not a story of a slow company losing to a fast one. It is a story of two <em>different definitions of the business</em> competing for the same customer. Blockbuster believed it was in the video-rental business; Netflix behaved as though it was in the business of helping people find and enjoy the right film at the right time. That reframing changed pricing, inventory logic, and — critically — what counted as an "asset" versus a "liability."
+    </p>
+
+    <h2 class="section-header"> Key Facts on the Table</h2>
+    <table class="fact-table">
+      <tr><th>Moment</th><th>What Happened</th></tr>
+      <tr><td>2000</td><td>Netflix offers itself for sale to Blockbuster for $50M; declined</td></tr>
+      <tr><td>2004–2006</td><td>Blockbuster launches "Total Access" — online ordering + in-store returns — designed to protect the store model, not replace it</td></tr>
+      <tr><td>2004</td><td>Wal-Mart briefly enters DVD-subscription rental, then exits — an early signal of disintermediation pressure from outside the category</td></tr>
+      <tr><td>2007–2009</td><td>Netflix begins streaming/VOD positioning against Apple, Amazon, Hulu, and cable VOD</td></tr>
+      <tr><td>2010</td><td>Blockbuster files for Chapter 11 bankruptcy</td></tr>
+      <tr><td>2011</td><td>Netflix's own Qwikster split attempt nearly backfires — proof that "fundamental restructuring" is hard even for the disruptor</td></tr>
+      <tr><td>2013–14</td><td>Blockbuster's remaining corporate stores close</td></tr>
+    </table>
+
+    <div class="analogy-box">
+      <strong>Note on interpretation:</strong> Treat the $50M "mistake" figure and Blockbuster's exact internal reasoning as contested in the historical record — accounts vary on how seriously the offer was considered. The strategic pattern (declining coordination with the entrant, then defending the store-based model rather than replacing it) is well documented regardless of the exact number.
+    </div>
+
+    <h2 class="section-header"> The Question for Class</h2>
+    <div class="discussion-q">
+      <div class="q-label">Discussion Prompt</div>
+      <p>Blockbuster's stores were once its greatest competitive advantage. At what point did they become a liability — and could Blockbuster's leadership have known that at the time, or only in hindsight? What would "fundamentally restructuring the organization" have concretely required of Blockbuster in 2004, given its store leases, franchise agreements, and studio revenue-share contracts?</p>
+    </div>
+
+    <div class="discussion-q">
+      <div class="q-label">Framing Question</div>
+      <p>Is this a story of digital evolution, digital disruption, or digital transformation — and does the answer change depending on whether you're looking at the store level, the industry level, or the category level?</p>
+    </div>
+
+  </div>
+  <div class="page-footer">Managing Digital Transformation · One-Page Problem Statement — page 2</div>
+</div>
+
+</body>
+</html>
