@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Governance, AI Risk &amp; Cybersecurity — Master Lecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --d1:#1a3a52; --d2:#2d5f8d; --d3:#3a7ca5; --d4:#5ba8cf;
+    --ink:#333; --pen:#c0392b; --pencil:#2d6a8f;
+  }
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:#f4f4f4;color:var(--ink);
+  }
+  .slide{
+    width:100%;min-height:100vh;height:auto;
+    display:flex;flex-direction:column;justify-content:flex-start;align-items:center;
+    background:linear-gradient(135deg,#2d5f8d 0%,#1a3a52 100%);
+    padding:40px 30px 50px;box-sizing:border-box;
+    page-break-after:always;border-bottom:3px solid #2d5f8d;
+  }
+  .slide:nth-child(4n+2){background:linear-gradient(135deg,#3a7ca5 0%,#2d5f8d 100%);}
+  .slide:nth-child(4n+3){background:linear-gradient(135deg,#2d5f8d 0%,#3a7ca5 100%);}
+  .slide:nth-child(4n+4){background:linear-gradient(135deg,#3a7ca5 0%,#1a3a52 100%);}
+  .slide:last-child{border-bottom:none;}
+
+  .container{
+    max-width:1050px;width:100%;
+    background:rgba(255,255,255,.97);
+    padding:40px;text-align:left;border-radius:15px;
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
+    position:relative;
+  }
+
+  h1{text-align:center;color:var(--d2);font-size:2em;margin:0 0 25px;font-weight:700;line-height:1.3;}
+  h2{color:var(--d2);font-size:1.25em;margin:22px 0 10px;font-weight:800;}
+  h2:first-of-type{margin-top:0;}
+  h2::after{content:"";display:block;width:100%;height:2px;margin-top:8px;
+    background:linear-gradient(90deg,rgba(91,168,207,.95),rgba(45,95,141,.15));border-radius:999px;}
+  h3{color:var(--d2);font-size:1.12em;margin:18px 0 10px;font-weight:800;display:flex;align-items:center;}
+  h3::before{content:"▸";color:var(--d4);margin-right:10px;font-size:1.4em;}
+
+  ul,ol{font-size:.95em;line-height:1.6;margin:10px 0;padding-left:25px;}
+  li{margin:6px 0;font-weight:500;}
+  strong{color:var(--d2);font-weight:800;}
+  p{font-size:.95em;line-height:1.6;}
+
+  .comparison{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:15px 0;}
+  .comparison.three{grid-template-columns:repeat(3,1fr);}
+  @media(max-width:820px){.comparison,.comparison.three{grid-template-columns:1fr;}}
+  .comparison-box{
+    background:linear-gradient(135deg,#f0f4f8 0%,#e6eef7 100%);
+    padding:18px;border-left:6px solid var(--d4);border-radius:8px;
+    box-shadow:0 4px 12px rgba(45,95,141,.1);transition:transform .3s ease;
+  }
+  .comparison-box:hover{transform:translateY(-5px);}
+  .comparison-box h4{color:var(--d2);margin:0 0 10px;font-size:1em;font-weight:800;}
+  .comparison-box ul{padding-left:18px;font-size:.9em;}
+
+  table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.87em;
+    box-shadow:0 4px 12px rgba(45,95,141,.15);border-radius:8px;overflow:hidden;}
+  th{background:linear-gradient(135deg,var(--d2) 0%,var(--d3) 100%);color:#fff;
+    padding:12px 10px;text-align:left;font-weight:800;border-bottom:4px solid var(--d4);}
+  td{padding:10px;border-bottom:1px solid #e0e8f0;font-weight:500;vertical-align:top;}
+  tr:hover{background:#f8fafb;}
+  tr:last-child td{border-bottom:none;}
+
+  .key-insight{
+    background:linear-gradient(135deg,#e6f0f7 0%,#f0f4f8 100%);
+    border-left:6px solid var(--d4);padding:15px;border-radius:8px;margin:18px 0 0;
+    box-shadow:0 4px 12px rgba(91,168,207,.2);
+  }
+  .key-insight p{margin:0;color:var(--d2);font-weight:800;font-size:.96em;}
+
+  .callout{background:#fff;border:1px dashed rgba(91,168,207,.9);border-radius:10px;
+    padding:14px 16px;margin-top:16px;font-size:.95em;line-height:1.6;}
+
+  .tag{display:inline-block;background:#e6f0f7;border:1px solid rgba(91,168,207,.5);
+    color:var(--d2);padding:4px 10px;border-radius:999px;font-size:.82em;font-weight:800;margin:0 6px 6px 0;}
+
+  /* ---------- handwritten annotation layer ---------- */
+  .hand{font-family:'Kalam','Segoe Script','Bradley Hand',cursive;}
+  .margin-note{
+    font-family:'Kalam','Segoe Script',cursive;
+    color:var(--pen);font-size:1.02em;line-height:1.45;
+    background:rgba(255,252,240,.9);
+    border:1.5px solid rgba(192,57,43,.35);
+    border-radius:12px 12px 12px 3px;
+    padding:12px 16px;margin:16px 0 0;
+    transform:rotate(-.5deg);
+    box-shadow:2px 3px 0 rgba(192,57,43,.08);
+  }
+  .margin-note::before{
+    content:"✎ ";font-size:1.05em;
+  }
+  .margin-note.blue{color:var(--pencil);border-color:rgba(45,106,143,.35);
+    background:rgba(240,249,255,.9);transform:rotate(.4deg);}
+  .scribble{
+    font-family:'Kalam','Segoe Script',cursive;color:var(--pen);
+    font-size:1.05em;display:inline-block;transform:rotate(-1.2deg);
+  }
+  .fig{margin:18px 0 6px;text-align:center;}
+  .fig svg{max-width:100%;height:auto;}
+  .figcap{
+    font-family:'Kalam','Segoe Script',cursive;color:var(--pencil);
+    font-size:1em;text-align:center;margin-top:4px;
+  }
+  .hand-label{font-family:'Kalam','Segoe Script',cursive;font-size:15px;fill:#c0392b;}
+  .hand-label.b{fill:#2d6a8f;}
+  .svg-title{font-family:'Segoe UI',sans-serif;font-size:13px;font-weight:700;fill:#2d5f8d;}
+  .svg-txt{font-family:'Segoe UI',sans-serif;font-size:12px;fill:#333;}
+  .svg-txt.w{fill:#fff;font-weight:700;}
+
+  .modtag{
+    display:inline-block;background:linear-gradient(135deg,var(--d2),var(--d4));
+    color:#fff;padding:5px 16px;border-radius:999px;font-size:.8em;font-weight:800;
+    margin-bottom:14px;letter-spacing:.3px;
+  }
+  .slideno{text-align:right;color:#9db0bf;font-size:.78em;margin-top:22px;
+    border-top:1px solid #eaf0f4;padding-top:8px;}
+
+  @media print{
+    .slide{height:auto;min-height:auto;padding:30px;page-break-after:always;page-break-inside:avoid;}
+    body{margin:0;padding:0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SLIDE 1 : TITLE ============ -->
+<div class="slide">
+  <div class="container">
+    <h1>Governance, AI Risk &amp; Cybersecurity</h1>
+    
+
+    <div class="fig">
+      <svg viewBox="0 0 640 260" role="img" aria-label="Three overlapping domains forming one question">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#2d5f8d"/><stop offset="100%" stop-color="#3a7ca5"/>
+          </linearGradient>
+        </defs>
+        <circle cx="240" cy="120" r="95" fill="#2d5f8d" opacity=".22" stroke="#2d5f8d" stroke-width="2"/>
+        <circle cx="330" cy="120" r="95" fill="#3a7ca5" opacity=".22" stroke="#3a7ca5" stroke-width="2"/>
+        <circle cx="285" cy="175" r="95" fill="#5ba8cf" opacity=".22" stroke="#5ba8cf" stroke-width="2"/>
+        <text x="175" y="95" class="svg-title">Governance</text>
+        <text x="352" y="95" class="svg-title">AI Risk</text>
+        <text x="245" y="240" class="svg-title">Cybersecurity</text>
+        <text x="268" y="140" class="svg-txt" font-weight="700">Trust</text>
+        <path d="M470 120 C 430 100, 410 110, 385 122" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M385 122 l 12 -8 M385 122 l 11 7" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <text x="478" y="108" class="hand-label">same question,</text>
+        <text x="478" y="128" class="hand-label">three altitudes</text>
+      </svg>
+      <div class="figcap">Who may act — on what — with what checks?</div>
+    </div>
+
+    <div class="key-insight">
+      <p>Governance decides what is allowed. AI risk is what goes wrong when the technology behaves unexpectedly. Cybersecurity is what goes wrong when someone <em>wants</em> it to. All three answer one question: who can act, on what, with what checks.</p>
+    </div>
+
+   
+    <div class="slideno">Slide 1</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 2 : THE SPINE ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part I · The Frame</span>
+    <h1 style="font-size:1.6em;">Why These Three Belong in One Lecture</h1>
+
+    <table>
+      <thead>
+        <tr><th>Question</th><th>Failure mode</th><th>Who owns it</th><th>Called</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>What should we allow ourselves to do?</td><td>We did something we should not have</td><td>Board, policy, legal</td><td><strong>Governance</strong></td></tr>
+        <tr><td>What might the system do that we didn't intend?</td><td>It behaved in a way nobody tested for</td><td>Business + risk owner</td><td><strong>AI risk</strong></td></tr>
+        <tr><td>What might someone make it do deliberately?</td><td>An adversary turned our system against us</td><td>Business + security</td><td><strong>Cybersecurity</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="comparison">
+      <div class="comparison-box">
+        <h4>The accidental failure</h4>
+        <p style="margin:0;font-size:.92em;">An LLM invents a refund policy and a customer relies on it. Nobody attacked anything. The system simply did something plausible and wrong.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>The deliberate failure</h4>
+        <p style="margin:0;font-size:.92em;">An attacker hides instructions in a document your AI assistant reads, and the assistant follows them. Same system, same output channel — different intent behind it.</p>
+      </div>
+    </div>
+
+   
+    <div class="slideno">Slide 2</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 3 : ATTACK / RISK SURFACE ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part I · The Frame</span>
+    <h1 style="font-size:1.6em;">The Transformation Paradox</h1>
+    <p>Every capability you add as a manager adds a way in. <strong>Attack surface</strong> simply means the total number of points where an outsider — or an accident — could reach your business.</p>
+
+    <div class="fig">
+      <svg viewBox="0 0 700 300" role="img" aria-label="Transformation initiatives expanding the attack surface">
+        <circle cx="350" cy="150" r="52" fill="url(#g1)" stroke="#1a3a52" stroke-width="2"/>
+        <text x="350" y="146" text-anchor="middle" class="svg-txt w">THE</text>
+        <text x="350" y="162" text-anchor="middle" class="svg-txt w">BUSINESS</text>
+
+        <g stroke="#5ba8cf" stroke-width="2" fill="none">
+          <line x1="350" y1="98" x2="350" y2="55"/>
+          <line x1="393" y1="122" x2="500" y2="72"/>
+          <line x1="402" y1="150" x2="560" y2="150"/>
+          <line x1="393" y1="178" x2="500" y2="228"/>
+          <line x1="350" y1="202" x2="350" y2="255"/>
+          <line x1="307" y1="178" x2="200" y2="228"/>
+          <line x1="298" y1="150" x2="140" y2="150"/>
+          <line x1="307" y1="122" x2="200" y2="72"/>
+        </g>
+
+        <g>
+          <rect x="295" y="30" width="110" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="350" y="49" text-anchor="middle" class="svg-txt">Cloud ERP</text>
+
+          <rect x="470" y="52" width="115" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="527" y="71" text-anchor="middle" class="svg-txt">Mobile app</text>
+
+          <rect x="555" y="136" width="120" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="615" y="155" text-anchor="middle" class="svg-txt">IoT sensors</text>
+
+          <rect x="470" y="214" width="130" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="535" y="233" text-anchor="middle" class="svg-txt">40 SaaS vendors</text>
+
+          <rect x="292" y="252" width="116" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="350" y="271" text-anchor="middle" class="svg-txt">Remote work</text>
+
+          <rect x="112" y="214" width="120" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="172" y="233" text-anchor="middle" class="svg-txt">GenAI tools</text>
+
+          <rect x="40" y="136" width="120" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="100" y="155" text-anchor="middle" class="svg-txt">Data lake</text>
+
+          <rect x="120" y="52" width="115" height="28" rx="6" fill="#e6f0f7" stroke="#3a7ca5"/>
+          <text x="177" y="71" text-anchor="middle" class="svg-txt">Open APIs</text>
+        </g>
+
+        <path d="M600 262 C 560 268, 470 258, 430 244" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M430 244 l 13 -5 M430 244 l 9 10" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <text x="500" y="288" class="hand-label">every line = a door</text>
+      </svg>
+      <div class="figcap">Eight transformation wins. Eight new ways in.</div>
+    </div>
+
+    <div class="key-insight">
+      <p>You cannot transform without expanding the surface. You can only decide whether you expand it knowingly or accidentally. That decision is the entire subject of this lecture.</p>
+    </div>
+    <div class="slideno">Slide 3</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 4 : WHAT IS GOVERNANCE ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part II · Governance</span>
+    <h1 style="font-size:1.6em;">What Governance Actually Is</h1>
+
+    <div class="fig">
+      <svg viewBox="0 0 660 230" role="img" aria-label="Four components of governance">
+        <g>
+          <rect x="20" y="60" width="140" height="95" rx="10" fill="#2d5f8d"/>
+          <text x="90" y="95" text-anchor="middle" class="svg-txt w">MECHANISMS</text>
+          <text x="90" y="118" text-anchor="middle" class="svg-txt" fill="#dceaf5" font-size="11">committees,</text>
+          <text x="90" y="133" text-anchor="middle" class="svg-txt" fill="#dceaf5" font-size="11">approvals, audits</text>
+
+          <rect x="180" y="60" width="140" height="95" rx="10" fill="#3a7ca5"/>
+          <text x="250" y="95" text-anchor="middle" class="svg-txt w">ROLES</text>
+          <text x="250" y="118" text-anchor="middle" class="svg-txt" fill="#eaf4fa" font-size="11">who owns what</text>
+          <text x="250" y="133" text-anchor="middle" class="svg-txt" fill="#eaf4fa" font-size="11">and answers for it</text>
+
+          <rect x="340" y="60" width="140" height="95" rx="10" fill="#4a94ba"/>
+          <text x="410" y="95" text-anchor="middle" class="svg-txt w">RULES</text>
+          <text x="410" y="118" text-anchor="middle" class="svg-txt" fill="#f2f9fc" font-size="11">review steps,</text>
+          <text x="410" y="133" text-anchor="middle" class="svg-txt" fill="#f2f9fc" font-size="11">escalation paths</text>
+
+          <rect x="500" y="60" width="140" height="95" rx="10" fill="#5ba8cf"/>
+          <text x="570" y="95" text-anchor="middle" class="svg-txt w">GUARDRAILS</text>
+          <text x="570" y="118" text-anchor="middle" class="svg-txt" fill="#fff" font-size="11">what is simply</text>
+          <text x="570" y="133" text-anchor="middle" class="svg-txt" fill="#fff" font-size="11">not allowed</text>
+        </g>
+        <text x="20" y="40" class="hand-label b">who decides →</text>
+        <text x="230" y="40" class="hand-label b">who answers →</text>
+        <text x="392" y="40" class="hand-label b">how →</text>
+        <text x="520" y="40" class="hand-label b">where it stops</text>
+        <path d="M30 185 C 200 205, 430 205, 620 185" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <text x="215" y="222" class="hand-label">all four, or it's just a policy PDF nobody reads</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>The one-line version:</strong> governance = <span class="scribble">"who decides, using what rules, with what checks."</span> If you cannot name the person, the rule and the check, you do not have governance — you have an intention.
+    </div>
+
+   
+    <div class="slideno">Slide 4</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 5 : GOVERNANCE CONTINUUM ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part II · Governance</span>
+    <h1 style="font-size:1.6em;">Hard Law, Soft Law, and Everything Between</h1>
+
+    <div class="fig">
+      <svg viewBox="0 0 700 210" role="img" aria-label="Governance continuum from binding law to voluntary ethics">
+        <defs>
+          <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a52"/><stop offset="100%" stop-color="#bfe0f0"/>
+          </linearGradient>
+        </defs>
+        <rect x="40" y="70" width="620" height="44" rx="22" fill="url(#spec)"/>
+        <text x="60" y="98" class="svg-txt w">BINDING LAW</text>
+        <text x="540" y="98" class="svg-txt" fill="#1a3a52" font-weight="700">VOLUNTARY ETHICS</text>
+
+        <g stroke="#2d5f8d" stroke-width="1.5">
+          <line x1="150" y1="114" x2="150" y2="132"/>
+          <line x1="290" y1="114" x2="290" y2="132"/>
+          <line x1="430" y1="114" x2="430" y2="132"/>
+          <line x1="560" y1="114" x2="560" y2="132"/>
+        </g>
+        <text x="150" y="150" text-anchor="middle" class="svg-txt">EU AI Act</text>
+        <text x="150" y="165" text-anchor="middle" class="svg-txt" font-size="11">penalties</text>
+        <text x="290" y="150" text-anchor="middle" class="svg-txt">DPDP</text>
+        <text x="290" y="165" text-anchor="middle" class="svg-txt" font-size="11">statutory duty</text>
+        <text x="430" y="150" text-anchor="middle" class="svg-txt">India Guidelines</text>
+        <text x="430" y="165" text-anchor="middle" class="svg-txt" font-size="11">advisory</text>
+        <text x="560" y="150" text-anchor="middle" class="svg-txt">Company policy</text>
+        <text x="560" y="165" text-anchor="middle" class="svg-txt" font-size="11">self-imposed</text>
+
+        <text x="55" y="45" class="hand-label">slow to change,</text>
+        <text x="55" y="63" class="hand-label">impossible to ignore</text>
+        <text x="470" y="45" class="hand-label">fast to adopt,</text>
+        <text x="470" y="63" class="hand-label">easy to abandon</text>
+        <path d="M300 40 C 350 25, 400 25, 450 38" stroke="#c0392b" stroke-width="1.8" fill="none"/>
+        <text x="300" y="196" class="hand-label">India sits deliberately here →</text>
+      </svg>
+      <div class="figcap">Most real-world governance lives in the middle, not at either end</div>
+    </div>
+
+    <div class="key-insight">
+      <p>India has chosen the softer end on purpose: guidelines rather than a standalone AI law, built on existing statutes. That is a bet that innovation speed matters more right now than legal certainty — and it is a bet students should be able to argue both sides of.</p>
+    </div>
+    <div class="slideno">Slide 5</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 6 : INDIA FRAMEWORK ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part II · Governance</span>
+    <h1 style="font-size:1.6em;">India's AI Governance Guidelines (MeitY, Nov 2025)</h1>
+
+    <div class="comparison">
+      <div class="comparison-box">
+        <h4>Seven Sutras — the principles</h4>
+        <ul>
+          <li>Trust</li>
+          <li>People First</li>
+          <li>Innovation Over Restraint</li>
+          <li>Fairness &amp; Equity</li>
+          <li>Accountability</li>
+          <li>Understandable by Design</li>
+          <li>Safety, Resilience &amp; Sustainability</li>
+        </ul>
+      </div>
+      <div class="comparison-box">
+        <h4>Six Pillars — the machinery</h4>
+        <ul>
+          <li>Infrastructure</li>
+          <li>Capacity Building</li>
+          <li>Policy &amp; Regulation</li>
+          <li>Risk Mitigation</li>
+          <li>Accountability</li>
+          <li>Institutions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fig">
+      <svg viewBox="0 0 660 150" role="img" aria-label="Lineage from RBI FREE-AI framework to MeitY guidelines">
+        <rect x="20" y="45" width="160" height="60" rx="10" fill="#e6f0f7" stroke="#3a7ca5" stroke-width="2"/>
+        <text x="100" y="70" text-anchor="middle" class="svg-txt" font-weight="700">RBI FREE-AI</text>
+        <text x="100" y="88" text-anchor="middle" class="svg-txt" font-size="11">Aug 2025 · finance only</text>
+
+        <path d="M185 75 L 245 75" stroke="#2d5f8d" stroke-width="2.5"/>
+        <path d="M245 75 l -10 -6 M245 75 l -10 6" stroke="#2d5f8d" stroke-width="2.5" fill="none"/>
+
+        <rect x="250" y="45" width="175" height="60" rx="10" fill="#2d5f8d"/>
+        <text x="337" y="70" text-anchor="middle" class="svg-txt w">MeitY Guidelines</text>
+        <text x="337" y="88" text-anchor="middle" class="svg-txt" fill="#dceaf5" font-size="11">Nov 2025 · all sectors</text>
+
+        <path d="M430 75 L 490 75" stroke="#2d5f8d" stroke-width="2.5"/>
+        <path d="M490 75 l -10 -6 M490 75 l -10 6" stroke="#2d5f8d" stroke-width="2.5" fill="none"/>
+
+        <rect x="495" y="45" width="150" height="60" rx="10" fill="#e6f0f7" stroke="#3a7ca5" stroke-width="2"/>
+        <text x="570" y="70" text-anchor="middle" class="svg-txt" font-weight="700">Your company</text>
+        <text x="570" y="88" text-anchor="middle" class="svg-txt" font-size="11">internal AI policy</text>
+
+        <text x="60" y="28" class="hand-label">a sector regulator wrote</text>
+        <text x="60" y="140" class="hand-label">the national vocabulary ↑</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      New oversight bodies created: an <strong>AI Safety Institute</strong> for standards and safety research, a <strong>Technology &amp; Policy Expert Committee</strong>, and an <strong>AI Governance Group</strong> for coordination.
+    </div>
+
+    <div class="margin-note blue">
+      Worth pausing on the lineage: India's general AI vocabulary came upward from a <em>banking</em> regulator, not downward from a tech ministry. Good discussion — does sectoral experience make better general rules, or narrower ones?
+    </div>
+    <div class="slideno">Slide 6</div>
+  </div>
+</div>
+
+
+<!-- ============ SLIDE 9 : SIX RISKS ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part III · AI Risk</span>
+    <h1 style="font-size:1.6em;">The Six Risks — Grouped So They Stick</h1>
+
+    <h3>Structural — built into how GenAI works</h3>
+    <div class="comparison">
+      <div class="comparison-box">
+        <h4>1 · Deployment explosion</h4>
+        <p style="margin:0;font-size:.92em;">Used in every function at once. Nobody can pre-test every context of use. Mitigations designed for known cases miss the ones nobody imagined.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>2 · Monitoring at scale</h4>
+        <p style="margin:0;font-size:.92em;">Unexpected behaviour compounds quietly. Without monitoring in the wild, you learn about failure from a customer, not a dashboard.</p>
+      </div>
+    </div>
+
+    <h3>Behavioural — created by how humans use it</h3>
+    <div class="comparison">
+      <div class="comparison-box">
+        <h4>3 · Hallucinations</h4>
+        <p style="margin:0;font-size:.92em;">Confident, plausible, wrong. Untrained users do not verify. False data reaches client documents.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>4 · Irresponsible prompting</h4>
+        <p style="margin:0;font-size:.92em;">Confidential data pasted into third-party tools; prompt injection steering the model from inside a document.</p>
+      </div>
+    </div>
+
+    <h3>Organisational — created by how firms deploy it</h3>
+    <div class="comparison">
+      <div class="comparison-box">
+        <h4>5 · Multi-point ownership</h4>
+        <p style="margin:0;font-size:.92em;">Provider → enterprise → department → user. Each layer adds risk; no layer thinks it owns the whole.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>6 · Training deficit</h4>
+        <p style="margin:0;font-size:.92em;">Narrow AI needed trained data scientists. GenAI needs every employee trained — a far larger, rarely funded task.</p>
+      </div>
+    </div>
+
+    <div class="margin-note">
+      Teach the three buckets, not the six numbers. Structural risks you mitigate, behavioural risks you train, organisational risks you assign. Students remember three verbs far longer than six nouns.
+    </div>
+    <div class="slideno">Slide 9</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 10 : MULTI-POINT OWNERSHIP ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part III · AI Risk</span>
+    <h1 style="font-size:1.6em;">Where Accountability Leaks Away</h1>
+
+    <div class="fig">
+      <svg viewBox="0 0 660 270" role="img" aria-label="Four layers of AI risk ownership">
+        <rect x="90" y="25" width="480" height="46" rx="8" fill="#1a3a52"/>
+        <text x="330" y="54" text-anchor="middle" class="svg-txt w">MODEL PROVIDER — generic safeguards, not your context</text>
+
+        <rect x="120" y="83" width="420" height="46" rx="8" fill="#2d5f8d"/>
+        <text x="330" y="112" text-anchor="middle" class="svg-txt w">ENTERPRISE — fine-tuning adds new, untested behaviour</text>
+
+        <rect x="150" y="141" width="360" height="46" rx="8" fill="#3a7ca5"/>
+        <text x="330" y="170" text-anchor="middle" class="svg-txt w">DEPARTMENT — custom prompts, custom risk</text>
+
+        <rect x="180" y="199" width="300" height="46" rx="8" fill="#5ba8cf"/>
+        <text x="330" y="228" text-anchor="middle" class="svg-txt w">THE EMPLOYEE — actually decides the output</text>
+
+        <path d="M600 60 C 625 110, 620 180, 500 220" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M500 220 l 14 -3 M500 220 l 9 11" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <text x="588" y="44" class="hand-label">assessed</text>
+        <text x="600" y="62" class="hand-label">here...</text>
+        <text x="380" y="262" class="hand-label">...but the risk is actually created here</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <strong>The unresolved question:</strong> who performs which risk assessment, at what point, and after which modification? No framework answers this cleanly yet — which means in practice it falls to whoever is willing to write it down first.
+    </div>
+    <div class="slideno">Slide 10</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 11 : SECURITY AS ENFORCEMENT ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Cybersecurity</span>
+    <h1 style="font-size:1.6em;">Security Is the Enforcement Layer of Governance</h1>
+    <p>A policy that says "confidential data must not leave the company" is governance. The control that makes it impossible is security. Without the second, the first is a wish.</p>
+
+    <table>
+      <thead><tr><th>Governance says</th><th>Security makes it real by</th><th>Without it</th></tr></thead>
+      <tbody>
+        <tr><td>Only authorised staff see customer data</td><td>Access control, least privilege, logging</td><td>Everyone can see everything; nobody knows who looked</td></tr>
+        <tr><td>Don't paste confidential data into AI tools</td><td>Data-loss prevention, approved-tool allowlists</td><td>Policy depends entirely on memory and goodwill</td></tr>
+        <tr><td>We must know when something goes wrong</td><td>Monitoring, detection, incident alerting</td><td>You find out from a customer or a newspaper</td></tr>
+        <tr><td>Vendors must protect our data</td><td>Contract clauses, audit rights, access reviews</td><td>Their weakest engineer is now your risk</td></tr>
+      </tbody>
+    </table>
+
+    <div class="margin-note blue">
+      This slide is the hinge of the whole lecture. Everything before it was about deciding rules; everything after it is about making rules bite. Say that out loud.
+    </div>
+    <div class="slideno">Slide 11</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 12 : INDIA BREACH ECONOMICS ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Cybersecurity</span>
+    <h1 style="font-size:1.6em;">What It Costs in India</h1>
+
+    <div class="fig">
+      <svg viewBox="0 0 640 260" role="img" aria-label="Average data breach cost in India rising across years">
+        <line x1="70" y1="215" x2="600" y2="215" stroke="#2d5f8d" stroke-width="2"/>
+        <line x1="70" y1="35" x2="70" y2="215" stroke="#2d5f8d" stroke-width="2"/>
+
+        <rect x="130" y="126" width="80" height="89" fill="#5ba8cf"/>
+        <text x="170" y="118" text-anchor="middle" class="svg-txt" font-weight="700">₹17.9 cr</text>
+        <text x="170" y="234" text-anchor="middle" class="svg-txt">2023</text>
+
+        <rect x="290" y="105" width="80" height="110" fill="#3a7ca5"/>
+        <text x="330" y="97" text-anchor="middle" class="svg-txt" font-weight="700">₹22 cr</text>
+        <text x="330" y="234" text-anchor="middle" class="svg-txt">2025</text>
+
+        <rect x="450" y="87" width="80" height="128" fill="#2d5f8d"/>
+        <text x="490" y="79" text-anchor="middle" class="svg-txt" font-weight="700">₹25.5 cr</text>
+        <text x="490" y="234" text-anchor="middle" class="svg-txt">2026</text>
+
+        <text x="16" y="120" class="svg-txt" transform="rotate(-90 22 120)">avg breach cost</text>
+        <path d="M545 60 C 575 80, 590 120, 575 160" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <text x="300" y="42" class="hand-label">+15.9% in one year — and 26% of</text>
+        <text x="300" y="62" class="hand-label">malicious breaches were AI-generated</text>
+      </svg>
+      <div class="figcap">IBM Cost of a Data Breach Report, India cut</div>
+    </div>
+
+    <div class="comparison three">
+      <div class="comparison-box">
+        <h4>Top way in</h4>
+        <p style="margin:0;font-size:.92em;">Phishing, including voice and SMS — <strong>19%</strong> of Indian breaches. Someone clicked.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>Costliest sector</h4>
+        <p style="margin:0;font-size:.92em;">Financial services at <strong>₹40.9 cr</strong>, then technology and communications.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>Biggest saving</h4>
+        <p style="margin:0;font-size:.92em;">Offensive testing — red teaming and penetration testing — saved <strong>₹2.47 cr</strong> per breach.</p>
+      </div>
+    </div>
+
+    <div class="key-insight">
+      <p>Read the phishing number again. India's most expensive category of corporate failure begins, one time in five, with an employee clicking something. That is not a problem you can purchase your way out of.</p>
+    </div>
+    <div class="slideno">Slide 12</div>
+  </div>
+</div>
+
+
+<!-- ============ SLIDE 14 : KILL CHAIN ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Cybersecurity</span>
+    <h1 style="font-size:1.6em;">An Attack Is a Campaign, Not a Moment</h1>
+
+    <div class="fig">
+      <svg viewBox="0 0 700 220" role="img" aria-label="Six stages of an attack with detection window">
+        <g>
+          <rect x="15" y="70" width="100" height="58" rx="8" fill="#5ba8cf"/>
+          <text x="65" y="95" text-anchor="middle" class="svg-txt w" font-size="11">1 · Recon</text>
+          <text x="65" y="112" text-anchor="middle" class="svg-txt" fill="#f0f8fc" font-size="10">public info</text>
+
+          <rect x="128" y="70" width="100" height="58" rx="8" fill="#4a94ba"/>
+          <text x="178" y="95" text-anchor="middle" class="svg-txt w" font-size="11">2 · Get in</text>
+          <text x="178" y="112" text-anchor="middle" class="svg-txt" fill="#f0f8fc" font-size="10">phish / vendor</text>
+
+          <rect x="241" y="70" width="100" height="58" rx="8" fill="#3a7ca5"/>
+          <text x="291" y="95" text-anchor="middle" class="svg-txt w" font-size="11">3 · Escalate</text>
+          <text x="291" y="112" text-anchor="middle" class="svg-txt" fill="#f0f8fc" font-size="10">become admin</text>
+
+          <rect x="354" y="70" width="100" height="58" rx="8" fill="#2d5f8d"/>
+          <text x="404" y="95" text-anchor="middle" class="svg-txt w" font-size="11">4 · Spread</text>
+          <text x="404" y="112" text-anchor="middle" class="svg-txt" fill="#dceaf5" font-size="10">weeks, quietly</text>
+
+          <rect x="467" y="70" width="100" height="58" rx="8" fill="#23496d"/>
+          <text x="517" y="95" text-anchor="middle" class="svg-txt w" font-size="11">5 · Act</text>
+          <text x="517" y="112" text-anchor="middle" class="svg-txt" fill="#dceaf5" font-size="10">encrypt / steal</text>
+
+          <rect x="580" y="70" width="105" height="58" rx="8" fill="#1a3a52"/>
+          <text x="632" y="95" text-anchor="middle" class="svg-txt w" font-size="11">6 · Extort</text>
+          <text x="632" y="112" text-anchor="middle" class="svg-txt" fill="#dceaf5" font-size="10">the demand</text>
+        </g>
+        <g stroke="#2d5f8d" stroke-width="2" fill="none">
+          <path d="M117 99 L126 99"/><path d="M230 99 L239 99"/><path d="M343 99 L352 99"/>
+          <path d="M456 99 L465 99"/><path d="M569 99 L578 99"/>
+        </g>
+        <path d="M245 148 L560 148" stroke="#c0392b" stroke-width="2" stroke-dasharray="7 5"/>
+        <path d="M245 143 L245 153 M560 143 L560 153" stroke="#c0392b" stroke-width="2"/>
+        <text x="250" y="178" class="hand-label">the whole commercial question lives in here:</text>
+        <text x="250" y="200" class="hand-label">how long before anyone notices?</text>
+        <text x="80" y="55" class="hand-label b">you will never stop 100% of this →</text>
+      </svg>
+    </div>
+
+    <div class="key-insight">
+      <p>Someone will always click. The business question is not whether stage 2 happens — it is how many weeks an attacker gets in stages 3 and 4 before anyone notices. India's average detect-and-contain window was <strong>263 days</strong>. That is nine months of quiet access.</p>
+    </div>
+    <div class="slideno">Slide 14</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 15 : RANSOMWARE + AIIMS ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Cybersecurity</span>
+    <h1 style="font-size:1.6em;">Ransomware, and the Case That Made It Real in India</h1>
+
+    <div class="comparison">
+      <div class="comparison-box">
+        <h4>It is an industry, not a hoodie</h4>
+        <ul>
+          <li><strong>Ransomware-as-a-Service:</strong> developers rent the malware to affiliates for a cut</li>
+          <li>Access brokers sell the way in; negotiators handle your call</li>
+          <li>They research your revenue and your insurance before naming a price</li>
+        </ul>
+      </div>
+      <div class="comparison-box">
+        <h4>Why backups stopped being enough</h4>
+        <ul>
+          <li><strong>Step 1 — encrypt:</strong> backups defeat this</li>
+          <li><strong>Step 2 — steal first:</strong> backups do nothing; pay or we publish</li>
+          <li><strong>Step 3 — pressure your customers and regulator directly</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Case — AIIMS Delhi, November 2022</h3>
+    <table>
+      <thead><tr><th>What happened</th><th>What it teaches</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Ransomware hit India's flagship public medical institute. Admissions, discharge, billing and lab reports went down. The hospital ran on paper for weeks.</td>
+          <td><strong>Availability</strong> was the crisis, not confidentiality. A non-commercial institution is still a prime target. Recovery time, not ransom size, was the real cost.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="margin-note">
+      Exercise that lands every time: AIIMS had no revenue to lose. Ask the class to cost the incident anyway. Ten minutes in, they discover cyber risk quantification is a judgement exercise, not an arithmetic one — which is exactly the point.
+    </div>
+    <div class="slideno">Slide 15</div>
+  </div>
+</div>
+
+
+
+<!-- ============ SLIDE 19 : ZERO TRUST ============ -->
+<!-- <div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Cybersecurity</span>
+    <h1 style="font-size:1.6em;">Zero Trust — Why the Castle Model Died</h1>
+
+    <div class="fig">
+      <svg viewBox="0 0 680 230" role="img" aria-label="House key versus hotel card access model">
+        <text x="165" y="26" text-anchor="middle" class="svg-title">THE HOUSE (old model)</text>
+        <rect x="55" y="45" width="225" height="140" rx="8" fill="#e6f0f7" stroke="#2d5f8d" stroke-width="2"/>
+        <rect x="150" y="150" width="36" height="35" fill="#2d5f8d"/>
+        <g fill="none" stroke="#3a7ca5" stroke-width="1.6">
+          <rect x="75" y="68" width="60" height="45"/><rect x="145" y="68" width="60" height="45"/>
+          <rect x="215" y="68" width="48" height="45"/><rect x="75" y="123" width="60" height="45"/>
+        </g>
+        <circle cx="168" cy="205" r="11" fill="#c0392b"/>
+        <text x="168" y="209" text-anchor="middle" class="svg-txt w" font-size="10">🔑</text>
+        <text x="60" y="222" class="hand-label">one key = everything</text>
+
+        <line x1="340" y1="35" x2="340" y2="200" stroke="#cfdce6" stroke-width="2" stroke-dasharray="6 6"/>
+
+        <text x="510" y="26" text-anchor="middle" class="svg-title">THE HOTEL (zero trust)</text>
+        <rect x="400" y="45" width="225" height="140" rx="8" fill="#e6f0f7" stroke="#2d5f8d" stroke-width="2"/>
+        <g stroke="#3a7ca5" stroke-width="1.6" fill="#fff">
+          <rect x="418" y="68" width="60" height="45"/><rect x="488" y="68" width="60" height="45"/>
+          <rect x="558" y="68" width="50" height="45"/>
+          <rect x="418" y="123" width="60" height="45"/><rect x="488" y="123" width="60" height="45"/>
+          <rect x="558" y="123" width="50" height="45"/>
+        </g>
+        <rect x="488" y="123" width="60" height="45" fill="#5ba8cf"/>
+        <text x="518" y="150" text-anchor="middle" class="svg-txt w" font-size="10">your room</text>
+        <rect x="496" y="196" width="46" height="18" rx="3" fill="#2d5f8d"/>
+        <text x="519" y="209" text-anchor="middle" class="svg-txt w" font-size="9">CARD</text>
+        <text x="400" y="226" class="hand-label">one room, and it expires</text>
+      </svg>
+    </div>
+
+    <table>
+      <thead><tr><th>Old assumption</th><th>Why it collapsed</th><th>Replacement</th></tr></thead>
+      <tbody>
+        <tr><td>Inside the office network = trusted</td><td>Cloud, remote work and vendors mean there is no inside</td><td>Verify every request, every time</td></tr>
+        <tr><td>Strong perimeter is enough</td><td>One stolen password walks straight through it</td><td>Least privilege — access only to what the role needs</td></tr>
+        <tr><td>Breach means failure</td><td>Breach is inevitable at some scale</td><td>Assume breach; contain blast radius</td></tr>
+      </tbody>
+    </table>
+
+    <div class="margin-note blue">
+      Bought as technology, succeeds as HR discipline. Most zero-trust failures are stale access — the analyst who moved to another team eighteen months ago and still opens the finance folder.
+    </div>
+    <div class="slideno">Slide 19</div>
+  </div>
+</div> -->
+
+
+<!-- 19 WHERE THEY MEET -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Where AI and Cyber Meet</span>
+    <h1>When AI Becomes the Attacker's Instrument</h1>
+
+    <table>
+      <thead><tr><th>Exposure</th><th>What it is</th><th>Why old controls fail</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AI-enabled impersonation and deepfakes</strong></td><td>Synthetic video, voice or writing convincingly imitating a specific real person</td><td>Verification by recognising a face, voice or writing style no longer proves identity</td></tr>
+        <tr><td><strong>Prompt injection</strong></td><td>Hidden instructions placed inside a document, email or webpage that an AI system reads and obeys</td><td>No malware, no alarm — the system did exactly what it was designed to do: read and follow</td></tr>
+        <tr><td><strong>Confidential data in unapproved tools</strong></td><td>Staff using AI services outside the approved list, for genuinely useful reasons</td><td>Nothing was breached; the data walked out through an approved browser</td></tr>
+        <tr><td><strong>AI-assisted phishing</strong></td><td>Personalised, fluent, error-free messages produced at scale</td><td>Awareness training built on spotting poor grammar is now obsolete</td></tr>
+        <tr><td><strong>Unreliable autonomous actions</strong></td><td>AI systems permitted to act — send, pay, change records — not merely advise</td><td>A wrong output becomes a wrong action before any human sees it</td></tr>
+        <tr><td><strong>Compromised data or models</strong></td><td>Corruption of what the system learns from or retrieves</td><td>An integrity failure: the system works, confidently, and is wrong</td></tr>
+      </tbody>
+    </table>
+
+    <div class="key-insight">
+      <p>Governance without a control is a stated intention. A control without an accountable owner is operational theatre.</p>
+    </div>
+
+    <div class="note"><b>Remember</b> — 26% of malicious breaches in India in 2026 were AI-generated (IBM, August 2026). This is no longer an emerging category. It is a quarter of what is actually happening.</div>
+    <div class="slideno"></div>
+  </div>
+</div>
+
+
+<!-- 22 INTEGRATED MAP -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Integration</span>
+    <h1>The Governance–Control Map</h1>
+
+    <p>This table is the deck in one artefact. Each row runs from a business objective to the evidence a manager should expect to see.</p>
+     
+
+    <table>
+      <thead>
+        <tr><th>Strategic objective</th><th>AI or cyber exposure</th><th>Accountable owner</th><th>Preventive control</th><th>Detection evidence</th><th>Recovery action</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cut support cost with an AI assistant</td>
+          <td>Hallucinated commitments to customers</td>
+          <td>Head of Customer Service</td>
+          <td>Human sign-off before policy statements are sent</td>
+          <td>Sample audits of transcripts; complaint patterns</td>
+          <td>Correction and honour-or-refuse protocol; disable the feature</td>
+        </tr>
+        <tr>
+          <td>Faster credit decisions</td>
+          <td>Biased or unexplainable outcomes</td>
+          <td>Head of Credit</td>
+          <td>Human appeal route for every automated rejection</td>
+          <td>Approval-rate analysis across segments; appeal volumes</td>
+          <td>Reprocess affected applications; suspend automation</td>
+        </tr>
+        <tr>
+          <td>Productivity from generative AI tools</td>
+          <td>Confidential data leaving the organisation</td>
+          <td>Function head adopting the tool</td>
+          <td>Approved-tool list; data classes barred from prompts</td>
+          <td>Tool usage logs; discovery of unapproved tools</td>
+          <td>Disclosure assessment; contract and access review</td>
+        </tr>
+        <tr>
+          <td>Cross-border payment speed</td>
+          <td>Deepfake-enabled fraudulent instruction</td>
+          <td>Chief Financial Officer</td>
+          <td>Independent second-channel verification above a threshold</td>
+          <td>Exception reports on bypassed verifications</td>
+          <td>Recall attempt, bank notification, regulator report</td>
+        </tr>
+        <tr>
+          <td>Scale on vendor platforms</td>
+          <td>Supplier compromise reaching you</td>
+          <td>Head of Procurement with the business owner</td>
+          <td>Contracted security terms, audit rights, notification window</td>
+          <td>Vendor incident reports; access reviews</td>
+          <td>Isolate integration; invoke continuity plan</td>
+        </tr>
+        <tr>
+          <td>Continuous operations</td>
+          <td>Ransomware halting production</td>
+          <td>Chief Operating Officer</td>
+          <td>Offline backups; network segmentation; least privilege</td>
+          <td>Time to detect and contain; restoration test results</td>
+          <td>Tested restoration; manual fallback; CERT-In reporting</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note blue"><b>Exam cue</b> — If a 10-mark question gives you a scenario, produce one row of this table for it. Objective, exposure, named owner, preventive control, detection evidence, recovery action. That structure alone carries most of the marks available.</div>
+    <div class="slideno"></div>
+  </div>
+</div>
+
+<!-- 24 COURSE CONNECTIONS -->
+<!-- <div class="slide">
+  <div class="container">
+    <span class="modtag">Course Integration</span>
+    <h1>How This Lecture Connects to the Rest of the Course</h1>
+
+    <p>Every module in this course supports a single management decision:</p>
+    <div class="key-insight">
+      <p>How do we redesign the organisation to capture digital value while keeping critical decisions, data and operations within an acceptable level of risk?</p>
+    </div>
+
+    <table>
+      <thead><tr><th>Module</th><th>What it contributes to that decision</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Digital Transformation Fundamentals</strong></td><td>Establishes why organisations transform and what capability they are buying — the S in SCOPE</td></tr>
+        <tr><td><strong>AI Governance</strong></td><td>Supplies decision rights, accountability structures and the regulatory landscape — the O</td></tr>
+        <tr><td><strong>Generative AI Risks</strong></td><td>Identifies what goes wrong without an adversary, and why risk shifted to the user — the C</td></tr>
+        <tr><td><strong>Cybersecurity</strong></td><td>Provides the controls that make governance enforceable, and resilience when they fail — the P</td></tr>
+        <tr><td><strong>Transformation Analytics</strong></td><td>Measures whether the initiative delivered value and whether controls work — the E</td></tr>
+      </tbody>
+    </table>
+
+    <div class="slideno"></div>
+  </div>
+</div> -->
+
+<!-- ============ SLIDE 20 : INDIA COMPLIANCE + 6 HOUR ============ -->
+<!-- <div class="slide">
+  <div class="container">
+    <span class="modtag">Part IV · Cybersecurity</span>
+    <h1 style="font-size:1.6em;">India's Compliance Stack — and the Six-Hour Clock</h1>
+
+    <table>
+      <thead><tr><th>Instrument</th><th>Binds</th><th>Core obligation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>DPDP Act 2023</strong></td><td>Anyone processing personal digital data</td><td>Consent, purpose limits, safeguards, breach notification, significant penalties</td></tr>
+        <tr><td><strong>CERT-In Directions 2022</strong></td><td>All companies and intermediaries</td><td>Report specified incidents within <strong>6 hours</strong>; retain logs 180 days</td></tr>
+        <tr><td><strong>IT Act 2000</strong></td><td>Broad</td><td>Offences, intermediary duties, reasonable security practices</td></tr>
+        <tr><td><strong>RBI frameworks</strong></td><td>Banks, NBFCs, payment operators</td><td>Baseline controls, board oversight, incident reporting</td></tr>
+        <tr><td><strong>SEBI CSCRF</strong></td><td>Regulated market entities</td><td>Standardised cyber resilience and audit</td></tr>
+      </tbody>
+    </table>
+
+    <div class="fig">
+      <svg viewBox="0 0 620 170" role="img" aria-label="India six hour reporting window compared with GDPR seventy two hours">
+        <circle cx="160" cy="80" r="52" fill="#fff" stroke="#c0392b" stroke-width="3"/>
+        <line x1="160" y1="80" x2="160" y2="44" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+        <line x1="160" y1="80" x2="188" y2="96" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+        <text x="160" y="152" text-anchor="middle" class="svg-txt" font-weight="700" fill="#c0392b">INDIA · 6 hours</text>
+
+        <circle cx="430" cy="80" r="52" fill="#fff" stroke="#2d5f8d" stroke-width="3"/>
+        <line x1="430" y1="80" x2="430" y2="44" stroke="#2d5f8d" stroke-width="3" stroke-linecap="round"/>
+        <line x1="430" y1="80" x2="462" y2="80" stroke="#2d5f8d" stroke-width="3" stroke-linecap="round"/>
+        <text x="430" y="152" text-anchor="middle" class="svg-txt" font-weight="700">EU GDPR · 72 hours</text>
+
+        <text x="232" y="60" class="hand-label">12× tighter —</text>
+        <text x="232" y="80" class="hand-label">you cannot improvise</text>
+        <text x="232" y="100" class="hand-label">this at 2 a.m.</text>
+      </svg>
+    </div>
+
+    <div class="key-insight">
+      <p>Six hours is among the tightest reporting windows in the world. Meeting it requires a pre-written runbook naming who decides, who drafts and who signs. Compliance here is an operational readiness question, not a legal one.</p>
+    </div>
+    <div class="slideno">Slide 20</div>
+  </div>
+</div> -->
+
+<!-- ============ SLIDE 21 : THREE LINES + OWNERSHIP ============ -->
+<!-- <div class="slide">
+  <div class="container">
+    <span class="modtag">Part V · Putting It Together</span>
+    <h1 style="font-size:1.6em;">Who Owns All Of This</h1>
+
+    <div class="comparison three">
+      <div class="comparison-box">
+        <h4>First line — the business</h4>
+        <p style="margin:0;font-size:.92em;">Owns the risk it creates. The head of sales who approves a new CRM owns that CRM's risk. Not IT.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>Second line — risk &amp; security</h4>
+        <p style="margin:0;font-size:.92em;">Sets policy, advises, challenges, monitors. Advises — does not own.</p>
+      </div>
+      <div class="comparison-box">
+        <h4>Third line — internal audit</h4>
+        <p style="margin:0;font-size:.92em;">Independently assures the board that the first two lines actually work in practice.</p>
+      </div>
+    </div>
+
+    <h3>What the board answers for</h3>
+    <ul>
+      <li>Setting risk appetite — how much risk is acceptable for the return</li>
+      <li>Ensuring resourcing matches the stated appetite <span class="scribble">(this is the usual gap)</span></li>
+      <li>Reviewing incidents and the lessons actually taken from them</li>
+      <li>Confirming a response plan exists and has been <strong>tested</strong>, not merely written</li>
+    </ul>
+
+    <div class="margin-note">
+      The sentence that fails a board, in any jurisdiction: "we delegated it to the CISO." Delegating execution is proper. Delegating accountability is not recognised by regulators, courts, or insurers.
+    </div>
+    <div class="slideno">Slide 21</div>
+  </div>
+</div> -->
+
+<!-- ============ SLIDE 22 : UNIFIED MAP ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part V · Putting It Together</span>
+    <h1 style="font-size:1.6em;">One Table That Holds the Whole Lecture</h1>
+
+    <table>
+      <thead>
+        <tr><th>Governance principle</th><th>The AI risk it addresses</th><th>The security control that enforces it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Accountability</td><td>Multi-point ownership — nobody owns the whole chain</td><td>Named risk owner per system; access logs that prove who did what</td></tr>
+        <tr><td>Understandable by design</td><td>Hallucination — confident, plausible, wrong</td><td>Human review gates before anything client-facing ships</td></tr>
+        <tr><td>Trust / People first</td><td>Irresponsible prompting — confidential data leaving</td><td>Approved-tool lists, data-loss prevention, classification rules</td></tr>
+        <tr><td>Safety &amp; resilience</td><td>Monitoring gaps — silent compounding failure</td><td>Detection tooling, incident tracking, tested response runbook</td></tr>
+        <tr><td>Fairness &amp; equity</td><td>Biased or discriminatory outputs</td><td>Output testing, audit trails, escalation path for complaints</td></tr>
+        <tr><td>Innovation over restraint</td><td>Shadow AI — staff routing around slow official tools</td><td>Make the sanctioned path fast enough that nobody needs to route around it</td></tr>
+      </tbody>
+    </table>
+
+    <div class="margin-note blue">
+      If students remember one artefact from this lecture, make it this table. Governance without a control is a wish; a control without a principle is expensive theatre. Every row needs both columns filled.
+    </div>
+    <div class="slideno">Slide 22</div>
+  </div>
+</div>
+
+<!-- ============ SLIDE 23 : TAKEAWAYS ============ -->
+<div class="slide">
+  <div class="container">
+    <span class="modtag">Part V · Close</span>
+    <h1 style="font-size:1.6em;">Decision Principles to Leave With</h1>
+
+    <ul>
+      <li><strong>Capability and exposure move together.</strong> Every transformation win adds a door. Choose knowingly.</li>
+      <li><strong>Availability is the business risk.</strong> What stops Indian firms is systems going dark, not only data leaking.</li>
+      <li><strong>Detection speed decides cost.</strong> Everyone is breached eventually; the 263-day firm and the 3-day firm end up somewhere very different.</li>
+      <li><strong>Your controls end where your vendors begin — your liability does not.</strong> Security is decided in procurement.</li>
+      <li><strong>AI made impersonation cheap.</strong> Any control resting on recognising a face or a voice has already expired.</li>
+      <li><strong>Risk moved to the user.</strong> When outputs depend on prompts, training stops being HR and becomes a control.</li>
+      <li><strong>Six hours.</strong> India's reporting clock makes a rehearsed plan a compliance requirement, not a nicety.</li>
+      <li><strong>Governance is the differentiator.</strong> NIST added a Govern function because the failures were managerial. That is your job, not the CISO's.</li>
+    </ul>
+
+    <div class="key-insight">
+      <p>You will not be hired to configure a firewall or fine-tune a model. You will be hired to decide how much risk the business accepts, to fund the controls that match that decision, and to be in the room — able to ask the right question — when something goes wrong.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Exit question:</strong> if you could implement exactly <em>one</em> control across your organisation tomorrow — one, not three — what would it be, and what are you consciously choosing to leave unprotected?
+    </div>
+
+    <div class="margin-note">
+      Do not resolve the exit question. Let them leave with it open. The students who come back next week still arguing about it are the ones who understood the lecture.
+    </div>
+    <div class="slideno">Slide 23</div>
+  </div>
+</div>
+
+</body>
+</html>
