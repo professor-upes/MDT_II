@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT and Big Data</title>
+<style>
+:root{--b1:#2d5f8d;--b2:#3a7ca5;--b3:#5ba8cf;--ink:#1f2d3a;--muted:#5b6b7a;--line:#dde6ee;--bg:#eef4f9;--soft:#e8f2fb;--y:#fff8e1;--yl:#f4c542;--red:#c0392b;--green:#2e8b57}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:22px 16px 60px}
+.slide{background:#fff;border-radius:18px;padding:30px 30px 26px;margin:0 0 22px;box-shadow:0 6px 22px rgba(31,45,58,.07);position:relative}
+.slide .sn{position:absolute;top:16px;right:18px;font-size:.75rem;color:var(--b1);background:var(--soft);border-radius:999px;padding:3px 11px;font-weight:600}
+.sec{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--b2);font-weight:700;margin-bottom:6px}
+h2{margin:0 0 14px;font-size:clamp(1.2rem,2.4vw,1.55rem);line-height:1.3;padding-left:14px;border-left:6px solid var(--b2);background:linear-gradient(90deg,var(--b1),var(--b3));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:60px}
+h3{color:var(--b1);margin:14px 0 6px;font-size:1.05rem}
+p{margin:.45rem 0}
+.hero{background:linear-gradient(135deg,var(--b1),var(--b2) 55%,var(--b3));color:#fff}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);margin:.3rem 0;line-height:1.15}
+.hero .sn{background:rgba(255,255,255,.2);color:#fff}
+.hero p{opacity:.95;max-width:820px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fbfdff;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,95,141,.13)}
+.card h4{margin:0 0 6px;color:var(--b1)}
+.svc{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:transform .15s,box-shadow .15s}
+.svc:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,95,141,.13)}
+.svc .st{height:6px;background:linear-gradient(90deg,var(--b1),var(--b3))}
+.svc .in{padding:14px 16px}
+.svc h4{margin:0 0 6px;color:var(--b1)}
+.analogy{background:var(--y);border-left:5px solid var(--yl);border-radius:10px;padding:12px 16px;margin:14px 0}
+.insight{background:var(--soft);border-left:5px solid var(--b2);border-radius:10px;padding:12px 16px;margin:14px 0}
+.warn{background:#fdecea;border-left:5px solid var(--red);border-radius:10px;padding:12px 16px;margin:14px 0}
+.think{background:#f3effd;border-left:5px solid #7b5cd6;border-radius:10px;padding:12px 16px;margin:14px 0}
+.pill{display:inline-block;font-size:.74rem;padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--b1);border:1px solid #cfe0ef;margin:2px 4px 2px 0}
+.pill.r{background:#fdecea;color:#9b2c21;border-color:#f3c3bd}
+.pill.g{background:#e3f4ea;color:#1d6b40;border-color:#bfe3cd}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:620px}
+th{background:linear-gradient(90deg,var(--b1),var(--b2));color:#fff;text-align:left;padding:10px;font-size:.84rem}
+td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}
+tr:hover td{background:#f6fafd}
+.term{font-weight:600;color:var(--b1)}
+.dec{font-size:.86rem;color:var(--muted)}
+svg{max-width:100%;height:auto;display:block;margin:8px auto}
+.research{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:6px}
+.research div{background:#fbfdff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.research b{display:block;color:var(--b1);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+ol.t li,ul.t li{margin:4px 0}
+.agenda{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.agenda span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 12px;font-size:.85rem}
+.src{font-size:.8rem;color:var(--muted)}
+.src a{color:var(--b1)}
+@media print{body{background:#fff}.slide{box-shadow:none;page-break-after:always;break-after:page}.card:hover,.svc:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 1 -->
+<section class="slide hero">
+<span class="sn">01</span>
+<div class="sec" style="color:#dbeeff">Managing Digital Transformation · DIGM7004 · MBA Sem 3</div>
+<h1>From Things to Decisions: IoT &amp; Big Data for Managers</h1>
+<p>Machines are becoming data sources. The firms that win are the ones that turn that data into services customers will pay for.</p>
+<div class="agenda"><span>1 · Why now</span><span>2 · Definitions</span><span>3 · The loop</span><span>4 · Capability ladder</span><span>5 · Value capture</span><span>6 · Research</span><span>7 · Indian cases</span><span>8 · Risks</span><span>9 · Thinking tools</span><span>10 · Exam practice</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+<span class="sn">02</span>
+<div class="sec">Hook</div>
+<h2>A truck that reports its own health changes who the customer calls, and what they pay for</h2>
+<div class="grid2">
+<div class="card"><h4>2010: the unconnected truck</h4><p>The fleet owner buys a truck. It breaks down on the highway. The driver calls the owner, the owner calls a mechanic, and the truck sits idle for three days. The manufacturer hears nothing until a service visit, if there is one.</p></div>
+<div class="card"><h4>Today: the connected truck</h4><p>Sensors report engine temperature, fuel use and location. The manufacturer's system spots a failing part two weeks early and books a service slot. The owner pays a subscription for uptime, and the manufacturer now knows how every truck is really used.</p></div>
+</div>
+<div class="think"><b>Think before we start:</b> in the second story, what exactly is the manufacturer selling: a truck, data, or kilometres without breakdowns? Write down one word. We will return to it on slide 09.</div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+<span class="sn">03</span>
+<div class="sec">1 · Why now</div>
+<h2>IoT and Big Data became affordable because sensors, bandwidth and storage all got cheap at once</h2>
+<div class="grid3">
+<div class="svc"><div class="st"></div><div class="in"><h4>Compute (Moore's Law)</h4><p>Chips small and cheap enough to put in a meter, a tractor or a milk can.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Bandwidth (Butter's Law)</h4><p>Mobile data became cheap. In India, the 2016 data price collapse put connectivity in every district.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Storage (Kryder's Law)</h4><p>Keeping years of sensor readings now costs almost nothing, so firms keep everything and analyse later.</p></div></div>
+</div>
+<div class="insight"><b>Link to our Laws lecture:</b> no single technology caused the IoT wave. What caused it is that the three costs fell <i>together</i>. That matters for managers, because when one of the three is missing (for example weak rural bandwidth), the whole model can fail.</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+<span class="sec">2 · Definitions</span>
+<span class="sn">04</span>
+<h2>IoT is a four-layer stack; the business value sits in the top layer, not the sensor</h2>
+<p><span class="term">Internet of Things (IoT)</span>: physical objects fitted with sensors and a network connection, so they can report what is happening to them and sometimes be controlled remotely.</p>
+<svg viewBox="0 0 760 250" role="img" aria-label="Four-layer IoT stack">
+<defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#2d5f8d"/><stop offset="1" stop-color="#5ba8cf"/></linearGradient></defs>
+<g font-family="Segoe UI,Arial" font-size="14">
+<rect x="20" y="10" width="480" height="48" rx="10" fill="url(#g1)"/><text x="40" y="40" fill="#fff" font-weight="700">4 · Application: dashboards, alerts, services, billing</text>
+<rect x="20" y="68" width="480" height="48" rx="10" fill="#3a7ca5"/><text x="40" y="98" fill="#fff" font-weight="700">3 · Platform / cloud: store, clean, analyse</text>
+<rect x="20" y="126" width="480" height="48" rx="10" fill="#5ba8cf"/><text x="40" y="156" fill="#fff" font-weight="700">2 · Connectivity: 4G/5G, NB-IoT, Wi-Fi, LoRa</text>
+<rect x="20" y="184" width="480" height="48" rx="10" fill="#9cc8e3"/><text x="40" y="214" fill="#1f2d3a" font-weight="700">1 · Device: sensor + chip on the asset</text>
+<path d="M530 210 L530 34" stroke="#2d5f8d" stroke-width="3" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2d5f8d"/></marker></defs>
+<text x="545" y="60" fill="#2d5f8d" font-weight="700">Value captured</text><text x="545" y="80" fill="#5b6b7a">rises as you go up</text>
+<text x="545" y="190" fill="#5b6b7a">Hardware becomes</text><text x="545" y="210" fill="#5b6b7a">a commodity</text>
+</g></svg>
+<div class="grid4">
+<div class="card"><h4>Device</h4><p class="dec">A GPS unit on a truck; a fat-content analyser at a milk collection centre.</p></div>
+<div class="card"><h4>Connectivity</h4><p class="dec">How data travels. <b>NB-IoT</b> = a low-power mobile network made for small, infrequent readings.</p></div>
+<div class="card"><h4>Platform</h4><p class="dec">Where data is stored and cleaned, usually in the cloud.</p></div>
+<div class="card"><h4>Application</h4><p class="dec">What a person or machine does differently. This is where money is made.</p></div>
+</div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+<span class="sn">05</span>
+<div class="sec">2 · Definitions</div>
+<h2>Big Data is data too fast, too large or too messy for a spreadsheet, and only the fifth V pays</h2>
+<p><span class="term">Big Data</span>: datasets whose size, speed or variety need special tools to store and analyse. The first three Vs were named by analyst Doug Laney in 2001; Veracity and Value were added later.</p>
+<div class="tw"><table>
+<tr><th>V</th><th>Plain meaning</th><th>IoT example</th><th>Manager's question</th></tr>
+<tr><td><b>Volume</b></td><td>How much</td><td>Every smart meter reporting every 15 minutes</td><td>Do we need all of it?</td></tr>
+<tr><td><b>Velocity</b></td><td>How fast it arrives, and how fast we must act</td><td>A truck's engine alarm needs action in minutes</td><td>What is the decision deadline?</td></tr>
+<tr><td><b>Variety</b></td><td>How many kinds: numbers, images, text, audio</td><td>Tractor GPS + soil photos + farmer voice notes</td><td>Can we join them?</td></tr>
+<tr><td><b>Veracity</b></td><td>Can we trust it?</td><td>A dirty or tampered sensor sends wrong readings</td><td>What if it's wrong?</td></tr>
+<tr><td><b>Value</b></td><td>Does it change a decision?</td><td>Service booked before breakdown</td><td>Which decision, owned by whom?</td></tr>
+</table></div>
+<div class="analogy"><b>Analogy:</b> Big Data is like a monsoon. Volume is how much rain, velocity is how fast it falls, variety is rain, hail and mud together, and veracity is whether the rain gauge works. Value is whether anyone built a reservoir. Without the reservoir, the monsoon is a flood.</div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+<span class="sn">06</span>
+<div class="sec">3 · The loop</div>
+<h2>IoT and Big Data are one loop: things create data, data creates decisions, decisions return to the things</h2>
+<svg viewBox="0 0 760 360" role="img" aria-label="Sense, store, sense-make, act, monetise loop">
+<defs><marker id="a2" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3a7ca5"/></marker></defs>
+<g font-family="Segoe UI,Arial" text-anchor="middle">
+<circle cx="380" cy="180" r="120" fill="none" stroke="#cfe0ef" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M430 72 A120 120 0 0 1 492 150" fill="none" stroke="#3a7ca5" stroke-width="3" marker-end="url(#a2)"/>
+<path d="M494 212 A120 120 0 0 1 440 285" fill="none" stroke="#3a7ca5" stroke-width="3" marker-end="url(#a2)"/>
+<path d="M330 292 A120 120 0 0 1 270 228" fill="none" stroke="#3a7ca5" stroke-width="3" marker-end="url(#a2)"/>
+<path d="M262 160 A120 120 0 0 1 320 76" fill="none" stroke="#3a7ca5" stroke-width="3" marker-end="url(#a2)"/>
+<g><rect x="315" y="30" width="130" height="50" rx="12" fill="#2d5f8d"/><text x="380" y="52" fill="#fff" font-weight="700" font-size="15">1 · Sense</text><text x="380" y="70" fill="#dbeeff" font-size="11">IoT device</text></g>
+<g><rect x="470" y="150" width="150" height="56" rx="12" fill="#3a7ca5"/><text x="545" y="174" fill="#fff" font-weight="700" font-size="15">2 · Store</text><text x="545" y="192" fill="#e8f2fb" font-size="11">IoT → Big Data</text></g>
+<g><rect x="380" y="276" width="160" height="56" rx="12" fill="#5ba8cf"/><text x="460" y="300" fill="#fff" font-weight="700" font-size="15">3 · Sense-make</text><text x="460" y="318" fill="#fff" font-size="11">analytics, prediction</text></g>
+<g><rect x="200" y="276" width="160" height="56" rx="12" fill="#5ba8cf"/><text x="280" y="300" fill="#fff" font-weight="700" font-size="15">4 · Act</text><text x="280" y="318" fill="#fff" font-size="11">Big Data → IoT</text></g>
+<g><rect x="140" y="150" width="150" height="56" rx="12" fill="#3a7ca5"/><text x="215" y="174" fill="#fff" font-weight="700" font-size="15">5 · Monetise</text><text x="215" y="192" fill="#e8f2fb" font-size="11">service, fee, outcome</text></g>
+<text x="380" y="164" fill="#2d5f8d" font-weight="700" font-size="12">More assets</text>
+<text x="380" y="182" fill="#2d5f8d" font-weight="700" font-size="12">→ more data</text>
+<text x="380" y="200" fill="#2d5f8d" font-weight="700" font-size="12">→ better models</text>
+<path d="M378 304 L366 304" stroke="#3a7ca5" stroke-width="3" marker-end="url(#a2)"/>
+</g></svg>
+<div class="grid2">
+<div class="card"><h4>IoT → Big Data (steps 1–2)</h4><p>Thousands of connected assets produce a continuous, high-volume stream of data about how products are <i>actually</i> used. Before this, firms relied on surveys, warranty claims and dealer gossip.</p></div>
+<div class="card"><h4>Big Data → IoT (steps 3–4)</h4><p>Insights flow back to the asset as an alert, a remote shut-off, a changed setting or a price. The value of the data then justifies connecting more assets, and the loop speeds up.</p></div>
+</div>
+<div class="insight"><b>Key insight:</b> a connected product whose data nobody acts on is just a product with a SIM card. The money is made in steps 3–5. Most failed IoT projects stop at step 2.</div>
+</section>
+
+
+
+<!-- 8 -->
+<section class="slide">
+<span class="sn">08</span>
+<div class="sec">5 · Value capture — revenue</div>
+<h2>Every step from selling a product to selling an outcome moves risk from the customer to the maker</h2>
+<svg viewBox="0 0 760 170" role="img" aria-label="Revenue model spectrum">
+<defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#9cc8e3"/><stop offset="1" stop-color="#2d5f8d"/></linearGradient><marker id="a3" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2d5f8d"/></marker></defs>
+<g font-family="Segoe UI,Arial" font-size="13" text-anchor="middle">
+<rect x="10" y="40" width="740" height="40" rx="20" fill="url(#g2)"/>
+<text x="85" y="65" font-weight="700" fill="#1f2d3a">One-time sale</text>
+<text x="235" y="65" font-weight="700" fill="#1f2d3a">+ Service contract</text>
+<text x="385" y="65" font-weight="700" fill="#fff">Subscription</text>
+<text x="535" y="65" font-weight="700" fill="#fff">Pay-per-use</text>
+<text x="680" y="65" font-weight="700" fill="#fff">Pay-per-outcome</text>
+<path d="M60 120 L700 120" stroke="#c0392b" stroke-width="2.5" marker-end="url(#a3)"/>
+<text x="380" y="145" fill="#c0392b" font-weight="700">Performance risk moves from customer → manufacturer</text>
+<text x="85" y="28" fill="#5b6b7a">tractor sold</text><text x="235" y="28" fill="#5b6b7a">annual maintenance</text><text x="385" y="28" fill="#5b6b7a">fleet analytics fee</text><text x="535" y="28" fill="#5b6b7a">₹ per hour / km</text><text x="680" y="28" fill="#5b6b7a">₹ per uptime hour</text>
+</g></svg>
+<div class="grid2">
+<div class="card"><h4>Why makers like moving right</h4><p>Recurring revenue, higher customer lifetime value, and a direct relationship that dealers can't block. Rolls-Royce's "TotalCare" sells jet-engine flying hours, not engines.</p></div>
+<div class="card"><h4>Why it's dangerous</h4><p>If you price per outcome, <i>you</i> absorb breakdowns, misuse and bad weather. You need data good enough to price that risk, and a balance sheet able to carry it.</p></div>
+</div>
+<div class="insight"><b>Servitization:</b> the term (Vandermerwe &amp; Rada, 1988) means bundling services around a product until the service becomes the main source of profit. IoT is what makes the outcome measurable, so it can be priced.</div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+<span class="sn">09</span>
+<div class="sec">5 · Value capture — relationship &amp; advantage</div>
+<h2>Connection turns an occasional customer into a continuous one, and turns dealers into a strategic problem</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>Customer relationship</h4>
+<ul class="t"><li><b>Episodic → continuous:</b> contact every day, not at sale and breakdown.</li><li><b>Reactive → proactive:</b> the maker calls before the failure.</li><li><b>Anonymous → known:</b> the maker sees real usage, not survey answers.</li><li><b>Channel conflict:</b> if the maker talks to the farmer directly, what is the dealer for? Many Indian OEMs must design dealer-inclusive models.</li></ul></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Competitive advantage: two views</h4>
+<p><b>For:</b> every connected asset improves the prediction models, which attracts more customers, which adds more data. Switching brands means losing your history.</p>
+<p><b>Against:</b> a16z's "The Empty Promise of Data Moats" (Casado &amp; Lauten, 2019) argues that data advantage flattens. After enough data, extra data adds little, and rivals catch up.</p>
+<p class="dec">Resolution: data is a moat only when it is proprietary, keeps improving the product, and is tied into the customer's workflow.</p></div></div>
+</div>
+<div class="think"><b>Back to slide 02:</b> the manufacturer sells <i>kilometres without breakdowns</i>. The truck is now the delivery vehicle for the service, in both senses of the word.</div>
+</section>
+
+<!-- 10 -->
+<!-- <section class="slide">
+<span class="sn">10</span>
+<div class="sec">6 · Research insight 1</div>
+<h2>Most IoT value is lost between collecting data and using it</h2>
+<div class="research">
+<div><b>Finding</b>McKinsey Global Institute (2015) estimated IoT's potential at $3.9–11.1 trillion a year by 2025. It found an offshore oil rig with about 30,000 sensors examined roughly 1% of its data, mainly to detect faults rather than to optimise.</div>
+<div><b>Also</b>About 40% of the potential value needed different systems to work together (interoperability), and business-to-business uses were worth more than consumer gadgets.</div>
+<div><b>So what</b>The bottleneck is not sensors. It is joining data across systems and assigning someone to act on it.</div>
+<div><b>Where it breaks</b>Headline trillion-dollar figures are "potential", not realised value. Treat them as the size of the prize, not a forecast.</div>
+</div>
+<div class="analogy"><b>Analogy:</b> installing 30,000 sensors and reading 1% of their data is like installing CCTV in every room and never watching the footage. You have evidence after a theft, but you never prevent one.</div>
+</section> -->
+
+<!-- 11 -->
+<!-- <section class="slide">
+<span class="sn">11</span>
+<div class="sec">6 · Research insight 2 &amp; 3</div>
+<h2>Data-driven firms are measurably more productive, but big data without theory can fail loudly</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>Data-driven decision-making pays</h4>
+<p><b>Finding:</b> Brynjolfsson, Hitt &amp; Kim (2011) studied 179 large US firms. Those that based decisions on data showed about 5–6% higher output and productivity than their other investments would predict.</p>
+<p><b>So what:</b> the gain came from <i>decision practice</i>, not from owning data.</p>
+<p><b>Where it breaks:</b> it shows association across firms, not a guarantee for yours.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>The parable of Google Flu Trends</h4>
+<p><b>Finding:</b> Google tried to predict flu outbreaks from search terms. Lazer et al. (<i>Science</i>, 2014) showed it badly overestimated the 2012–13 peak. Search behaviour changed and the model didn't understand why.</p>
+<p><b>So what:</b> huge volume does not replace understanding the mechanism ("big data hubris").</p>
+<p><b>Where it breaks:</b> combined with traditional data, the searches did add value.</p></div></div>
+</div>
+<div class="insight"><b>Manager's rule:</b> more data improves decisions only when (1) someone owns the decision, (2) the data is trustworthy, and (3) you understand <i>why</i> the pattern exists. That is the full answer to "Does more data lead to better decisions?"</div>
+</section> -->
+
+
+
+<!-- 13 -->
+<section class="slide">
+<span class="sn">13</span>
+<div class="sec">7 · Indian case A — competitive market</div>
+<h2>Connected trucks let the maker sell uptime instead of vehicles</h2>
+<p class="dec">Example: Tata Motors' Fleet Edge connected-vehicle platform (similar offers exist from other commercial-vehicle makers).</p>
+<div class="tw"><table>
+<tr><th>Loop step</th><th>What happens</th></tr>
+<tr><td>Sense</td><td>Telematics (vehicle sensors + GPS + SIM) report location, fuel, engine health and driving behaviour</td></tr>
+<tr><td>Store / sense-make</td><td>Cloud platform builds fleet reports, flags harsh braking and idling, predicts part failures</td></tr>
+<tr><td>Act</td><td>Service alerts, driver coaching, route and fuel advice</td></tr>
+<tr><td>Monetise</td><td>Subscriptions; annual maintenance contracts priced on real usage; uptime promises</td></tr>
+</table></div>
+<div class="grid3" style="margin-top:12px">
+<div class="card"><h4>Revenue</h4><p>One-time sale + recurring service income</p></div>
+<div class="card"><h4>Relationship</h4><p>Maker talks to fleet owners weekly, not yearly</p></div>
+<div class="card"><h4>Advantage</h4><p>Fleet history becomes a switching cost</p></div>
+</div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+<span class="sn">14</span>
+<div class="sec">7 · Indian case B — regulated market</div>
+<h2>Smart meters let power distributors control losses and invent new tariffs</h2>
+<p class="dec">Context: India's Revamped Distribution Sector Scheme (RDSS, about ₹3 lakh crore) funds prepaid smart meters for distribution companies (discoms).</p>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>Before</h4><ul class="t"><li>A meter reader visits monthly; many bills are estimated</li><li>Theft and non-payment are hard to spot</li><li>The discom learns of an outage from complaints</li></ul></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>After</h4><ul class="t"><li>Readings arrive automatically; prepaid recharge works like a phone</li><li>Remote connect/disconnect (the <i>control</i> rung)</li><li>Time-of-day tariffs and rooftop-solar billing become possible</li><li>Outages are visible before anyone calls</li></ul></div></div>
+</div>
+<div class="insight"><b>Competitive advantage in a monopoly?</b> A discom has no rival in its area, so advantage shows up as <i>efficiency and legitimacy</i>: lower commercial losses, better grid planning, and a stronger case in tariff hearings. This contrast with Case A is worth making in an exam answer.</div>
+<div class="warn"><b>Where it breaks:</b> consumer backlash when prepaid meters disconnect poor households, or when bills jump after accurate metering replaces estimates. Technology without communication creates political risk.</div>
+</section>
+
+<!-- 15 -->
+<!-- <section class="slide">
+<span class="sn">15</span>
+<div class="sec">7 · Indian cases C &amp; D — cooperative and public infrastructure</div>
+<h2>In dairy and tolling, IoT's biggest effect is on trust and speed of payment</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>C · Dairy cooperatives: automatic milk collection</h4>
+<p>At village collection centres, machines measure each farmer's milk for quantity, fat and SNF (solids-not-fat), and record it digitally. Farmers are paid by quality, with an SMS receipt.</p>
+<p><b>Value beyond efficiency:</b> less disputed measurement, trust in fair pay, and data for quality premiums. Cold-chain temperature loggers then protect the milk in transit.</p>
+<p><span class="pill">Links to paper Q3</span></p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>D · FASTag: IoT at national scale</h4>
+<p>An RFID sticker (a chip read by radio at short range) on the windscreen lets toll plazas charge without stopping. FASTag was made mandatory in 2021 under NPCI's National Electronic Toll Collection programme.</p>
+<p><b>Value beyond efficiency:</b> every passage is a data point on freight movement, a base for parking and fuel payments, and a step toward distance-based tolling.</p></div></div>
+</div>
+<div class="think"><b>Think:</b> in the dairy case, who should own the milk-quality data: the farmer, the cooperative, or the brand? How would your answer change the farmer's incentive to share it?</div>
+</section> -->
+
+<!-- 16 -->
+<section class="slide">
+<span class="sn">16</span>
+<div class="sec">Applications</div>
+<h2>The same loop reappears in every sector; only the expensive decision changes</h2>
+<div class="tw"><table>
+<tr><th>Sector</th><th>Expensive decision</th><th>What IoT senses</th><th>What Big Data predicts</th><th>New model</th></tr>
+<tr><td>Agriculture</td><td>When to irrigate, spray, harvest</td><td>Soil moisture, weather, tractor use</td><td>Yield, pest risk</td><td>Pay-per-use equipment, advisory subscriptions, data-based crop credit</td></tr>
+<tr><td>Manufacturing</td><td>When to service machines</td><td>Vibration, temperature</td><td>Failure dates</td><td>Uptime contracts</td></tr>
+<tr><td>Cold chain / pharma</td><td>Is the batch still safe?</td><td>Temperature, location</td><td>Spoilage risk</td><td>Guaranteed-condition delivery</td></tr>
+<tr><td>Insurance</td><td>What premium is fair?</td><td>Driving behaviour</td><td>Accident risk</td><td>Usage-based motor insurance</td></tr>
+<tr><td>Healthcare</td><td>When to intervene</td><td>Wearables, remote monitors</td><td>Deterioration</td><td>Remote-care subscriptions</td></tr>
+<tr><td>Cities</td><td>Where to send crews</td><td>Traffic, water pressure, bins</td><td>Congestion, leaks</td><td>Command centres, performance-based contracts</td></tr>
+</table></div>
+</section>
+
+<!-- 17 -->
+<!-- <section class="slide">
+<span class="sn">17</span>
+<div class="sec">8 · Risks</div>
+<h2>Every connected asset is also a door into the business</h2>
+<div class="grid3">
+<div class="card"><h4>Security</h4><p>The <b>Mirai</b> botnet (2016) hijacked cameras and routers with default passwords and took down major websites. In 2015, researchers remotely took control of a <b>Jeep Cherokee</b>, and 1.4 million vehicles were recalled.</p></div>
+<div class="card"><h4>Privacy &amp; data rights</h4><p>Location, consumption and farm data are personal data under the DPDP Act 2023. Consent and purpose limits apply. John Deere faces a long-running "right to repair" fight over who controls tractor software and data.</p></div>
+<div class="card"><h4>Connectivity</h4><p>Real-time services fail where networks are weak. Design <i>offline-first</i>: store readings on the device and send them when a signal returns.</p></div>
+<div class="card"><h4>Veracity</h4><p>A dirty or tampered sensor produces confident, wrong data. Calibration and tamper checks are part of the business model.</p></div>
+<div class="card"><h4>Lock-in</h4><p>Proprietary platforms tie customers, and the maker, to one vendor. Interoperability is where McKinsey located much of the value.</p></div>
+<div class="card"><h4>Outcome risk</h4><p>Pay-per-outcome means the maker pays for misuse and bad luck. Price it with data, or don't offer it.</p></div>
+</div>
+<div class="insight"><b>Link to AI Risks lecture:</b> for any IoT scenario, write one row of the governance–control map: objective → exposure → named owner → preventive control → detection evidence → recovery action.</div>
+</section> -->
+
+<!-- 18 -->
+<!-- <section class="slide">
+<span class="sn">18</span>
+<div class="sec">9 · Thinking tool 1</div>
+<h2>Before funding an IoT project, test six assumptions; if one fails, the value doesn't appear</h2>
+<div class="tw"><table>
+<tr><th>#</th><th>Assumption that must hold</th><th>Test question</th><th>Weakest in India when…</th></tr>
+<tr><td>1</td><td>Connectivity is reliable where the asset works</td><td>What happens offline?</td><td>Rural farms, mines, highways</td></tr>
+<tr><td>2</td><td>Data is accurate</td><td>Who calibrates and checks for tampering?</td><td>Meters and scales with incentives to cheat</td></tr>
+<tr><td>3</td><td>Someone acts on the insight</td><td>Which person or system changes behaviour?</td><td>Alerts go to a dashboard nobody opens</td></tr>
+<tr><td>4</td><td>Customer accepts the new model</td><td>Will they pay per use or outcome?</td><td>Buyers who value ownership (tractors, trucks)</td></tr>
+<tr><td>5</td><td>Data rights are clear and trusted</td><td>Who owns it, and did they consent?</td><td>Farmer and household data</td></tr>
+<tr><td>6</td><td>The economics survive the risk shift</td><td>Can we absorb failures we now promise to prevent?</td><td>Thin-margin makers offering guarantees</td></tr>
+</table></div>
+</section> -->
+
+<!-- 19 -->
+<!-- <section class="slide">
+<span class="sn">19</span>
+<div class="sec">9 · Thinking tool 2</div>
+<h2>A consultant's IoT business case fits on five questions</h2>
+<div class="grid3">
+<div class="svc"><div class="st"></div><div class="in"><h4>1 · Which decision changes?</h4><p>Name it, and put a rupee value on getting it wrong today.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>2 · Where does the loop break?</h4><p>Sense, store, sense-make, act or monetise. Fix the weakest link first.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>3 · Who captures the value?</h4><p>Maker, dealer, platform or customer? Draw the money flow.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>4 · Who carries the new risk?</h4><p>As the model moves toward outcomes, risk moves to the maker.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>5 · What's the counter-argument?</h4><p>Hype, the claim that data is no moat, privacy backlash, channel revolt. Answer it before the board does.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Output</h4><p>A one-page case: decision, loop, money flow, risk owner, riskiest assumption and a 90-day pilot to test it.</p></div></div>
+</div>
+</section> -->
+
+<!-- 20 -->
+<!-- <section class="slide">
+<span class="sn">20</span>
+<div class="sec">10 · Exam practice</div>
+<h2>How to answer "IoT turns products into services" in ten marks</h2>
+<div class="card" style="background:#fff"><p><b>Question:</b> IoT is often described as the technology that "turns products into services." Using two Indian industries, analyse how connecting physical assets changes revenue models, customer relationships, and competitive advantage. Identify the assumptions that must hold for value to be created. <span class="pill">10 marks · CO1</span></p></div>
+<div class="tw" style="margin-top:12px"><table>
+<tr><th>Part</th><th>What to write</th><th>Marks (guide)</th></tr>
+<tr><td>Mechanism</td><td>The loop: sense → store (IoT → Big Data) → sense-make → act (Big Data → IoT) → monetise</td><td>1.5</td></tr>
+<tr><td>Industry 1 (competitive)</td><td>Connected trucks: sale → subscription/uptime; episodic → continuous; fleet data as switching cost</td><td>3</td></tr>
+<tr><td>Industry 2 (regulated)</td><td>Smart meters: estimated billing → prepaid/time-of-day; passive → active consumer; advantage as efficiency and legitimacy</td><td>3</td></tr>
+<tr><td>Assumptions</td><td>Any four of the six on slide 18, framed as conditions that could fail</td><td>2.5</td></tr>
+</table></div>
+<div class="insight"><b>What lifts it to top marks:</b> contrasting a competitive market with a regulated one, and treating assumptions as risks rather than benefits.</div>
+</section> -->
+
+<!-- 21 -->
+<!-- <section class="slide">
+<span class="sn">21</span>
+<div class="sec">10 · Question bank</div>
+<h2>Practise the reasoning, not the definitions</h2>
+<div class="grid2">
+<div class="card"><h4>2-mark questions</h4><ol class="t">
+<li>Why is Value called the "ultimate V"?</li>
+<li>Give one example each of the monitor and control rungs.</li>
+<li>What performance risk does a maker take on under pay-per-outcome pricing?</li>
+<li>Why did the offshore rig use only about 1% of its sensor data?</li>
+<li>What is "offline-first" design, and why does rural India need it?</li></ol></div>
+<div class="card"><h4>10-mark questions</h4><ol class="t">
+<li>"Data is the new moat." Argue for and against, using one Indian connected-product business.</li>
+<li>A tractor maker wants to move from selling tractors to pay-per-hour rental. Which three of the six assumptions are weakest, and how would you test them in 90 days?</li>
+<li>Prepaid smart meters: efficiency gain or social risk? Evaluate from the discom's and the household's view.</li>
+<li>Using the Google Flu Trends case, explain why more data does not automatically improve decisions, and recommend one safeguard.</li></ol></div>
+</div>
+</section> -->
+
+<!-- 22 -->
+<section class="slide">
+<span class="sn">22</span>
+<div class="sec">Close</div>
+<h2>Five ideas to leave with</h2>
+<div class="grid3">
+<div class="card"><h4>1 · One loop</h4><p>IoT creates data; Big Data turns it into action that returns to the asset.</p></div>
+<div class="card"><h4>2 · Value is at the top</h4><p>Sensors become commodities. The money is in decisions and services.</p></div>
+<div class="card"><h4>3 · Risk follows revenue</h4><p>Selling outcomes means owning failures.</p></div>
+<div class="card"><h4>4 · Assumptions decide</h4><p>Connectivity, accuracy, action, acceptance, rights, economics.</p></div>
+<div class="card"><h4>5 · Start from a decision</h4><p>Not "collect everything", which leads to the 1% problem.</p></div>
+</div>
+<div class="think"><b>Exit question:</b> name one product you own that could be sold to you as a service tomorrow. What would the maker need to know about you, and would you let them?</div>
+</section>
+
+<!-- 23 -->
+<!-- <section class="slide">
+<span class="sn">23</span>
+<div class="sec">Sources &amp; instructor note</div>
+<h2>Sources, and how this lecture was reviewed</h2>
+<ul class="t src">
+<li>Porter, M. &amp; Heppelmann, J. (2014). How Smart, Connected Products Are Transforming Competition. <i>Harvard Business Review</i>, Nov.</li>
+<li>Vandermerwe, S. &amp; Rada, J. (1988). Servitization of Business. <i>European Management Journal</i>.</li>
+<li>McKinsey Global Institute (2015). <i>The Internet of Things: Mapping the Value Beyond the Hype</i>.</li>
+<li>Laney, D. (2001). 3D Data Management: Controlling Data Volume, Velocity and Variety. META Group.</li>
+<li>Brynjolfsson, E., Hitt, L. &amp; Kim, H. (2011). Strength in Numbers: How Does Data-Driven Decisionmaking Affect Firm Performance? SSRN.</li>
+<li>Lazer, D. et al. (2014). The Parable of Google Flu: Traps in Big Data Analysis. <i>Science</i>, 343.</li>
+<li>Casado, M. &amp; Lauten, P. (2019). The Empty Promise of Data Moats. Andreessen Horowitz.</li>
+<li>Indian context: Ministry of Power, Revamped Distribution Sector Scheme; NPCI, National Electronic Toll Collection (FASTag); Tata Motors Fleet Edge; course pages on Laws, Big Data and AI Risks.</li>
+</ul>
+<div class="tw" style="margin-top:12px"><table>
+<tr><th>Rubric criterion (1–5)</th><th>Draft</th><th>Final</th><th>Change after committee review</th></tr>
+<tr><td>Teaches one loop, not two topics</td><td>3</td><td>5</td><td>Loop placed at slide 06 and reused in every case</td></tr>
+<tr><td>Action titles on every slide</td><td>2</td><td>5</td><td>Topic labels rewritten as takeaway sentences</td></tr>
+<tr><td>Research with limits stated</td><td>3</td><td>5</td><td>Added "where it breaks" to each finding (academic)</td></tr>
+<tr><td>Competitive and regulated Indian cases</td><td>3</td><td>5</td><td>Added smart-meter case and dealer-conflict point (practitioner)</td></tr>
+<tr><td>Reusable thinking tools</td><td>2</td><td>5</td><td>Six-assumption test and five-question case (future self)</td></tr>
+<tr><td>Plain language for mixed backgrounds</td><td>3</td><td>4</td><td>Terms decoded at first use; some jargon remains in cases</td></tr>
+</table></div>
+</section> -->
+
+</div>
+</body>
+</html>
