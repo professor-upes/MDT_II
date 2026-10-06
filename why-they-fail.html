@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Incumbents Fail</title>
+<style>
+:root{--b1:#2d5f8d;--b2:#3a7ca5;--b3:#5ba8cf;--ink:#1f2d3a;--muted:#5b6b7a;--line:#dde6ee;--bg:#eef4f9;--soft:#e8f2fb;--y:#fff8e1;--yl:#f4c542;--red:#c0392b;--green:#2e8b57}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:22px 16px 60px}
+.slide{background:#fff;border-radius:18px;padding:30px 30px 26px;margin:0 0 22px;box-shadow:0 6px 22px rgba(31,45,58,.07);position:relative}
+.slide .sn{position:absolute;top:16px;right:18px;font-size:.75rem;color:var(--b1);background:var(--soft);border-radius:999px;padding:3px 11px;font-weight:600}
+.sec{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--b2);font-weight:700;margin-bottom:6px}
+h2{margin:0 0 14px;font-size:clamp(1.2rem,2.4vw,1.55rem);line-height:1.3;padding-left:14px;border-left:6px solid var(--b2);background:linear-gradient(90deg,var(--b1),var(--b3));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:60px}
+h3{color:var(--b1);margin:14px 0 6px;font-size:1.05rem}
+p{margin:.45rem 0}
+.hero{background:linear-gradient(135deg,var(--b1),var(--b2) 55%,var(--b3));color:#fff}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);margin:.3rem 0;line-height:1.15}
+.hero .sn{background:rgba(255,255,255,.2);color:#fff}
+.hero p{opacity:.95;max-width:820px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fbfdff;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,95,141,.13)}
+.card h4{margin:0 0 6px;color:var(--b1)}
+.svc{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:transform .15s,box-shadow .15s}
+.svc:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(45,95,141,.13)}
+.svc .st{height:6px;background:linear-gradient(90deg,var(--b1),var(--b3))}
+.svc .in{padding:14px 16px}
+.svc h4{margin:0 0 6px;color:var(--b1)}
+.analogy{background:var(--y);border-left:5px solid var(--yl);border-radius:10px;padding:12px 16px;margin:14px 0}
+.insight{background:var(--soft);border-left:5px solid var(--b2);border-radius:10px;padding:12px 16px;margin:14px 0}
+.warn{background:#fdecea;border-left:5px solid var(--red);border-radius:10px;padding:12px 16px;margin:14px 0}
+.think{background:#f3effd;border-left:5px solid #7b5cd6;border-radius:10px;padding:12px 16px;margin:14px 0}
+.pill{display:inline-block;font-size:.74rem;padding:2px 10px;border-radius:999px;background:var(--soft);color:var(--b1);border:1px solid #cfe0ef;margin:2px 4px 2px 0}
+.pill.r{background:#fdecea;color:#9b2c21;border-color:#f3c3bd}
+.pill.g{background:#e3f4ea;color:#1d6b40;border-color:#bfe3cd}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:620px}
+th{background:linear-gradient(90deg,var(--b1),var(--b2));color:#fff;text-align:left;padding:10px;font-size:.84rem}
+td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}
+tr:hover td{background:#f6fafd}
+.term{font-weight:600;color:var(--b1)}
+.dec{font-size:.86rem;color:var(--muted)}
+svg{max-width:100%;height:auto;display:block;margin:8px auto}
+.research{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:6px}
+.research div{background:#fbfdff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.research b{display:block;color:var(--b1);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+ol.t li,ul.t li{margin:4px 0}
+.agenda{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.agenda span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 12px;font-size:.85rem}
+.src{font-size:.8rem;color:var(--muted)}
+.src a{color:var(--b1)}
+@media print{body{background:#fff}.slide{box-shadow:none;page-break-after:always;break-after:page}.card:hover,.svc:hover{transform:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<!-- 1 -->
+<section class="slide hero">
+<span class="sn">01</span>
+
+<h1>Disruption Through Christensen's Lens</h1>
+<p>Large firms rarely lose because they are lazy or stupid. They lose because they keep doing, very well, what made them successful.</p>
+<div class="agenda"><span>1 · The puzzle</span><span>2 · The framework</span><span>3 · What disruption is not</span><span>4 · Why: RPV</span><span>5 · Six reasons</span><span>6 · Classic cases</span><span>7 · Newer cases</span><span>8 · Counter-strategies</span><span>9 · Why DT fails</span><span>10 · MBB lens</span><span>11 · Emerging tech</span><span>12 · Practice</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+<span class="sn">02</span>
+<div class="sec">1 · The puzzle</div>
+<h2>Incumbents have more money, talent and customers, yet the challenger often wins</h2>
+<div class="grid2">
+<div class="card"><h4>Kodak, 1975</h4><p>A Kodak engineer, Steven Sasson, built one of the first digital cameras. It took 23 seconds to record a black-and-white image. Management's reaction was roughly: <i>nice, but don't tell anyone</i>. Film was where the profit was.</p></div>
+<div class="card"><h4>Kodak, 2012</h4><p>Kodak filed for bankruptcy. It had the invention, the patents, the brand and the distribution. What it lacked was a reason, inside its own profit logic, to kill film before someone else did.</p></div>
+</div>
+<div class="think"><b>Think:</b> if you had been Kodak's CFO in 1985, film earning fat margins and digital earning nothing, would <i>you</i> have funded digital? Be honest. That discomfort is the whole lecture.</div>
+<div class="insight"><b>Christensen's core claim</b> (<i>The Innovator's Dilemma</i>, 1997): the practices that make firms great (listen to your best customers, invest where margins are highest, grow big markets) are exactly the practices that make them miss disruption. <b>Good management is the cause, not the cure.</b></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+<span class="sn">03</span>
+<div class="sec">2 · The framework</div>
+<h2>Disruption happens because product improvement outruns what customers can use</h2>
+<svg viewBox="0 0 780 400" role="img" aria-label="Christensen disruptive innovation model">
+<defs>
+<marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f2d3a"/></marker>
+<marker id="ab" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2d5f8d"/></marker>
+<marker id="ar" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+</defs>
+<g font-family="Segoe UI,Arial" font-size="13">
+<path d="M60 230 L720 150 L720 270 L60 320 Z" fill="#e8f2fb"/>
+<line x1="60" y1="230" x2="720" y2="150" stroke="#5ba8cf" stroke-width="2" stroke-dasharray="7 5"/>
+<line x1="60" y1="320" x2="720" y2="270" stroke="#5ba8cf" stroke-width="2" stroke-dasharray="7 5"/>
+<line x1="60" y1="360" x2="740" y2="360" stroke="#1f2d3a" stroke-width="2" marker-end="url(#ah)"/>
+<line x1="60" y1="360" x2="60" y2="30" stroke="#1f2d3a" stroke-width="2" marker-end="url(#ah)"/>
+<text x="735" y="385" text-anchor="end" fill="#1f2d3a">Time</text>
+<text x="30" y="200" transform="rotate(-90 30 200)" text-anchor="middle" fill="#1f2d3a">Performance</text>
+<text x="200" y="228" fill="#3a7ca5" font-weight="700">Needs of the most demanding customers</text>
+<text x="80" y="272" fill="#5b6b7a" font-style="italic">band = performance customers can actually use</text>
+<text x="80" y="342" fill="#3a7ca5" font-weight="700">Needs of the least demanding</text>
+<line x1="60" y1="215" x2="700" y2="45" stroke="#2d5f8d" stroke-width="4" marker-end="url(#ab)"/>
+<text x="90" y="70" fill="#2d5f8d" font-weight="700">Incumbent: sustaining innovation</text>
+<text x="90" y="88" fill="#2d5f8d">better products for best customers, higher margins</text>
+<path d="M240 355 Q 470 330 705 125" fill="none" stroke="#c0392b" stroke-width="4" marker-end="url(#ar)"/>
+<text x="330" y="385" fill="#c0392b" font-weight="700">Entrant: disruptive innovation, "good enough", cheaper, simpler</text>
+<circle cx="520" cy="93" r="7" fill="#f4c542" stroke="#1f2d3a"/><text x="534" y="117" fill="#1f2d3a" font-weight="700">① Overshoot: above what</text><text x="534" y="133" fill="#1f2d3a">customers can use</text>
+<circle cx="462" cy="290" r="7" fill="#f4c542" stroke="#1f2d3a"/><text x="474" y="320" fill="#1f2d3a" font-weight="700">② Foothold</text>
+<circle cx="668" cy="156" r="7" fill="#f4c542" stroke="#1f2d3a"/><text x="550" y="200" fill="#1f2d3a" font-weight="700">③ Mainstream</text><text x="550" y="216" fill="#1f2d3a">switches</text>
+</g></svg>
+<div class="grid3">
+<div class="card"><h4>① Overshoot</h4><p>Incumbents improve faster than most customers need. Customers stop paying for extra performance.</p></div>
+<div class="card"><h4>② Foothold</h4><p>An entrant serves customers the incumbent ignores, with a product that is worse on old measures but cheaper, simpler or more convenient.</p></div>
+<div class="card"><h4>③ Move upmarket</h4><p>The entrant improves until it is "good enough" for mainstream customers. By then, the incumbent's cost structure can't follow it down.</p></div>
+</div>
+<div class="analogy"><b>Analogy:</b> the incumbent is building a faster and faster train for the few passengers who want a 400 km/h ride. The entrant starts with an auto-rickshaw for people who had no ride at all. Ten years later, the rickshaw is an electric car and the train is half empty.</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+<span class="sn">04</span>
+<div class="sec">2 · The framework</div>
+<h2>Disruption enters through two doors: the bottom of the market, or people who weren't customers at all</h2>
+<svg viewBox="0 0 780 250" role="img" aria-label="Low-end and new-market footholds">
+<g font-family="Segoe UI,Arial" font-size="13">
+<rect x="10" y="10" width="370" height="230" rx="14" fill="#f6fafd" stroke="#dde6ee"/>
+<text x="195" y="36" text-anchor="middle" font-weight="700" fill="#2d5f8d" font-size="15">Low-end foothold</text>
+<rect x="40" y="55" width="310" height="40" rx="8" fill="#2d5f8d"/><text x="195" y="80" text-anchor="middle" fill="#fff">Premium customers · incumbent's focus</text>
+<rect x="40" y="105" width="310" height="40" rx="8" fill="#5ba8cf"/><text x="195" y="130" text-anchor="middle" fill="#fff">Mainstream customers</text>
+<rect x="40" y="155" width="310" height="40" rx="8" fill="#c0392b"/><text x="195" y="180" text-anchor="middle" fill="#fff" font-weight="700">Over-served, price-sensitive ← entrant</text>
+<text x="195" y="222" text-anchor="middle" fill="#5b6b7a">e.g., steel minimills (Nucor), Zerodha in broking</text>
+<rect x="400" y="10" width="370" height="230" rx="14" fill="#f6fafd" stroke="#dde6ee"/>
+<text x="585" y="36" text-anchor="middle" font-weight="700" fill="#2d5f8d" font-size="15">New-market foothold</text>
+<rect x="430" y="55" width="150" height="120" rx="8" fill="#2d5f8d"/><text x="505" y="105" text-anchor="middle" fill="#fff">Existing</text><text x="505" y="123" text-anchor="middle" fill="#fff">market</text>
+<rect x="600" y="55" width="150" height="120" rx="8" fill="#c0392b"/><text x="675" y="98" text-anchor="middle" fill="#fff" font-weight="700">Non-consumers</text><text x="675" y="116" text-anchor="middle" fill="#fff">too poor, unskilled</text><text x="675" y="132" text-anchor="middle" fill="#fff">or far away ← entrant</text>
+<text x="585" y="205" text-anchor="middle" fill="#5b6b7a">e.g., personal computers vs mainframes,</text>
+<text x="585" y="222" text-anchor="middle" fill="#5b6b7a">UPI for people who never had a credit card</text>
+</g></svg>
+<div class="tw"><table>
+<tr><th></th><th>Sustaining innovation</th><th>Low-end disruption</th><th>New-market disruption</th></tr>
+<tr><td><b>Target</b></td><td>Best existing customers</td><td>Over-served customers at the bottom</td><td>Non-consumers</td></tr>
+<tr><td><b>Product</b></td><td>Better on existing measures</td><td>Good enough, much cheaper</td><td>Simpler, cheaper, more accessible</td></tr>
+<tr><td><b>Incumbent's reaction</b></td><td>Fights hard and usually wins</td><td>Retreats upmarket ("low-margin anyway")</td><td>Ignores it ("not our customers")</td></tr>
+<tr><td><b>Indian example</b></td><td>Every new smartphone model; bank app upgrades</td><td>Zerodha's flat ₹20 brokerage vs full-service brokers</td><td>UPI payments by first-time digital users</td></tr>
+</table></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+<span class="sn">05</span>
+<div class="sec">3 · What disruption is not</div>
+<h2>Not every successful newcomer is a disrupter, and Christensen himself said so</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>Christensen's own test (HBR, 2015)</h4>
+<p>In "What Is Disruptive Innovation?", Christensen, Raynor &amp; McDonald argued that <b>Uber is not disruptive</b>: it did not start with non-consumers or the low end, and it offered a <i>better</i> service to mainstream taxi users. The same logic applies to <b>Tesla</b>, which entered at the high end, a sustaining move.</p>
+<p>Disruption is a <b>process</b>: a foothold, then a move upmarket. It is not a label for anything new that hurts incumbents.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Why this matters in an exam</h4>
+<ul class="t"><li><b>Jio (2016):</b> free data, better network, mainstream customers from day one, funded by massive capital. Closr to a <i>capital-funded sustaining attack</i> than classic disruption.</li>
+<li><b>Quick commerce vs kirana:</b> faster and more convenient for urban mainstream buyers, subsidised by capital. Test both readings .</li>
+<li><b>Christensen got the iPhone "wrong" in 2007:</b> he saw it as a sustaining phone; its disruption was to the laptop, as a new-market device. Even the author had to apply the test carefully.</li></ul></div></div>
+</div>
+<div class="think"><b>The four test questions:</b> (1) Where did it start: low end, non-consumers, or the mainstream? (2) Was it worse on the incumbent's key measure at first? (3) Did the incumbent rationally ignore it? (4) Is the entrant's cost structure one the incumbent can't copy without hurting itself? Mostly yes means disruption. Mostly no means a strong competitor, perhaps capital-funded.</div>
+</section>
+
+<!-- 6 -->
+<!-- <section class="slide">
+<span class="sn">06</span>
+<div class="sec">4 · Why: the RPV lens</div>
+<h2>A firm's capabilities harden over time, from what it owns into how it works and what it values</h2>
+<p class="dec">Framework: Christensen &amp; Overdorf, "Meeting the Challenge of Disruptive Change", HBR, 2000.</p>
+<svg viewBox="0 0 780 250" role="img" aria-label="Resources, Processes, Values">
+<defs><marker id="am" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+<g font-family="Segoe UI,Arial" font-size="13" text-anchor="middle">
+<rect x="20" y="20" width="230" height="150" rx="14" fill="#9cc8e3"/><text x="135" y="50" font-weight="700" font-size="16" fill="#1f2d3a">Resources</text><text x="135" y="75" fill="#1f2d3a">what we have</text><text x="135" y="100" fill="#1f2d3a">cash, people, brand,</text><text x="135" y="118" fill="#1f2d3a">technology, plants</text><text x="135" y="150" font-weight="700" fill="#2d5f8d">Easy to redeploy</text>
+<rect x="275" y="20" width="230" height="150" rx="14" fill="#3a7ca5"/><text x="390" y="50" font-weight="700" font-size="16" fill="#fff">Processes</text><text x="390" y="75" fill="#fff">how we work</text><text x="390" y="100" fill="#fff">budgeting, approvals,</text><text x="390" y="118" fill="#fff">planning, hiring</text><text x="390" y="150" font-weight="700" fill="#fff">Hard to change</text>
+<rect x="530" y="20" width="230" height="150" rx="14" fill="#2d5f8d"/><text x="645" y="50" font-weight="700" font-size="16" fill="#fff">Values</text><text x="645" y="75" fill="#fff">what we prioritise</text><text x="645" y="100" fill="#fff">acceptable margin,</text><text x="645" y="118" fill="#fff">"big enough" market size</text><text x="645" y="150" font-weight="700" fill="#fff">Hardest to change</text>
+<line x1="40" y1="205" x2="740" y2="205" stroke="#c0392b" stroke-width="3" marker-end="url(#am)"/>
+<text x="390" y="232" fill="#c0392b" font-weight="700">As firms mature, capability migrates rightward, and so does rigidity</text>
+</g></svg>
+<div class="grid2">
+<div class="card"><h4>The key insight</h4><p>Kodak had the <b>resources</b> for digital (engineers, patents, cash). Its <b>processes</b> (film-margin budgeting) and <b>values</b> (a 60%-margin business doesn't chase a 15%-margin one) made pursuing digital irrational.</p></div>
+<div class="card"><h4>Asymmetric motivation</h4><p>The entrant is desperate for the low-end customer. The incumbent is happy to lose that customer, because walking away <i>raises</i> its average margin. Each retreat upmarket looks like success on the income statement.</p></div>
+</div>
+</section> -->
+
+<!-- 7 -->
+<section class="slide">
+<span class="sn">07</span>
+<div class="sec">5 · Six reasons incumbents lose</div>
+<h2>Six rational behaviours that add up to an irrational outcome</h2>
+<svg viewBox="0 0 780 330" role="img" aria-label="Six reasons around the rational incumbent">
+<g font-family="Segoe UI,Arial" font-size="13" text-anchor="middle">
+<circle cx="390" cy="165" r="78" fill="url(#gc)"/>
+<defs><radialGradient id="gc"><stop offset="0" stop-color="#3a7ca5"/><stop offset="1" stop-color="#2d5f8d"/></radialGradient></defs>
+<text x="390" y="158" fill="#fff" font-weight="700" font-size="15">The rational</text><text x="390" y="178" fill="#fff" font-weight="700" font-size="15">incumbent</text>
+<g stroke="#cfe0ef" stroke-width="2"><line x1="390" y1="87" x2="390" y2="55"/><line x1="458" y1="126" x2="560" y2="85"/><line x1="458" y1="204" x2="560" y2="245"/><line x1="390" y1="243" x2="390" y2="275"/><line x1="322" y1="204" x2="220" y2="245"/><line x1="322" y1="126" x2="220" y2="85"/></g>
+<rect x="300" y="12" width="180" height="44" rx="10" fill="#fff" stroke="#3a7ca5"/><text x="390" y="32" font-weight="700" fill="#2d5f8d">1 · P&amp;L incentives</text><text x="390" y="48" fill="#5b6b7a" font-size="11">Values</text>
+<rect x="555" y="62" width="200" height="44" rx="10" fill="#fff" stroke="#3a7ca5"/><text x="655" y="82" font-weight="700" fill="#2d5f8d">2 · Sunk-cost commitments</text><text x="655" y="98" fill="#5b6b7a" font-size="11">Resources → Values</text>
+<rect x="555" y="224" width="200" height="44" rx="10" fill="#fff" stroke="#3a7ca5"/><text x="655" y="244" font-weight="700" fill="#2d5f8d">3 · Customer captivity</text><text x="655" y="260" fill="#5b6b7a" font-size="11">Values · value network</text>
+<rect x="300" y="274" width="180" height="44" rx="10" fill="#fff" stroke="#3a7ca5"/><text x="390" y="294" font-weight="700" fill="#2d5f8d">4 · Cultural antibodies</text><text x="390" y="310" fill="#5b6b7a" font-size="11">Values · middle layer</text>
+<rect x="25" y="224" width="200" height="44" rx="10" fill="#fff" stroke="#3a7ca5"/><text x="125" y="244" font-weight="700" fill="#2d5f8d">5 · Slow decision cycles</text><text x="125" y="260" fill="#5b6b7a" font-size="11">Processes</text>
+<rect x="25" y="62" width="200" height="44" rx="10" fill="#fff" stroke="#3a7ca5"/><text x="125" y="82" font-weight="700" fill="#2d5f8d">6 · Talent mismatch</text><text x="125" y="98" fill="#5b6b7a" font-size="11">Resources + Processes</text>
+</g></svg>
+<div class="insight"><b>How to use this:</b> each reason maps to one part of RPV. Resource problems can be fixed with money. Process and value problems need structural answers, such as separate units, new metrics and new owners. That is why "just invest more" rarely works.</div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+<span class="sn">08</span>
+<div class="sec">5 · Reasons 1 &amp; 2</div>
+<h2>Managers defend today's revenue because that is what they are paid for, and sunk assets make the defence feel wise</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>1 · Existing P&amp;L incentives</h4>
+<p><b>Mechanism:</b> business-unit heads are judged on this year's revenue and margin. A new offer that cannibalises (eats into) their sales makes their numbers worse, so it gets starved of budget, attention or shelf space.</p>
+<p><b>Global:</b> Intel's CEO Paul Otellini later said he passed on making the iPhone's chip because the price and volume didn't fit Intel's margin model. Mobile went to ARM-based chips.</p>
+<p><b>India:</b> IT services firms bill largely by effort (people × hours). Generative AI that halves the effort also threatens to halve the bill, so the incentive is to adopt AI slowly for clients. Outcome-based pricing is the escape, but it hits this year's revenue.</p>
+<p class="dec"><b>Diagnostic:</b> Who in your firm is personally worse off if the new model succeeds?</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>2 · Sunk-cost commitments</h4>
+<p><b>Mechanism:</b> factories, branches, store leases and legacy IT represent huge past investment. Disruption often means writing them off, and no one wants to sign that write-off.</p>
+<p><b>Global:</b> Blockbuster's thousands of leased stores, with late fees as a major profit source. Its model <i>depended</i> on the thing customers hated most.</p>
+<p><b>India:</b> multiplex chains defended theatrical release windows as OTT grew; bank branch networks built for cash and paper; ICE-engine (petrol/diesel) plants and supplier networks for two-wheeler makers entering EVs.</p>
+<p class="dec"><b>Diagnostic:</b> Which asset on our balance sheet would a new entrant be glad not to own?</p></div></div>
+</div>
+<div class="warn"><b>The trap:</b> "We've invested too much to change" is a statement about the past used to make a decision about the future. Economists call this the sunk-cost fallacy.</div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+<span class="sn">09</span>
+<div class="sec">5 · Reasons 3 &amp; 4</div>
+<h2>Listening perfectly to your best customers, and letting the middle protect its turf, blinds the firm to what comes next</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>3 · Customer captivity</h4>
+<p><b>Mechanism:</b> Christensen's <i>value network</i>: a firm's priorities are set by the customers who pay its bills. Those customers want the current product, only better. Research tells you to ignore the cheap, "inferior" alternative.</p>
+<p><b>Global:</b> in Christensen's disk-drive study, leading makers of large drives listened to mainframe and minicomputer customers who didn't want smaller drives. The smaller drives won the next generation of computers, repeatedly.</p>
+<p><b>India:</b> full-service brokers served high-value clients who wanted research and relationship managers. First-time young investors wanted a cheap app. Zerodha's flat fee won that segment and became one of India's largest brokers.</p>
+<p class="dec"><b>Diagnostic:</b> Which customers are we happy to lose, and who is happily taking them?</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>4 · Cultural antibodies</h4>
+<p><b>Mechanism:</b> new ways of working threaten the power, skills and status of the middle layer. They rarely say no. They delay, add process and redirect resources.</p>
+<p><b>Global:</b> a study of Nokia (Vuori &amp; Huy, <i>Administrative Science Quarterly</i>, 2016) found that fear across management layers led middle managers to tell leaders what they wanted to hear, and leaders to over-promise. The smartphone response stalled.</p>
+<p><b>India:</b> public-sector banks with large technology budgets but slow customer-facing change, and legacy media newsrooms resisting digital-first workflows.</p>
+<p class="dec"><b>Diagnostic:</b> Whose job description disappears if this works, and have we given them a new one?</p></div></div>
+</div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+<span class="sn">10</span>
+<div class="sec">5 · Reasons 5 &amp; 6</div>
+<h2>Approval chains built for factories can't keep pace with software, and neither can pay scales</h2>
+<div class="grid2">
+<div class="svc"><div class="st"></div><div class="in"><h4>5 · Slow decision cycles</h4>
+<p><b>Mechanism:</b> capital-budgeting processes (business cases, committee approvals, annual budgets) were designed for irreversible, costly decisions such as a new plant. Digital experiments are cheap and reversible, but they go through the same machinery.</p>
+<p><b>Global:</b> Levi's once spent months planning and refining each initiative before launch; its digital shift required learning to ship early and iterate.</p>
+<p><b>India:</b> a startup can test a new lending product in weeks; a large lender may need months of credit-committee, IT and compliance sign-offs for the same pilot.</p>
+<p class="dec"><b>Diagnostic:</b> How many signatures does a ₹10 lakh reversible experiment need here?</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>6 · Talent mismatch</h4>
+<p><b>Mechanism:</b> digital talent expects equity-like upside, autonomy, fast shipping and tolerance for failure. Grade-based pay, hierarchy and punishment for failure repel them, or turn them into frustrated employees who leave.</p>
+<p><b>Global:</b> legacy automakers struggled to hire and keep software engineers for connected and electric cars, and several set up separate software units with different pay.</p>
+<p><b>India:</b> conglomerates building consumer apps (super-apps) have often had to create separate digital subsidiaries with startup-style pay and titles to attract product talent.</p>
+<p class="dec"><b>Diagnostic:</b> Could our best digital hire earn more by failing at a startup than succeeding here?</p></div></div>
+</div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+<span class="sn">11</span>
+<div class="sec">6 · Classic cases</div>
+<h2>The classic failures share a pattern, but each has a nuance that critical thinkers should catch</h2>
+<div class="tw"><table>
+<tr><th>Case</th><th>What happened</th><th>Main reasons</th><th>The nuance</th></tr>
+<tr><td><b>Kodak vs digital</b></td><td>Built an early digital camera in 1975; bankrupt in 2012</td><td>1, 2, 3</td><td>Kodak did sell digital cameras and was a leading US seller in the mid-2000s. It lost twice: first film margins, then cameras themselves lost to smartphones.</td></tr>
+<tr><td><b>Blockbuster vs Netflix</b></td><td>Declined to buy Netflix for $50M in 2000; bankrupt in 2010</td><td>1, 2, 3</td><td>Its "Total Access" plan briefly competed well in 2006–07. Leadership changed and the late-fee-dependent model was restored. It was a failure of persistence, not just foresight.</td></tr>
+<tr><td><b>Nokia vs Apple</b></td><td>Dominant in 2007; sold its phone business to Microsoft, completed in 2014</td><td>4, 5, 6</td><td>Nokia knew touchscreens were coming. The problem was software platform and organisational fear, not awareness.</td></tr>
+<tr><td><b>Sears vs Amazon</b></td><td>Largest US retailer until about 1990; bankrupt in 2018</td><td>2, 3, 5</td><td>Sears <i>was</i> the Amazon of 1900: its mail-order catalogue. It closed the catalogue in 1993, the eve of e-commerce.</td></tr>
+<tr><td><b>Hindustan Motors (Ambassador)</b></td><td>Dominated a protected market; Maruti 800 arrived in 1983; production ended in 2014</td><td>2, 3, 5</td><td>More regulatory change than classic disruption: licence-raj protection ended, and the Maruti 800 was <i>better and cheaper</i> for mainstream buyers.</td></tr>
+<tr><td><b>Reliance Communications vs Jio</b></td><td>Jio launched in 2016 with free data; RCom exited wireless by 2017–18 and entered insolvency in 2019</td><td>1, 2</td><td><b>Correction:</b> not the "same group". The Reliance empire split between the Ambani brothers in 2005. RCom was Anil Ambani's; Jio is Mukesh Ambani's RIL. Jio's attack was capital-funded, not low-end.</td></tr>
+</table></div>
+<div class="think"><b>Exam move:</b> for any case, don't stop at "they failed to innovate". Say <i>which</i> of the six reasons, <i>which</i> part of RPV, and whether it passes the four-question disruption test on slide 05.</div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+<span class="sn">12</span>
+<div class="sec">7 · Newer cases</div>
+<h2>The pattern is repeating now, and some incumbents are fighting back successfully</h2>
+<div class="grid3">
+<div class="svc"><div class="st"></div><div class="in"><h4>Google &amp; generative AI</h4><p>Google researchers published the transformer architecture in 2017. OpenAI's ChatGPT (2022) turned it into the product that shook search. The Kodak pattern: an invention sat inside a firm whose search-advertising revenue a chat answer could cannibalise. Google has since responded with Gemini. The outcome is still open.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Indian IT services &amp; AI</h4><p>An effort-based billing model means AI productivity shrinks revenue per project (reason 1). Firms that reprice around outcomes and platforms may thrive. Those that protect headcount billing risk a Kodak moment.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Zerodha vs full-service brokers</h4><p>A textbook low-end foothold: a flat fee, a self-service app, and first-time investors. Banks' broking arms responded late with discount plans that cannibalised their own fees.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>EV two-wheelers: the incumbent comeback</h4><p>Startups such as Ola Electric and Ather opened the market. By 2025, incumbents TVS (iQube) and Bajaj (Chetak) had overtaken Ola in monthly sales on service reach, reliability and dealer networks. Proof that incumbents can win when they commit early.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Adobe: self-disruption</h4><p>Adobe moved from boxed Creative Suite to Creative Cloud subscriptions in 2012–13 and accepted a revenue dip, deliberately cannibalising its own licence sales before a cloud rival could.</p></div></div>
+<div class="svc"><div class="st"></div><div class="in"><h4>Microsoft under Nadella</h4><p>From 2014, Microsoft reframed itself from Windows licences to cloud (Azure) and Office subscriptions. Incentives and culture were rebuilt, not just products: a rare full RPV reset.</p></div></div>
+</div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+<span class="sn">13</span>
+<div class="sec">8 · Counter-strategies</div>
+<h2>Where to house a new venture depends on whether it fits your processes and your values</h2>
+<p class="dec">Adapted from Christensen &amp; Overdorf (2000).</p>
+<svg viewBox="0 0 780 330" role="img" aria-label="Fit with processes and values matrix">
+<defs><marker id="ak" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f2d3a"/></marker></defs>
+<g font-family="Segoe UI,Arial" font-size="13" text-anchor="middle">
+<line x1="130" y1="300" x2="760" y2="300" stroke="#1f2d3a" stroke-width="2" marker-end="url(#ak)"/>
+<line x1="130" y1="300" x2="130" y2="20" stroke="#1f2d3a" stroke-width="2" marker-end="url(#ak)"/>
+<text x="445" y="325" fill="#1f2d3a">Fit with existing VALUES (margins, market size, priorities) → poor</text>
+<text x="60" y="160" transform="rotate(-90 60 160)" fill="#1f2d3a">Fit with existing PROCESSES → poor</text>
+<rect x="140" y="160" width="300" height="130" rx="12" fill="#9cc8e3"/><text x="290" y="200" font-weight="700" fill="#1f2d3a">Sustaining: good fit, good fit</text><text x="290" y="222" fill="#1f2d3a">run inside the mainstream</text><text x="290" y="242" fill="#1f2d3a">with normal teams</text>
+<rect x="450" y="160" width="300" height="130" rx="12" fill="#f4c542"/><text x="600" y="200" font-weight="700" fill="#1f2d3a">Values clash</text><text x="600" y="222" fill="#1f2d3a">separate unit to protect it;</text><text x="600" y="242" fill="#1f2d3a">reuse mainstream processes carefully</text>
+<rect x="140" y="25" width="300" height="125" rx="12" fill="#3a7ca5"/><text x="290" y="65" font-weight="700" fill="#fff">Processes clash</text><text x="290" y="87" fill="#fff">heavyweight team inside:</text><text x="290" y="107" fill="#fff">new ways of working, same values</text>
+<rect x="450" y="25" width="300" height="125" rx="12" fill="#c0392b"/><text x="600" y="65" font-weight="700" fill="#fff">Disruptive: both clash</text><text x="600" y="87" fill="#fff">spin out: own P&amp;L, talent,</text><text x="600" y="107" fill="#fff">metrics, sponsored from the top</text>
+</g></svg>
+<div class="insight"><b>Rule of thumb:</b> a disruptive business housed inside the mainstream will be judged by mainstream values and starved. The question is not "Should we do digital?" but "Where does it live, and whose metrics judge it?"</div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+<span class="sn">14</span>
+<div class="sec">8 · Counter-strategies</div>
+<h2>Five counter-strategies work, and each has a known way of failing</h2>
+<div class="tw"><table>
+<tr><th>Strategy</th><th>How it works</th><th>Example</th><th>How it fails</th></tr>
+<tr><td><b>Separate venture</b></td><td>Build the disrupter as an independent unit with its own P&amp;L, talent and metrics</td><td>DBS Bank's digibank (India, 2016): a mobile-only bank with no branches, run on a different cost model</td><td>The parent pulls it back when it succeeds, or forces shared IT and approval processes on it</td></tr>
+<tr><td><b>Acquire, don't build</b></td><td>Buy capability and speed when internal velocity is too slow</td><td>HUL bought Indulekha (2015), a majority stake in OZiva (2022) and Minimalist (2025) to get digital-first, D2C brands</td><td>"Integration" imposes parent processes and the founders leave. You bought a culture, then deleted it.</td></tr>
+<tr><td><b>Platform play</b></td><td>Open the core business so others build on it</td><td>Amazon opened its store to third-party sellers; Komatsu's Landlog opened construction data to partners and rivals</td><td>Complementors fear you'll compete with them; weak governance lets quality collapse</td></tr>
+<tr><td><b>Ambidextrous organisation</b></td><td>Run "explore" (new) and "exploit" (core) units separately, integrated only at the top</td><td>O'Reilly &amp; Tushman's research (<i>Lead and Disrupt</i>, 2016); Microsoft's cloud pivot</td><td>The top team doesn't actively protect "explore" budgets in a bad quarter</td></tr>
+<tr><td><b>Self-cannibalise</b></td><td>Launch the replacement before a rival does, accepting short-term revenue loss</td><td>Adobe Creative Cloud; Netflix moving from DVDs to streaming</td><td>Investors punish the dip; nerve fails halfway (Netflix's 2011 Qwikster stumble)</td></tr>
+</table></div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+<span class="sn">15</span>
+<div class="sec">9 · Failure in digital transformation</div>
+<h2>Most digital transformations fail because firms use new technology to protect the old business model</h2>
+<div class="grid2">
+<div class="card"><h4>The evidence</h4><p>BCG's 2020 study "Flipping the Odds of Digital Transformation Success" found that about 70% of digital transformations fall short of their objectives. McKinsey's surveys report similar failure rates.</p></div>
+<div class="card"><h4>The Christensen diagnosis</h4><p>Most "transformations" are really <b>sustaining uses of digital technology</b>: a better app, a faster process, the same business model. They improve the firm on today's measures, exactly the move Christensen predicts incumbents will make, and they leave the firm open to a model-level attack.</p></div>
+</div>
+<div class="tw" style="margin-top:12px"><table>
+<tr><th>Failure pattern</th><th>What it looks like</th><th>
+  ple</th><th>Christensen reading</th></tr>
+<tr><td>Digitising the old model</td><td>New app on top of old economics</td><td>Blockbuster's online ordering tied to stores</td><td>Sustaining move against a disruptive threat</td></tr>
+<tr><td>Platform before problem</td><td>Big technology bet with no clear customer</td><td>GE Digital / Predix</td><td>Resources without values alignment</td></tr>
+<tr><td>Scattered bets</td><td>Many initiatives, no integrated strategy</td><td>Ford Smart Mobility (2016–19)</td><td>No separate unit with protected values</td></tr>
+<tr><td>Big-bang IT</td><td>Multi-year system replacement</td><td>Lidl's SAP project, abandoned after years and about €500M</td><td>Processes built for certainty, applied to change</td></tr>
+<tr><td>Delegated to IT</td><td>CIO owns "transformation"</td><td>Many bank and PSU programmes</td><td>IT cannot change values (margins, incentives)</td></tr>
+</table></div>
+</section>
+
+
+</body>
+</html>
