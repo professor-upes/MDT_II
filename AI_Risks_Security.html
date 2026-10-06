@@ -124,6 +124,72 @@
   .slideno{text-align:right;color:#9db0bf;font-size:.78em;margin-top:22px;
     border-top:1px solid #eaf0f4;padding-top:8px;}
 
+
+  /* ================= RESPONSIVE LAYER ================= */
+  *,*::before,*::after{box-sizing:border-box;}
+  body{-webkit-text-size-adjust:100%;overflow-x:hidden;}
+  .fig svg{display:block;margin:0 auto;width:100%;}
+  .note{background:#fffbea;border-left:5px solid #f0c040;border-radius:8px;padding:12px 14px;margin-top:16px;font-size:.93em;line-height:1.55;}
+  .note.blue{background:#e6f0f7;border-left-color:var(--d4);}
+
+  @media (max-width:900px){
+    .slide{padding:28px 16px 34px;min-height:auto;}
+    .container{padding:28px 22px;}
+  }
+
+  /* ---------- phones ---------- */
+  @media (max-width:640px){
+    body{background:#1a3a52;}
+    .slide{padding:10px 8px;min-height:auto;border-bottom:none;}
+    .container{padding:20px 16px 14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.2);}
+    h1,h1[style]{font-size:1.28em !important;line-height:1.3;margin-bottom:16px;text-align:left;}
+    h3{font-size:1em;margin:16px 0 8px;align-items:flex-start;}
+    p,ul,ol{font-size:.95em;line-height:1.55;}
+    ul,ol{padding-left:20px;}
+    li{margin:5px 0;}
+    .modtag{font-size:.7em;padding:4px 12px;margin-bottom:10px;}
+    .comparison{gap:10px;margin:12px 0;}
+    .comparison-box{padding:14px;border-left-width:5px;}
+    .comparison-box:hover,tr:hover{transform:none;background:inherit;}
+    .key-insight,.callout{padding:13px 14px;}
+    .key-insight p{font-size:.93em;line-height:1.5;}
+    .margin-note{font-size:1em;padding:11px 13px;transform:none;}
+    .slideno{margin-top:14px;font-size:.72em;}
+
+    /* diagrams: bleed to card edges for maximum width */
+    .fig{margin:14px -10px 4px;}
+    .figcap{font-size:.95em;padding:0 6px;}
+
+    /* tables -> stacked cards */
+    table,thead,tbody,tr,th,td{display:block;width:100%;}
+    table{box-shadow:none;border-radius:0;overflow:visible;font-size:.9em;margin:12px 0;}
+    thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+    tr{background:#f5f9fc;border:1px solid #d6e4ef;border-left:5px solid var(--d3);
+       border-radius:10px;margin:0 0 12px;padding:6px 12px;}
+    td{border:none;border-bottom:1px dashed #d6e4ef;padding:8px 0;}
+    tr td:last-child{border-bottom:none;}
+    td::before{content:attr(data-label);display:block;font-size:.74em;font-weight:800;
+       text-transform:uppercase;letter-spacing:.4px;color:var(--d3);margin-bottom:2px;}
+    td:first-child{font-weight:700;color:var(--d1);}
+  }
+
+
+  /* tap-to-enlarge for diagrams (phones) */
+  .zoom-hint{display:none;}
+  #lightbox{display:none;position:fixed;inset:0;z-index:999;background:#fff;}
+  #lightbox.open{display:block;}
+  #lightbox .lb-inner{position:absolute;top:50%;left:50%;width:calc(100vh - 70px);
+     transform:translate(-50%,-50%) rotate(90deg);}
+  #lightbox .lb-inner svg{width:100%;height:auto;display:block;}
+  #lightbox .lb-close{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;
+     border:none;background:var(--d2);color:#fff;font-size:22px;line-height:40px;z-index:2;}
+  @media (max-width:640px){
+    .fig{cursor:zoom-in;}
+    .zoom-hint{display:inline-block;margin-top:6px;font-size:.72em;font-weight:700;color:#fff;
+       background:var(--d3);padding:4px 12px;border-radius:999px;}
+  }
+  @media (min-width:641px){ #lightbox{display:none !important;} }
+
   @media print{
     .slide{height:auto;min-height:auto;padding:30px;page-break-after:always;page-break-inside:avoid;}
     body{margin:0;padding:0;}
@@ -1005,5 +1071,36 @@
   </div>
 </div>
 
+
+<script>
+/* copy each column heading onto its cells so tables can stack as cards on phones */
+document.querySelectorAll('table').forEach(function(t){
+  var heads=[].map.call(t.querySelectorAll('thead th'),function(th){return th.textContent.trim();});
+  t.querySelectorAll('tbody tr').forEach(function(r){
+    [].forEach.call(r.children,function(td,i){ if(heads[i]) td.setAttribute('data-label',heads[i]); });
+  });
+});
+</script>
+<script>
+/* tap a diagram on a phone -> full-screen, rotated to landscape */
+(function(){
+  var lb=document.createElement('div');lb.id='lightbox';
+  lb.innerHTML='<button class="lb-close" aria-label="Close">✕</button><div class="lb-inner"></div>';
+  document.body.appendChild(lb);
+  var inner=lb.querySelector('.lb-inner');
+  function close(){lb.classList.remove('open');inner.innerHTML='';document.body.style.overflow='';}
+  lb.addEventListener('click',close);
+  document.querySelectorAll('.fig').forEach(function(f){
+    var svg=f.querySelector('svg'); if(!svg) return;
+    var hint=document.createElement('div');hint.className='zoom-hint';hint.textContent='⤢ Tap to enlarge';
+    f.appendChild(hint);
+    f.addEventListener('click',function(){
+      if(window.innerWidth>640) return;
+      inner.innerHTML='';inner.appendChild(svg.cloneNode(true));
+      lb.classList.add('open');document.body.style.overflow='hidden';
+    });
+  });
+})();
+</script>
 </body>
 </html>
